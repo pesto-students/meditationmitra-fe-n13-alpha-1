@@ -1,24 +1,16 @@
-
-import DeskView from "../components/DeskView";
-import MobileView from "../components/MobileView";
-
-const Courses = () => {
-  return (
-    <>
-      <DeskView>Courses page</DeskView>
-      <MobileView>Courses page</MobileView>
-// import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import Grid from "../components/Grid";
+import { Typography } from "../components/Typography";
 import DeskView from "../components/DeskView";
 import MobileView from "../components/MobileView";
 import CourseList from "../components/CourseList";
-import { courses } from "../dummyJSON";
-import Grid from "../components/Grid";
 import SearchFilter from "../components/Filter/SearchFilter";
-import Typography from "../components/Typography";
 import SideBarFilter from "../components/Filter/SideBarFilter";
 
+// TO DO: Remove the below post integration
+import { courses } from "../__mock__/__mock__.js";
+
 const Courses = () => {
-  const title = () => (
+  const Title = () => (
     <Typography variant="body1" m="7% 0 0 3%">
       Courses
     </Typography>
@@ -32,7 +24,7 @@ const Courses = () => {
             <SideBarFilter />
           </Grid>
           <Grid item xs={10}>
-            {title()}
+            <Title />
             <SearchFilter />
             <CourseList courses={courses} />
           </Grid>
@@ -40,7 +32,7 @@ const Courses = () => {
       </DeskView>
       <MobileView>
         <SearchFilter />
-        {title()}
+        <Title />
         <CourseList mobile courses={courses} />
       </MobileView>
     </>

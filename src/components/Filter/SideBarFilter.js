@@ -4,7 +4,7 @@ import Rating from "@mui/material/Rating";
 import Slider from "@mui/material/Slider";
 import { useState } from "react";
 import Container from "../Container";
-import Typography from "../Typography";
+import { Typography } from "../Typography";
 import Box from "../Box";
 
 const SideBarFilter = () => {
