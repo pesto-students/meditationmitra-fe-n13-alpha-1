@@ -1,3 +1,6 @@
+
+import MobileView from "../components/MobileView";
+import DeskView from "../components/DeskView";
 import Box from "../components/Box";
 import Typography from "../components/Typography";
 import { courses } from "../dummyJSON";
@@ -9,9 +12,13 @@ import DeskView from "../components/DeskView";
 import { MOB_ENROLLMENT_PAGE_TITLE } from "../utils/Constants";
 import CourseList from "../components/CourseList";
 
+
 const EnrolledCourses = () => {
   return (
     <>
+
+      <DeskView>EnrolledCourses page</DeskView>
+      <MobileView>EnrolledCourses page</MobileView>
       <DeskView>
         <Box
           sx={{

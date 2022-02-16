@@ -1,3 +1,12 @@
+
+import DeskView from "../components/DeskView";
+import MobileView from "../components/MobileView";
+
+const Courses = () => {
+  return (
+    <>
+      <DeskView>Courses page</DeskView>
+      <MobileView>Courses page</MobileView>
 // import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import DeskView from "../components/DeskView";
 import MobileView from "../components/MobileView";
