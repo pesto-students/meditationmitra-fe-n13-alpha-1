@@ -4,7 +4,7 @@ import Container from "../components/Container";
 import DeskView from "../components/DeskView";
 import MobileView from "../components/MobileView";
 import Stack from "../components/Stack";
-import Typography from "../components/Typography";
+import {Typography} from "../components/Typography";
 import { PrimaryButton } from "../components/Buttons";
 import TextField from "../components/TextField";
 import TextArea from "../components/TextArea";

@@ -1,22 +1,19 @@
-
 import MobileView from "../components/MobileView";
 import DeskView from "../components/DeskView";
 import Box from "../components/Box";
-import Typography from "../components/Typography";
-import { courses } from "../dummyJSON";
+import { Typography } from "../components/Typography";
 import Grid from "../components/Grid";
 import Stack from "../components/Stack";
 import { PrimaryButton } from "../components/Buttons";
-import MobileView from "../components/MobileView";
-import DeskView from "../components/DeskView";
 import { MOB_ENROLLMENT_PAGE_TITLE } from "../utils/Constants";
 import CourseList from "../components/CourseList";
 
+// TO DO: Remove the below post integration
+import { courses } from "../__mock__/__mock__.js";
 
 const EnrolledCourses = () => {
   return (
     <>
-
       <DeskView>EnrolledCourses page</DeskView>
       <MobileView>EnrolledCourses page</MobileView>
       <DeskView>
