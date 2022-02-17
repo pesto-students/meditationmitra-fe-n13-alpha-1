@@ -3,7 +3,6 @@ import { signInWithGoogle } from "../../Firebase/auth";
 
 const LoginService = async () => {
   const data = await signInWithGoogle();
-  console.log(data);
   return Axios.post("user/login", data)
     .then((response) => response)
     .catch((e) => e);
@@ -15,7 +14,7 @@ const UpdateUserRole = (data) =>
     .catch((e) => e);
 
 const LogoutService = (data) =>
-  Axios.post("url", data)
+  Axios.post("user/logout", data)
     .then((response) => response.data)
     .catch((e) => e);
 

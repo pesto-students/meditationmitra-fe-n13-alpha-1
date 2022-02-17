@@ -8,7 +8,7 @@ const CourseList = ({ courses = [], mobile = false }) => {
     <Container mt="3rem">
       <Grid container spacing={4} mb={10}>
         {courses.map((course) => (
-          <Grid item key={course.id}>
+          <Grid item key={course.name}>
             <CourseCard course={course} />
           </Grid>
         ))}
@@ -19,7 +19,7 @@ const CourseList = ({ courses = [], mobile = false }) => {
   const MobileView = () => (
     <>
       {courses.map((course) => (
-        <CourseCard mobile={true} key={course.id} course={course} />
+        <CourseCard mobile={true} key={course.name} course={course} />
       ))}
     </>
   );

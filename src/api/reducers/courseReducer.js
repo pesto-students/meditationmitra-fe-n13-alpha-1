@@ -3,23 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const courseSlice = createSlice({
   name: "courseReducer",
   initialState: {
-    isFetching: true,
-    data: [],
-    error: "",
+    courses: [],
   },
   reducers: {
-    fetchCourses: (state) => {
-      state.isFetching = true;
-    },
-    fetchCoursesSuccess: (state, action) => {
-      const { payload } = action;
-      state.isFetching = false;
-      state.data = payload;
-    },
-    fetchCoursesFailure: (state, action) => {
-      const { payload } = action;
-      state.isFetching = false;
-      state.error = payload;
+    updateCart: (state, action) => {
+      state.courses = [...state.courses, action.payload];
     },
   },
 });
