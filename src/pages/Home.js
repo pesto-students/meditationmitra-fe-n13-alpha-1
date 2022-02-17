@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <>
       <DeskView>Home page</DeskView>
-      <MobileView>Home page</MobileView>
+      <MobileView></MobileView>
     </>
   );
 };

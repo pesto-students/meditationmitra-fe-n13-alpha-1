@@ -30,7 +30,7 @@ export const MenuLink = styled(Link)`
     `
           font-size: var(fs-a-selected);
           font-weight: var(--medium-weight);
-          color: var(--a-selected);
+          color: var(--orange);
     `}
 `;
 

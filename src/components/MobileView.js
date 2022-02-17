@@ -4,7 +4,7 @@ import Container from "./Container";
 
 const MobileView = ({ children }) => (
   <Box mobBody display={["block", "none"]}>
-    <Container mobBody maxWidth="xl" marginx="10%">
+    <Container mobbody="true" maxWidth="xl" marginx="10%">
       {children}
     </Container>
   </Box>

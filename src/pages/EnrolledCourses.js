@@ -11,30 +11,28 @@ import CourseList from "../components/CourseList";
 // TO DO: Remove the below post integration
 import { courses } from "../__mock__/__mock__.js";
 
-import { useSelector, useDispatch } from "react-redux";
-import { authActions } from "../api/reducers/authReducer";
-import { useEffect } from "react";
+// import { useSelector, useDispatch } from "react-redux";
+// import { authActions } from "../api/reducers/authReducer";
+// import { useLayoutEffect } from "react";
 
 const EnrolledCourses = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    try {
-      dispatch(authActions.fetchAuth());
-    } catch (e) {
-      // TODO: integrate with component level error boundary
-      console.log(e);
-    }
-  }, []);
+  // useLayoutEffect(() => {
+  //   try {
+  //     dispatch(authActions.fetchAuth());
+  //   } catch (e) {
+  //     // TODO: integrate with component level error boundary
+  //     console.log(e);
+  //   }
+  // }, []);
 
   // TODO: remove console.log after integration
-  const response = useSelector((state) => console.log(state));
+  // const response = useSelector((state) => console.log(state));
   // TODO: remove console.log after integration
-  console.log("******************", response);
+  // console.log("******************", response);
   return (
     <>
-      <DeskView>EnrolledCourses page</DeskView>
-      <MobileView>EnrolledCourses page</MobileView>
       <DeskView>
         <Box
           sx={{

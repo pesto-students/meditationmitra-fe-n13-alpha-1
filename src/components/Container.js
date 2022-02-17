@@ -4,8 +4,8 @@ import { Container as MaterailContainer } from "@mui/material";
 
 const Container = styled(MaterailContainer)`
   ${compose(spacing)}
-  ${({ mobBody }) =>
-    mobBody &&
+  ${({ mobbody }) =>
+    mobbody &&
     `
         height: 90%;
         overflow: auto;

@@ -4,7 +4,7 @@ import Container from "../components/Container";
 import DeskView from "../components/DeskView";
 import MobileView from "../components/MobileView";
 import Stack from "../components/Stack";
-import {Typography} from "../components/Typography";
+import { Typography } from "../components/Typography";
 import { PrimaryButton } from "../components/Buttons";
 import TextField from "../components/TextField";
 import TextArea from "../components/TextArea";
@@ -16,7 +16,7 @@ const AddCourse = () => {
     console.info("You clicked the Chip.");
   };
 
-  const form = () => (
+  const CourseForm = () => (
     <Container mt={2}>
       <TextField
         title="Course Title"
@@ -58,9 +58,13 @@ const AddCourse = () => {
   return (
     <>
       <DeskView>
-        <Container>{form()}</Container>
+        <Container>
+          <CourseForm />
+        </Container>
       </DeskView>
-      <MobileView>{form()}</MobileView>
+      <MobileView>
+        <CourseForm />
+      </MobileView>
     </>
   );
 };

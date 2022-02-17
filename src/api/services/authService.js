@@ -1,9 +1,16 @@
 import Axios from "../axios";
-import axios from "axios"
+import { signInWithGoogle } from "../../Firebase/auth";
 
-const LoginService = () =>
-// Remove axios from line no2 and 6. Add base URL to work
-  axios.get("https://randomusers.me/api/?results=10")
+const LoginService = async () => {
+  const data = await signInWithGoogle();
+  console.log(data);
+  return Axios.post("user/login", data)
+    .then((response) => response)
+    .catch((e) => e);
+};
+
+const UpdateUserRole = (data) =>
+  Axios.post("user/update", data)
     .then((response) => response)
     .catch((e) => e);
 
@@ -12,4 +19,4 @@ const LogoutService = (data) =>
     .then((response) => response.data)
     .catch((e) => e);
 
-export { LoginService, LogoutService };
+export { LoginService, UpdateUserRole, LogoutService };
