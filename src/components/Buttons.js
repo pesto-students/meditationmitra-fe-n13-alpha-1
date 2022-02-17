@@ -4,7 +4,7 @@ import { PopupButton } from "react-calendly";
 
 export const Button = styled(MaterialButton)`
   box-shadow: none;
-  color: var(--white);
+  color: ${({ txColor }) => txColor || "var(--white)"};
 `;
 
 export const PrimaryButton = styled(Button)`

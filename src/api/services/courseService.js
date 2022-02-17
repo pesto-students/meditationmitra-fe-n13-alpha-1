@@ -15,4 +15,8 @@ const GetFilteredCourses = async ({ search, filter }) =>
     .then((response) => response)
     .catch((e) => e);
 
-export { GetAllCourses, GetEnrolledCourses, GetFilteredCourses };
+const GetCourse = async (id) =>
+  await Axios.get(`courses/${id}`)
+    .then((response) => response)
+    .catch((e) => e);
+export { GetAllCourses, GetEnrolledCourses, GetFilteredCourses, GetCourse };
