@@ -14,9 +14,9 @@ export const signInWithGoogle = async () => {
     const { _tokenResponse } = await signInWithPopup(auth, provider);
     currentUser = _tokenResponse;
   } catch (error) {
-    console.log("Google signIn : ", error);
+    console.log("Google signIn : ", error.message);
+    return { error: error.message };
   }
-  // console.log(currentUser);
   return {
     firstName: currentUser?.firstName,
     lastName: currentUser?.lastName,

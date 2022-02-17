@@ -3,9 +3,13 @@ import { signInWithGoogle } from "../../Firebase/auth";
 
 const LoginService = async () => {
   const data = await signInWithGoogle();
-  return Axios.post("user/login", data)
-    .then((response) => response)
-    .catch((e) => e);
+  if (data.error) {
+    return Promise.reject(new Error(data));
+  } else {
+    return Axios.post("user/login", data)
+      .then((response) => response)
+      .catch((e) => e);
+  }
 };
 
 const UpdateUserRole = (data) =>

@@ -56,14 +56,13 @@ const Header = () => {
       path: "/user/add-course",
       icon: <AddIcon />,
       loginRequired: true,
-      courch: false,
+      courch: true,
     },
     {
       label: "Cart",
       path: "/user/cart",
       icon: <ShoppingCartOutlinedIcon />,
       loginRequired: true,
-      courch: false,
     },
   ];
 
