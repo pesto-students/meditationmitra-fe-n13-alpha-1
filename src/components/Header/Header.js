@@ -14,10 +14,8 @@ import Stack from "../Stack";
 import { PrimaryButton } from "../Buttons";
 import BottomNav from "../Navigator/BottomNav";
 import TopNav from "../Navigator/TopNav";
-// import { signInWithGoogle } from "../../Firebase/auth";
 import { authActions } from "../../api/reducers/authReducer";
 import Popup from "../Popup";
-// import AddCourse from "../../pages/AddCourse";
 import { MEMBER_ROLE } from "../../utils/Constants";
 
 const Header = () => {
@@ -57,6 +55,12 @@ const Header = () => {
       loginRequired: true,
       courch: false,
     },
+    {
+      label: "Course details",
+      path: "/course-details",
+      loginRequired: false,
+      courch: false,
+    },
   ];
 
   const handleNavigation = (selectedNavigation = "/") =>
@@ -65,7 +69,7 @@ const Header = () => {
   const NavBar = ({ mobile }) => {
     let items = [];
     if (isLoggedIn) {
-      if (userInfo?.user?.role === MEMBER_ROLE) {
+      if (userInfo?.role === MEMBER_ROLE) {
         items = menuItems.filter((item) => !item.courch);
       } else {
         items = menuItems.filter((item) => item.courch);

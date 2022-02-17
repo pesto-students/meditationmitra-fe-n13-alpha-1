@@ -15,9 +15,8 @@ const authSlice = createSlice({
     fetchAuthSuccess: (state, action) => {
       const { payload } = action;
       state.isFetching = false;
-      state.userInfo = payload;
+      state.userInfo = payload.user;
       state.isLoggedIn = true;
-      window.localStorage.setItem("token", payload.token);
     },
     fetchAuthFailure: (state, action) => {
       const { payload } = action;
