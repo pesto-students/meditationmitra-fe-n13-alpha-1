@@ -4,6 +4,8 @@ import EnrolledCourses from "./pages/EnrolledCourses";
 import Profile from "./pages/Profile";
 import Home from "./pages/Home";
 import PostLogin from "./pages/PostLogin";
+import CourseDetails from "./pages/CourseDetails";
+import Cart from "./pages/Cart";
 
 const routes = [
   {
@@ -29,6 +31,14 @@ const routes = [
   {
     path: "/user/post-login",
     element: <PostLogin />,
+  },
+  {
+    path: "/user/course-details",
+    element: <CourseDetails />,
+  },
+  {
+    path: "/user/cart",
+    element: <Cart />,
   },
   // {
   //     path: '*',

@@ -16,7 +16,7 @@ const AddCourse = () => {
     console.info("You clicked the Chip.");
   };
 
-  const CourseForm = () => (
+  const Form = () => (
     <Container mt={2}>
       <TextField
         title="Course Title"
@@ -59,11 +59,11 @@ const AddCourse = () => {
     <>
       <DeskView>
         <Container>
-          <CourseForm />
+          <Form />
         </Container>
       </DeskView>
       <MobileView>
-        <CourseForm />
+        <Form />
       </MobileView>
     </>
   );

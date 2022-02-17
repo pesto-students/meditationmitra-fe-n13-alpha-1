@@ -3,19 +3,48 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Rating from "@mui/material/Rating";
 import Slider from "@mui/material/Slider";
 import { useState } from "react";
+import PropTypes from "prop-types";
 import Container from "../Container";
 import { Typography } from "../Typography";
 import Box from "../Box";
+import { PrimaryButton } from "../Buttons";
 
-const SideBarFilter = () => {
+const SideBarFilter = ({ onFilter }) => {
+  const [filter, setFilter] = useState({});
   const [price, setPrice] = useState([1000, 10000]);
+  const [catgories, setCategories] = useState([]);
 
-  const categoryCheckBoxes = () => (
-    <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
-      <FormControlLabel label="Focus" control={<Checkbox />} />
-      <FormControlLabel label="Happiness" control={<Checkbox />} />
-    </Box>
-  );
+  const onCategoryCheck = (event) => {
+    console.log(event.target.value);
+    // console.log(event.target.checked);
+    setCategories([...catgories, event.target.value]);
+    //setCategories([]);
+    setFilter(filter);
+  };
+
+  const onApplyFilter = () => {
+    onCategoryCheck();
+    filter.categories = catgories;
+    onFilter(setFilter(filter));
+  };
+
+  const CategoryCheckBoxes = () => {
+    const categories = ["Focus", "Meditation"];
+    return (
+      <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
+        {categories.map((cat) => (
+          <FormControlLabel
+            label={cat}
+            key={cat}
+            value={cat}
+            control={<Checkbox />}
+            name="category"
+            onChange={onCategoryCheck}
+          />
+        ))}
+      </Box>
+    );
+  };
 
   const valuetext = (value) => {
     return `${value}°C`;
@@ -25,7 +54,7 @@ const SideBarFilter = () => {
     setPrice(newValue);
   };
 
-  const priceCheckBoxes = () => (
+  const PriceSlider = () => (
     <Slider
       getAriaLabel={(index) =>
         index === 0 ? "Minimum price" : "Maximum price"
@@ -40,30 +69,20 @@ const SideBarFilter = () => {
     />
   );
 
-  const ratingCheckBoxes = () => (
-    <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
-      <FormControlLabel
-        label={<Rating name="read-only" value={1} readOnly />}
-        control={<Checkbox />}
-      />
-      <FormControlLabel
-        label={<Rating name="read-only" value={2} readOnly />}
-        control={<Checkbox />}
-      />
-      <FormControlLabel
-        label={<Rating name="read-only" value={3} readOnly />}
-        control={<Checkbox />}
-      />
-      <FormControlLabel
-        label={<Rating name="read-only" value={4} readOnly />}
-        control={<Checkbox />}
-      />
-      <FormControlLabel
-        label={<Rating name="read-only" value={5} readOnly />}
-        control={<Checkbox />}
-      />
-    </Box>
-  );
+  const RatingCheckBoxes = () => {
+    const ratings = [1, 2, 3, 4, 5];
+    return (
+      <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
+        {ratings.map((rating) => (
+          <FormControlLabel
+            key={rating}
+            label={<Rating name="read-only" value={rating} readOnly />}
+            control={<Checkbox />}
+          />
+        ))}
+      </Box>
+    );
+  };
 
   return (
     <>
@@ -72,18 +91,23 @@ const SideBarFilter = () => {
         <Typography variant="subtitle1" mt={1}>
           Categories
         </Typography>
-        {categoryCheckBoxes()}
+        <CategoryCheckBoxes />
         <Typography variant="subtitle1" mt={1}>
           Price Range
         </Typography>
-        {priceCheckBoxes()}
+        <PriceSlider />
         <Typography variant="subtitle1" mt={1}>
           Ratings
         </Typography>
-        {ratingCheckBoxes()}
+        <RatingCheckBoxes />
+        <PrimaryButton onClick={onApplyFilter}>Apply Filters</PrimaryButton>
       </Container>
     </>
   );
+};
+
+SideBarFilter.propTypes = {
+  onFilter: PropTypes.func,
 };
 
 export default SideBarFilter;

@@ -8,7 +8,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import PropTypes from "prop-types";
 
 const CourseCard = (props) => {
-  const { name, image, trainer, rating, price } = props.course;
+  const { name, image, author, rating, price } = props.course;
   const { mobile } = props;
 
   const desktopView = () => (
@@ -16,7 +16,7 @@ const CourseCard = (props) => {
       <CardMedia component="img" height="300" image={image} alt={name} />
       <CardContent>
         <Stack direction="row" spacing={10} mb={2}>
-          <Box component="span"> {trainer} </Box>
+          <Box component="span"> {author} </Box>
           <Box component="span">
             <StarBorderIcon /> {rating}
           </Box>
@@ -57,7 +57,7 @@ const CourseCard = (props) => {
               <StarBorderIcon />
             </Box>
             <Box component="span">{rating}</Box>
-            <Box component="span">{trainer}</Box>
+            <Box component="span">{author}</Box>
             <Box component="span">All levels</Box>
           </Box>
         </CardContent>

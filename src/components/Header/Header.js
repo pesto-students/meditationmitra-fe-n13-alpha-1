@@ -2,6 +2,9 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { PROJECT_TITLE } from "../../utils/Constants";
 import Box from "../Box";
 import Container from "../Container";
@@ -12,9 +15,7 @@ import { PrimaryButton } from "../Buttons";
 import BottomNav from "../Navigator/BottomNav";
 import TopNav from "../Navigator/TopNav";
 // import { signInWithGoogle } from "../../Firebase/auth";
-import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../api/reducers/authReducer";
-import { useEffect, useState } from "react";
 import Popup from "../Popup";
 // import AddCourse from "../../pages/AddCourse";
 import { MEMBER_ROLE } from "../../utils/Constants";
@@ -54,49 +55,41 @@ const Header = () => {
       label: "Add Course",
       path: "/user/add-course",
       loginRequired: true,
-      courch: true,
+      courch: false,
     },
   ];
 
   const handleNavigation = (selectedNavigation = "/") =>
     navigate(selectedNavigation);
 
-  const BottomHeader = () => (
-    <Box mobHeader display={["block", "block", "none"]}>
-      <BottomNav items={menuItems} onNavigate={handleNavigation} />
-    </Box>
-  );
-
-  const TopNavBar = () => {
+  const NavBar = ({ mobile }) => {
+    let items = [];
     if (isLoggedIn) {
       if (userInfo?.user?.role === MEMBER_ROLE) {
-        return (
-          <TopNav
-            items={menuItems.filter((item) => !item.courch)}
-            onNavigate={handleNavigation}
-          />
-        );
+        items = menuItems.filter((item) => !item.courch);
       } else {
-        return (
-          <TopNav
-            items={menuItems.filter((item) => item.courch)}
-            onNavigate={handleNavigation}
-          />
-        );
+        items = menuItems.filter((item) => item.courch);
       }
     } else {
-      return (
-        <TopNav
-          items={menuItems.filter((item) => !item.loginRequired)}
-          onNavigate={handleNavigation}
-        />
-      );
+      items = menuItems.filter((item) => !item.loginRequired);
     }
+    return mobile ? (
+      <Box mobHeader display={["block", "block", "none"]}>
+        <BottomNav items={items} onNavigate={handleNavigation} />
+      </Box>
+    ) : (
+      <TopNav items={items} onNavigate={handleNavigation} />
+    );
+  };
+
+  NavBar.propTypes = {
+    mobile: PropTypes.bool,
   };
 
   useEffect(() => {
     if (!isLoggedIn) handleNavigation();
     if (userInfo?.isNewUser) handlePopupOpen();
+    else if (isLoggedIn) handleNavigation("/enrolled-courses");
   }, [isLoggedIn]);
 
   const signIn = () => {
@@ -107,8 +100,6 @@ const Header = () => {
       console.log(e);
     }
   };
-
-  // console.log(isLoggedIn, userInfo);
 
   return (
     <>
@@ -123,11 +114,7 @@ const Header = () => {
                 >
                   {PROJECT_TITLE}
                 </LogoLink>
-                {/* <TopNav
-                  items={menuItems.filter((item) => !item.loginRequired)}
-                  onNavigate={handleNavigation}
-                /> */}
-                <TopNavBar />
+                <NavBar />
               </Stack>
             </Grid>
             <Grid item xs={4}>
@@ -155,7 +142,7 @@ const Header = () => {
           </Grid>
         </Container>
       </Box>
-      <BottomHeader />
+      <NavBar mobile />
       <Popup open={open} onClose={handlePopupClose}></Popup>
     </>
   );

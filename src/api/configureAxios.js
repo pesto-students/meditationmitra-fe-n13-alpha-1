@@ -6,7 +6,7 @@ const configureAxios = () => {
   Axios.defaults.headers.post["Accept"] = "application/json";
   Axios.defaults.headers.put["Accept"] = "application/json";
   const token = window.localStorage.getItem("token");
-  if (token) Axios.defaults.headers.post["Authorization"] = token;
+  if (token) Axios.defaults.headers.common["Authorization"] = "Bearer " + token;
   // Axios.interceptors.request.use(function (config) {
   //   console.log(config);
   //   let axiosConfig = null;
