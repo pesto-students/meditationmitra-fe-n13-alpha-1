@@ -1,7 +1,7 @@
 import createSagaMiddleware from "@redux-saga/core";
 import { configureStore } from "@reduxjs/toolkit";
 import { rootReducer } from "../api/reducers/rootReducer";
-import storageSession from "redux-persist/lib/storage/session";
+import localStorage from "redux-persist/es/storage";
 import { persistReducer } from "redux-persist";
 
 const preloadedState = {};
@@ -9,8 +9,8 @@ const preloadedState = {};
 const persistConfig = {
   key: "root",
   version: 1,
-  storage: storageSession,
-  whitelist: [],
+  storage: localStorage,
+  whitelist: ["authReducer"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

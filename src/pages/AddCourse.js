@@ -9,7 +9,9 @@ import { PrimaryButton } from "../components/Buttons";
 import TextField from "../components/TextField";
 import TextArea from "../components/TextArea";
 import Chips from "../components/Chips";
-// import { Grid } from "@mui/material";
+import Grid from "../components/Grid";
+import FileUpload from "../components/FileUpload";
+import Box from "../components/Box";
 
 const AddCourse = () => {
   const handleClick = () => {
@@ -18,10 +20,8 @@ const AddCourse = () => {
 
   const Form = () => (
     <Container mt={2}>
-      <TextField
-        title="Course Title"
-        placeholder="ex. Meditation for beginners"
-      />
+      <TextField title="Title" placeholder="ex. Meditation for beginners" />
+      <TextField title="Price" placeholder="ex. 2000" />
       <TextArea
         title="Course Description"
         placeholder="Write a short para on your course"
@@ -51,15 +51,24 @@ const AddCourse = () => {
       <TextField placeholder="Add Session Date" />
       <Stack direction="row" spacing={4}>
         <PrimaryButton>Save</PrimaryButton>
-        {/* <PrimaryButton>Rest</PrimaryButton> */}
       </Stack>
     </Container>
+  );
+  const DeskTopViewFileUplod = () => (
+    <Box sx={{ width: "10%", height: "10%", background: "red" }}></Box>
   );
   return (
     <>
       <DeskView>
-        <Container>
-          <Form />
+        <Container st>
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <FileUpload icon={<DeskTopViewFileUplod />} />
+            </Grid>
+            <Grid item xs={8}>
+              <Form />
+            </Grid>
+          </Grid>
         </Container>
       </DeskView>
       <MobileView>
