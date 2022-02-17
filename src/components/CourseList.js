@@ -4,7 +4,7 @@ import CourseCard from "./CourseCard";
 import Container from "./Container";
 
 const CourseList = ({ courses = [], mobile = false }) => {
-  const desktopView = () => (
+  const DesktopView = () => (
     <Container mt="3rem">
       <Grid container spacing={4} mb={10}>
         {courses.map((course) => (
@@ -16,7 +16,7 @@ const CourseList = ({ courses = [], mobile = false }) => {
     </Container>
   );
 
-  const mobileView = () => (
+  const MobileView = () => (
     <>
       {courses.map((course) => (
         <CourseCard mobile={true} key={course.id} course={course} />
@@ -24,12 +24,12 @@ const CourseList = ({ courses = [], mobile = false }) => {
     </>
   );
 
-  return mobile ? mobileView() : desktopView();
+  return mobile ? <MobileView /> : <DesktopView />;
 };
 
 CourseList.propTypes = {
   courses: PropTypes.array,
-  isMobile: PropTypes.bool,
+  mobile: PropTypes.bool,
 };
 
 export default CourseList;

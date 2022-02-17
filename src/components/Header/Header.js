@@ -11,35 +11,105 @@ import Stack from "../Stack";
 import { PrimaryButton } from "../Buttons";
 import BottomNav from "../Navigator/BottomNav";
 import TopNav from "../Navigator/TopNav";
+// import { signInWithGoogle } from "../../Firebase/auth";
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../../api/reducers/authReducer";
+import { useEffect, useState } from "react";
+import Popup from "../Popup";
+// import AddCourse from "../../pages/AddCourse";
+import { MEMBER_ROLE } from "../../utils/Constants";
 
 const Header = () => {
   const navigate = useNavigate();
-  const menuItems = [
-    {
-      label: "My Courses",
-      path: "/enrolled-courses",
-      icon: <HomeOutlinedIcon />,
-    },
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const { isLoggedIn, userInfo } = useSelector((state) => state.authReducer);
+
+  const handlePopupOpen = () => {
+    setOpen(true);
+  };
+
+  const handlePopupClose = () => {
+    setOpen(false);
+  };
+  let menuItems = [
     {
       label: "Courses",
       path: "/courses",
       icon: <SearchIcon />,
     },
     {
+      label: "My Courses",
+      path: "/enrolled-courses",
+      icon: <HomeOutlinedIcon />,
+      loginRequired: true,
+    },
+    {
       label: "Profile",
       path: "/user/profile",
       icon: <PermIdentityIcon />,
+      loginRequired: true,
+    },
+    {
+      label: "Add Course",
+      path: "/user/add-course",
+      loginRequired: true,
+      courch: true,
     },
   ];
 
   const handleNavigation = (selectedNavigation = "/") =>
     navigate(selectedNavigation);
 
-  const bottomHeader = () => (
+  const BottomHeader = () => (
     <Box mobHeader display={["block", "block", "none"]}>
       <BottomNav items={menuItems} onNavigate={handleNavigation} />
     </Box>
   );
+
+  const TopNavBar = () => {
+    if (isLoggedIn) {
+      if (userInfo?.user?.role === MEMBER_ROLE) {
+        return (
+          <TopNav
+            items={menuItems.filter((item) => !item.courch)}
+            onNavigate={handleNavigation}
+          />
+        );
+      } else {
+        return (
+          <TopNav
+            items={menuItems.filter((item) => item.courch)}
+            onNavigate={handleNavigation}
+          />
+        );
+      }
+    } else {
+      return (
+        <TopNav
+          items={menuItems.filter((item) => !item.loginRequired)}
+          onNavigate={handleNavigation}
+        />
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (!isLoggedIn) handleNavigation();
+    if (userInfo?.isNewUser) handlePopupOpen();
+  }, [isLoggedIn]);
+
+  const signIn = () => {
+    try {
+      dispatch(authActions.fetchAuth());
+    } catch (e) {
+      // TODO: integrate with component level error boundary
+      console.log(e);
+    }
+  };
+
+  // console.log(isLoggedIn, userInfo);
+
   return (
     <>
       <Box header display={["none", "none", "block"]}>
@@ -49,27 +119,44 @@ const Header = () => {
               <Stack direction="row" spacing={4}>
                 <LogoLink
                   component="button"
-                  onClick={() => handleNavigation("/enrolled-courses")}
+                  onClick={() => handleNavigation("/")}
                 >
                   {PROJECT_TITLE}
                 </LogoLink>
-                <TopNav items={menuItems} onNavigate={handleNavigation} />
+                {/* <TopNav
+                  items={menuItems.filter((item) => !item.loginRequired)}
+                  onNavigate={handleNavigation}
+                /> */}
+                <TopNavBar />
               </Stack>
             </Grid>
             <Grid item xs={4}>
               <Stack direction="row" spacing={2} justifyContent="right">
-                <PrimaryButton variant="contained" size="small">
-                  Guest Login
-                </PrimaryButton>
-                <PrimaryButton variant="contained" size="small">
-                  Google Login
-                </PrimaryButton>
+                {isLoggedIn || (
+                  <>
+                    <PrimaryButton
+                      variant="contained"
+                      size="small"
+                      onClick={handlePopupOpen}
+                    >
+                      Guest Login
+                    </PrimaryButton>
+                    <PrimaryButton
+                      variant="contained"
+                      size="small"
+                      onClick={signIn}
+                    >
+                      Google Login
+                    </PrimaryButton>
+                  </>
+                )}
               </Stack>
             </Grid>
           </Grid>
         </Container>
       </Box>
-      {bottomHeader()}
+      <BottomHeader />
+      <Popup open={open} onClose={handlePopupClose}></Popup>
     </>
   );
 };

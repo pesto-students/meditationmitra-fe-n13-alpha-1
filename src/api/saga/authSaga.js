@@ -4,6 +4,8 @@ import { authActions } from "../reducers/authReducer";
 
 export default function* authSaga() {
   try {
+    // const userInfo = yield call(signInWithGoogle);
+    // console.log(userInfo);
     // put yup validation here
     const response = yield call(LoginService);
     if (response.status === 200) {
