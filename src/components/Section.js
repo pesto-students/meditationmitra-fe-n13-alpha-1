@@ -9,3 +9,8 @@ export const Section = styled.section`
   min-height: 35px;
   color: ${({ color }) => color && color};
 `;
+
+export const FooterSection = styled(Section)`
+  margin-top: 5%;
+  padding: 5vh 0 10vh 0;
+`;

@@ -8,6 +8,7 @@ import Box from "./components/Box";
 import Header from "./components/Header/Header";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import routes from "./routes";
+import Footer from "./components/Footer/Footer";
 
 sagaMiddleware.run(rootSaga);
 
@@ -32,6 +33,7 @@ function App() {
             </Routes>
           </Router>
         </Box>
+        <Footer />
       </PersistGate>
     </Provider>
   );
