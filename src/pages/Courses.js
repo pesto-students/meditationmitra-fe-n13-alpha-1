@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Grid from "../components/Grid";
 import { Typography } from "../components/Typography";
 import DeskView from "../components/DeskView";
@@ -7,11 +9,14 @@ import CourseList from "../components/CourseList";
 import SearchFilter from "../components/Filter/SearchFilter";
 import SideBarFilter from "../components/Filter/SideBarFilter";
 import { GetAllCourses } from "../api/services/courseService";
+import { courseActions } from "../api/reducers/courseReducer";
 
 const Courses = () => {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState(null);
   const [courses, setCourses] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(async () => {
     const response = await GetAllCourses({ search, filter });
@@ -36,6 +41,11 @@ const Courses = () => {
     setFilter(filterObj);
   };
 
+  const selectCourse = (courseId) => {
+    dispatch(courseActions.updateCourseId(courseId));
+    navigate("/course-details");
+  };
+
   const Title = () => (
     <Typography variant="body1" m="7% 0 0 3%">
       Courses
@@ -52,14 +62,14 @@ const Courses = () => {
           <Grid item xs={10}>
             <Title />
             <SearchFilter onSearch={onSearch} />
-            <CourseList courses={courses} />
+            <CourseList courses={courses} onClick={selectCourse} />
           </Grid>
         </Grid>
       </DeskView>
       <MobileView>
         <SearchFilter onSearch={onSearch} onFilter={onFilter} />
         <Title />
-        <CourseList mobile courses={courses} />
+        <CourseList mobile courses={courses} onClick={selectCourse} />
       </MobileView>
     </>
   );

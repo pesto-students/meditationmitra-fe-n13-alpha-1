@@ -1,6 +1,7 @@
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import AddIcon from "@mui/icons-material/Add";
@@ -57,12 +58,13 @@ const Header = () => {
       loginRequired: true,
       courch: false,
     },
-    // {
-    //   label: "Course details",
-    //   path: "/course-details",
-    //   loginRequired: false,
-    //   courch: false,
-    // },
+    {
+      label: "Cart",
+      path: "/user/cart",
+      icon: <ShoppingCartOutlinedIcon />,
+      loginRequired: true,
+      courch: false,
+    },
   ];
 
   const handleNavigation = (selectedNavigation = "/") =>

@@ -1,8 +1,10 @@
 import { Divider } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
+import Rating from "@mui/material/Rating";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { useSelector, useDispatch } from "react-redux";
 import DeskView from "../components/DeskView";
 import MobileView from "../components/MobileView";
 import { Typography } from "../components/Typography";
@@ -11,15 +13,29 @@ import Box from "../components/Box";
 import Grid from "../components/Grid";
 import Stack from "../components/Stack";
 import Span from "../components/Span";
-import { courseSection } from "../__mock__/__mock__";
+// import { courseSection } from "../__mock__/__mock__";
 import { CourseAccordion } from "../components/Accordions";
 import Container from "../components/Container";
 import { Section } from "../components/Section";
+import { GetCourse } from "../api/services/courseService";
+import { courseActions } from "../api/reducers/courseReducer";
 
 const CourseDetails = () => {
+  const dispatch = useDispatch();
+  const { courseId } = useSelector((state) => state.courseReducer);
+  const { isLoggedIn } = useSelector((state) => state.authReducer);
+  const [course, setCourse] = useState({});
   const [mobViewHeight, setMoBViewHeight] = useState("55%");
   const [seeDetailsBtnLabel, setSeeDetailsBtnLabel] = useState("See Details");
   const [showDetailsFlag, setShowDetailsFlag] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      const course = await GetCourse(courseId);
+      setCourse(course);
+    }
+    fetchData();
+  }, [courseId]);
 
   const showMoreDetails = () => {
     setMoBViewHeight("90%");
@@ -36,14 +52,18 @@ const CourseDetails = () => {
     paddingTop: "0",
   };
 
-  const sections = () =>
-    courseSection.map((section) => (
+  const addToCart = () => {
+    dispatch(courseActions.addToCart(course));
+  };
+
+  const Sections = () =>
+    course?.section?.map((section) => (
       <CourseAccordion key={"section" + section.id} section={section} />
     ));
 
   return (
     <>
-      <DeskView container={false}>
+      <DeskView noContainer>
         <Section
           bgColor="var(--orange)"
           position="relative"
@@ -51,12 +71,9 @@ const CourseDetails = () => {
         >
           <Container maxWidth="lg">
             <Box sx={{ padding: "2rem 0", color: "var(--white)" }}>
-              <Typography variant="h4">Course Name</Typography>
+              <Typography variant="h4">{course.name}</Typography>
               <Typography variant="body1">
-                Phasellus vestibulum lorem sed risus ultricies tristique nulla
-                aliquet. Vel quam elementum pulvinar etiamnim lobortis
-                scelerisque. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur....
+                {course.courseDescription}
               </Typography>
             </Box>
           </Container>
@@ -68,22 +85,18 @@ const CourseDetails = () => {
                 <AccountCircleIcon fontSize="large" />
                 <Box>
                   <Typography variant="body1">Trainer</Typography>
-                  <Typography variant="body2">Trainer Name</Typography>
+                  <Typography variant="body2">{course.author}</Typography>
                 </Box>
               </Stack>
             </Grid>
             <Grid item xs={2} sx={gridItemStyles}>
               <Typography variant="body1">Category</Typography>
-              <Typography variant="body2">Meditation</Typography>
+              <Typography variant="body2">{course.category}</Typography>
             </Grid>
             <Grid item xs={2} sx={gridItemStyles}>
               <Typography>Reviews</Typography>
               <Stack direction="row">
-                <StarBorderIcon />
-                <StarBorderIcon />
-                <StarBorderIcon />
-                <StarBorderIcon />
-                <StarBorderIcon />
+                <Rating name="read-only" value={course.rating} readOnly />
                 <Typography>(123)</Typography>
               </Stack>
             </Grid>
@@ -93,20 +106,28 @@ const CourseDetails = () => {
                 <Typography>Wishlist</Typography>
               </Stack>
             </Grid>
+            <Grid item xs={2} sx={{ paddingTop: "0" }}>
+              {isLoggedIn && (
+                <SuccessButton
+                  title="Add to Cart"
+                  startIcon={<ShoppingCartOutlinedIcon />}
+                  onClick={addToCart}
+                >
+                  Add to Cart
+                </SuccessButton>
+              )}
+            </Grid>
           </Grid>
         </Container>
-        <Box sx={{ padding: "2rem 7rem" }}>{sections()}</Box>
+        <Box sx={{ padding: "2rem 7rem" }}>
+          <Sections />
+        </Box>
       </DeskView>
       <MobileView height={mobViewHeight} bgcolor="var(--white)">
         <Typography variant="body1" sx={{ margin: "6% 0 1% 0" }}>
           Description
         </Typography>
-        <Typography variant="body2">
-          Phasellus vestibulum lorem sed risus ultricies tristique nulla
-          aliquet. Vel quam elementum pulvinar etiamnim lobortis scelerisque.
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-          dolore eu fugiat nulla pariatur....
-        </Typography>
+        <Typography variant="body2">{course.courseDescription}</Typography>
         <Button variant="text" txcolor="var(--orange)">
           Show more
         </Button>
@@ -125,18 +146,28 @@ const CourseDetails = () => {
               <img />
             </Grid>
             <Grid item xs={10}>
-              <Typography variant="subtitle2">Trainer Name</Typography>
+              <Typography variant="subtitle2">{course.author}</Typography>
               <Span>No.Of courses</Span> <Span>No.Of students</Span>
             </Grid>
           </Grid>
         </Box>
         <Stack direction="row" spacing={6} mt={1}>
           <PrimaryButton
+            fullWidth
             onClick={showDetailsFlag ? showMoreDetails : hideMoreDetails}
           >
             {seeDetailsBtnLabel}
           </PrimaryButton>
-          <SuccessButton>Add to Cart</SuccessButton>
+          {isLoggedIn && (
+            <SuccessButton
+              fullWidth
+              title="Add to Cart"
+              startIcon={<ShoppingCartOutlinedIcon />}
+              onClick={addToCart}
+            >
+              Add to Cart
+            </SuccessButton>
+          )}
         </Stack>
         <Box
           sx={{
@@ -144,7 +175,7 @@ const CourseDetails = () => {
             display: showDetailsFlag ? "none" : "block",
           }}
         >
-          {sections()}
+          <Sections />
         </Box>
       </MobileView>
     </>
