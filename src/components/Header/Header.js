@@ -3,6 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { PROJECT_TITLE } from "../../utils/Constants";
@@ -52,15 +53,16 @@ const Header = () => {
     {
       label: "Add Course",
       path: "/user/add-course",
+      icon: <AddIcon />,
       loginRequired: true,
       courch: false,
     },
-    {
-      label: "Course details",
-      path: "/course-details",
-      loginRequired: false,
-      courch: false,
-    },
+    // {
+    //   label: "Course details",
+    //   path: "/course-details",
+    //   loginRequired: false,
+    //   courch: false,
+    // },
   ];
 
   const handleNavigation = (selectedNavigation = "/") =>

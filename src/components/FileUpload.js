@@ -21,6 +21,7 @@ FileUpload.propTypes = {
   id: PropTypes.string,
   display: PropTypes.array,
   icon: PropTypes.any,
+  mobile: PropTypes.bool,
 };
 
 export default FileUpload;

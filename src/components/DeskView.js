@@ -3,7 +3,7 @@ import Container from "./Container";
 import PropTypes from "prop-types";
 
 const DeskView = ({ children }) => (
-  <Box display={["none", "block"]}>
+  <Box display={["none", "none", "block"]}>
     <Container maxWidth="xl">{children}</Container>
   </Box>
 );
