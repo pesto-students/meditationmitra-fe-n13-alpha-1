@@ -8,12 +8,12 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import PropTypes from "prop-types";
 
 const CourseCard = (props) => {
-  const { name, image, author, rating, price } = props.course;
+  const { name, courseImage, author, rating, price } = props.course;
   const { mobile } = props;
 
-  const desktopView = () => (
+  const DesktopView = () => (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia component="img" height="300" image={image} alt={name} />
+      <CardMedia component="img" height="300" image={courseImage} alt={name} />
       <CardContent>
         <Stack direction="row" spacing={10} mb={2}>
           <Box component="span"> {author} </Box>
@@ -30,7 +30,7 @@ const CourseCard = (props) => {
     </Card>
   );
 
-  const mobileView = () => (
+  const MobileView = () => (
     <Card
       sx={{
         display: "flex",
@@ -65,17 +65,18 @@ const CourseCard = (props) => {
       <CardMedia
         component="img"
         sx={{ width: 130, maxHeight: 130, padding: "3%", marginLeft: "12%" }}
-        image={image}
+        image={courseImage}
         alt={name}
       />
     </Card>
   );
 
-  return mobile ? mobileView() : desktopView();
+  return mobile ? <MobileView /> : <DesktopView />;
 };
 
 CourseCard.propTypes = {
   course: PropTypes.any,
+  mobile: PropTypes.bool,
 };
 
 export default CourseCard;
