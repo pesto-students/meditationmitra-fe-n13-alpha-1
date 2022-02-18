@@ -14,11 +14,12 @@ const SearchFilter = ({ onSearch, onFilter }) => {
           <SideBarFilter onFilter={onFilter} />
         </Drawer>
       </Box>
-      <Container mt="3rem">
+      <Container mt="1rem">
         <TextField
           fullWidth
           onKeyPress={(event) => onSearch(event.target.value)}
           label="Search for Courses"
+          sx={{ width: "70%" }}
         />
       </Container>
     </Stack>
