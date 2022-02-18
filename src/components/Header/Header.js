@@ -1,10 +1,5 @@
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import SearchIcon from "@mui/icons-material/Search";
-import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
@@ -26,13 +21,15 @@ import { authActions } from "../../api/reducers/authReducer";
 import Popup from "../Popup";
 import { MEMBER_ROLE } from "../../utils/Constants";
 import Span from "../Span";
-// import { MenuLink } from "../Link";
+import { menuItems } from "../../utils/MenuItems";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const { isLoggedIn, userInfo } = useSelector((state) => state.authReducer);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openMenu = Boolean(anchorEl);
 
   const handlePopupOpen = () => {
     setOpen(true);
@@ -42,47 +39,12 @@ const Header = () => {
     setOpen(false);
   };
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const openMenu = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  let menuItems = [
-    {
-      label: "Courses",
-      path: "/courses",
-      icon: <SearchIcon />,
-    },
-    {
-      label: "My Courses",
-      path: "/enrolled-courses",
-      icon: <HomeOutlinedIcon />,
-      loginRequired: true,
-    },
-    {
-      label: "Profile",
-      path: "/user/profile",
-      icon: <PermIdentityIcon />,
-      loginRequired: true,
-      mobile: true,
-    },
-    {
-      label: "Add Course",
-      path: "/user/add-course",
-      icon: <AddIcon />,
-      loginRequired: true,
-      courch: true,
-    },
-    {
-      label: "Cart",
-      path: "/user/cart",
-      icon: <ShoppingCartOutlinedIcon />,
-      loginRequired: true,
-    },
-  ];
 
   const onLogout = () => {
     dispatch(authActions.logout({ isLoggedIn: false, user: {} }));
@@ -124,7 +86,7 @@ const Header = () => {
     if (!isLoggedIn) handleNavigation();
     if (userInfo?.isNewUser) handlePopupOpen();
     else if (isLoggedIn) handleNavigation("/enrolled-courses");
-  }, [isLoggedIn]);
+  }, []);
 
   const signIn = () => {
     try {
@@ -191,7 +153,7 @@ const Header = () => {
                       >
                         <Button
                           variant="text"
-                          txColor="var(--black)"
+                          txcolor="var(--black)"
                           startIcon={<AccountCircleTwoToneIcon />}
                         >
                           Profile
@@ -206,7 +168,7 @@ const Header = () => {
                         <Button
                           onClick={() => onLogout()}
                           color="primary"
-                          txColor="var(--black)"
+                          txcolor="var(--black)"
                           startIcon={<LogoutOutlinedIcon />}
                           variant="text"
                         >

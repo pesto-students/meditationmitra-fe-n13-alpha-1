@@ -18,7 +18,7 @@ const CourseCard = (props) => {
         <CardMedia
           component="img"
           height="300"
-          image={courseImage}
+          image={courseImage || "images/course-default.png"}
           alt={name}
         />
         <CardContent>
@@ -39,7 +39,7 @@ const CourseCard = (props) => {
         <Button
           variant="outlined"
           color="error"
-          txColor="var(--error)"
+          txcolor="var(--error)"
           sx={{ marginTop: "10px", float: "right" }}
         >
           Remove
@@ -85,12 +85,12 @@ const CourseCard = (props) => {
         <CardMedia
           component="img"
           sx={{ width: 130, maxHeight: 130, padding: "3%", marginLeft: "12%" }}
-          image={courseImage}
+          image={courseImage || "images/course-default.png"}
           alt={name}
         />
       </Card>
       {cart && (
-        <Button variant="outlined" color="error" txColor="red">
+        <Button variant="outlined" color="error" txcolor="red">
           Remove
         </Button>
       )}

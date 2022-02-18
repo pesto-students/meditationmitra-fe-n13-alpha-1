@@ -1,32 +1,37 @@
 import DeskView from "../components/DeskView";
 import MobileView from "../components/MobileView";
-import {TextGray, TextBlack} from "../components/Typography";
+import TextField from "../components/TextField";
+import Container from "../components/Container";
+import Grid from "../components/Grid";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
+  const { userInfo } = useSelector((state) => state.authReducer);
+  const Form = () => (
+    <>
+      <TextField title="First Name" value={userInfo.firstName} disabled />
+      <TextField title="Last Name" value={userInfo.lastName} disabled />
+      <TextField title="Email" value={userInfo.email} disabled />
+      <TextField title="Role" value={userInfo.role} disabled />
+    </>
+  );
   return (
     <>
       <DeskView>
-      <TextGray>Account Settings</TextGray>
-      <TextBlack>Profile</TextBlack>
-      <TextBlack>My Enrolled Courses</TextBlack>
-      <TextBlack>Payment History</TextBlack>
-      <TextGray>Support</TextGray>
-      <TextBlack>About Meditation Mitra</TextBlack>
-      <TextBlack>Frequently asked questions</TextBlack>
-      <TextBlack>Share Meditation Mitra</TextBlack>
+        <Container sx={{ marginTop: "20px" }}>
+          <Grid container spacing={2}>
+            <Grid item xs={4} alignContent="end">
+              <img src="/images/default-avatar.png" width="50%" />
+            </Grid>
+            <Grid item xs={8}>
+              <Form />
+            </Grid>
+          </Grid>
+        </Container>
       </DeskView>
       <MobileView>
-      <TextGray>Account Settings</TextGray>
-      <TextBlack>Profile</TextBlack>
-      <TextBlack>My Enrolled Courses</TextBlack>
-      <TextBlack>Payment History</TextBlack>
-      <TextGray>Support</TextGray>
-      <TextBlack>About Meditation Mitra</TextBlack>
-      <TextBlack>Frequently asked questions</TextBlack>
-      <TextBlack>Share Meditation Mitra</TextBlack>
+        <Form />
       </MobileView>
-      <DeskView>Profile page</DeskView>
-      <MobileView>Profile page</MobileView>
     </>
   );
 };
