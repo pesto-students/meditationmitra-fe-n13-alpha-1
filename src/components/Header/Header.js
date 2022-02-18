@@ -47,7 +47,9 @@ const Header = () => {
   };
 
   const onLogout = () => {
+    handleNavigation();
     dispatch(authActions.logout({ isLoggedIn: false, user: {} }));
+    // handleNavigation();
   };
 
   const handleNavigation = (selectedNavigation = "/") =>
@@ -83,6 +85,7 @@ const Header = () => {
   };
 
   useEffect(() => {
+    console.log(isLoggedIn);
     if (!isLoggedIn) handleNavigation();
     if (userInfo?.isNewUser) handlePopupOpen();
     else if (isLoggedIn) handleNavigation("/enrolled-courses");
@@ -147,7 +150,7 @@ const Header = () => {
                     >
                       <MenuItem
                         onClick={() => {
-                          navigate("/user/profile");
+                          handleNavigation("/user/profile");
                           handleClose();
                         }}
                       >
@@ -161,7 +164,6 @@ const Header = () => {
                       </MenuItem>
                       <MenuItem
                         onClick={() => {
-                          navigate("/user/profile");
                           handleClose();
                         }}
                       >
