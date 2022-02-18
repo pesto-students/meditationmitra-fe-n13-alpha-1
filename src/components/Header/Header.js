@@ -68,13 +68,6 @@ const Header = () => {
     },
   ];
 
-  // const logoutMenu = {
-  //   label: "Logout",
-  //   // path: "/",
-  //   icon: <LogoutOutlinedIcon />,
-  //   loginRequired: true,
-  // };
-
   const onLogout = () => {
     dispatch(authActions.logout({ isLoggedIn: false, user: {} }));
   };
@@ -102,10 +95,6 @@ const Header = () => {
         <TopNav items={items} onNavigate={handleNavigation} />
         {isLoggedIn && (
           <Button
-            // component="button"
-            // key={item.label}
-            // to={item.path}
-            // selected={window.location.pathname === item.path}
             onClick={() => onLogout()}
             color="primary"
             txColor="var(--black)"
