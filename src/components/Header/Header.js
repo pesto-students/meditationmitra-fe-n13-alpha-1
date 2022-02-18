@@ -5,9 +5,14 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import AddIcon from "@mui/icons-material/Add";
+import IconButton from "@mui/material/IconButton";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import { PROJECT_TITLE } from "../../utils/Constants";
 import Box from "../Box";
 import Container from "../Container";
@@ -20,6 +25,7 @@ import TopNav from "../Navigator/TopNav";
 import { authActions } from "../../api/reducers/authReducer";
 import Popup from "../Popup";
 import { MEMBER_ROLE } from "../../utils/Constants";
+import Span from "../Span";
 // import { MenuLink } from "../Link";
 
 const Header = () => {
@@ -34,6 +40,15 @@ const Header = () => {
 
   const handlePopupClose = () => {
     setOpen(false);
+  };
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openMenu = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
   let menuItems = [
     {
@@ -52,6 +67,7 @@ const Header = () => {
       path: "/user/profile",
       icon: <PermIdentityIcon />,
       loginRequired: true,
+      mobile: true,
     },
     {
       label: "Add Course",
@@ -92,18 +108,10 @@ const Header = () => {
       </Box>
     ) : (
       <>
-        <TopNav items={items} onNavigate={handleNavigation} />
-        {isLoggedIn && (
-          <Button
-            onClick={() => onLogout()}
-            color="primary"
-            txColor="var(--black)"
-            startIcon={<LogoutOutlinedIcon />}
-            variant="text"
-          >
-            Logout
-          </Button>
-        )}
+        <TopNav
+          items={items.filter((it) => !it.mobile)}
+          onNavigate={handleNavigation}
+        />
       </>
     );
   };
@@ -145,7 +153,69 @@ const Header = () => {
             </Grid>
             <Grid item xs={4}>
               <Stack direction="row" spacing={2} justifyContent="right">
-                {isLoggedIn || (
+                {isLoggedIn ? (
+                  <>
+                    <Span
+                      style={{
+                        textTransform: "capitalize",
+                        marginLeft: 5,
+                        fontSize: "var(--fs-bold-weight)",
+                      }}
+                    >
+                      Welcome back, {userInfo.firstName} {userInfo.lastName}
+                    </Span>
+                    <IconButton
+                      aria-label="more"
+                      id="long-button"
+                      aria-controls={openMenu ? "long-menu" : undefined}
+                      aria-expanded={openMenu ? "true" : undefined}
+                      aria-haspopup="true"
+                      onClick={handleClick}
+                    >
+                      <MoreVertIcon />
+                    </IconButton>
+                    <Menu
+                      id="long-menu"
+                      MenuListProps={{
+                        "aria-labelledby": "long-button",
+                      }}
+                      anchorEl={anchorEl}
+                      open={openMenu}
+                      onClose={handleClose}
+                    >
+                      <MenuItem
+                        onClick={() => {
+                          navigate("/user/profile");
+                          handleClose();
+                        }}
+                      >
+                        <Button
+                          variant="text"
+                          txColor="var(--black)"
+                          startIcon={<AccountCircleTwoToneIcon />}
+                        >
+                          Profile
+                        </Button>
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          navigate("/user/profile");
+                          handleClose();
+                        }}
+                      >
+                        <Button
+                          onClick={() => onLogout()}
+                          color="primary"
+                          txColor="var(--black)"
+                          startIcon={<LogoutOutlinedIcon />}
+                          variant="text"
+                        >
+                          Logout
+                        </Button>
+                      </MenuItem>
+                    </Menu>
+                  </>
+                ) : (
                   <>
                     <PrimaryButton
                       variant="contained"
