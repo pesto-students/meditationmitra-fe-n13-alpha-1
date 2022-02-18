@@ -23,6 +23,11 @@ const authSlice = createSlice({
       state.isFetching = false;
       state.error = payload;
     },
+    logout: (state, action) => {
+      const { payload } = action;
+      state.userInfo = payload.user;
+      state.isLoggedIn = payload.isLoggedIn;
+    },
   },
 });
 

@@ -5,6 +5,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import AddIcon from "@mui/icons-material/Add";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { PROJECT_TITLE } from "../../utils/Constants";
@@ -13,12 +14,13 @@ import Container from "../Container";
 import Grid from "../Grid";
 import { LogoLink } from "../Link";
 import Stack from "../Stack";
-import { PrimaryButton } from "../Buttons";
+import { Button, PrimaryButton } from "../Buttons";
 import BottomNav from "../Navigator/BottomNav";
 import TopNav from "../Navigator/TopNav";
 import { authActions } from "../../api/reducers/authReducer";
 import Popup from "../Popup";
 import { MEMBER_ROLE } from "../../utils/Constants";
+// import { MenuLink } from "../Link";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -66,6 +68,17 @@ const Header = () => {
     },
   ];
 
+  // const logoutMenu = {
+  //   label: "Logout",
+  //   // path: "/",
+  //   icon: <LogoutOutlinedIcon />,
+  //   loginRequired: true,
+  // };
+
+  const onLogout = () => {
+    dispatch(authActions.logout({ isLoggedIn: false, user: {} }));
+  };
+
   const handleNavigation = (selectedNavigation = "/") =>
     navigate(selectedNavigation);
 
@@ -85,7 +98,24 @@ const Header = () => {
         <BottomNav items={items} onNavigate={handleNavigation} />
       </Box>
     ) : (
-      <TopNav items={items} onNavigate={handleNavigation} />
+      <>
+        <TopNav items={items} onNavigate={handleNavigation} />
+        {isLoggedIn && (
+          <Button
+            // component="button"
+            // key={item.label}
+            // to={item.path}
+            // selected={window.location.pathname === item.path}
+            onClick={() => onLogout()}
+            color="primary"
+            txColor="var(--black)"
+            startIcon={<LogoutOutlinedIcon />}
+            variant="text"
+          >
+            Logout
+          </Button>
+        )}
+      </>
     );
   };
 
