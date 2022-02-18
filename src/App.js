@@ -15,7 +15,6 @@ sagaMiddleware.run(rootSaga);
 let persistor = persistStore(store);
 
 function App() {
-  console.log("Base url " + process.env.REACT_APP_BASE_URL);
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
