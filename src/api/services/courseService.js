@@ -5,18 +5,18 @@ const GetAllCourses = async () =>
     .then((response) => response)
     .catch((e) => e);
 
-const GetEnrolledCourses = () =>
-  Axios.get("enrolled-course")
+const GetEnrolledCourses = async () =>
+  await Axios.get("courses/enrolled")
     .then((response) => response)
     .catch((e) => e);
 
-const GetFilteredCourses = async ({ search, filter }) =>
-  await Axios.get(`courses/${search}/${filter}`)
+const GetFilteredCourses = async ({ search, filters }) =>
+  await Axios.get(`courses`, { search, filters })
     .then((response) => response)
     .catch((e) => e);
 
-const GetCourse = async (id) =>
-  await Axios.get(`courses/${id}`)
+const GetCourse = async (slug) =>
+  await Axios.get(`courses/${slug}`)
     .then((response) => response)
     .catch((e) => e);
 export { GetAllCourses, GetEnrolledCourses, GetFilteredCourses, GetCourse };

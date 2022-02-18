@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import MobileView from "../components/MobileView";
 import DeskView from "../components/DeskView";
 import Box from "../components/Box";
@@ -7,16 +8,18 @@ import Stack from "../components/Stack";
 import { PrimaryButton } from "../components/Buttons";
 import { MOB_ENROLLMENT_PAGE_TITLE } from "../utils/Constants";
 import CourseList from "../components/CourseList";
+import { GetEnrolledCourses } from "../api/services/courseService";
 
 // TO DO: Remove the below post integration
-import { courses } from "../__mock__/__mock__.js";
+// import { courses } from "../__mock__/__mock__.js";
 
 // import { useSelector, useDispatch } from "react-redux";
 // import { authActions } from "../api/reducers/authReducer";
 // import { useLayoutEffect } from "react";
 
 const EnrolledCourses = () => {
-  // const dispatch = useDispatch();
+  const [courses, setCourses] = useState([]);
+  // const  = useDispatch();
 
   // useLayoutEffect(() => {
   //   try {
@@ -31,6 +34,14 @@ const EnrolledCourses = () => {
   // const response = useSelector((state) => console.log(state));
   // TODO: remove console.log after integration
   // console.log("******************", response);
+  useEffect(() => {
+    const getCourses = async () => {
+      const response = await GetEnrolledCourses();
+      console.log(response);
+      setCourses(response);
+    };
+    getCourses();
+  }, []);
   return (
     <>
       <DeskView>
@@ -46,7 +57,7 @@ const EnrolledCourses = () => {
           >
             Welcome Vaaiibhav, lets take a look at your courses.
           </Typography>
-          <CourseList courses={courses.slice(0, 3)} />
+          <CourseList courses={courses} />
         </Box>
         <Grid container spacing={2} mb={5}>
           <Grid item xs={10}>
@@ -67,7 +78,7 @@ const EnrolledCourses = () => {
         <Typography variant="body1" mt="7%" mb="5%" ml="3%">
           {MOB_ENROLLMENT_PAGE_TITLE}
         </Typography>
-        <CourseList mobile courses={courses.slice(0, 3)} />
+        <CourseList mobile courses={courses} />
       </MobileView>
     </>
   );

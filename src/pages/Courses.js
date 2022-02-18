@@ -12,6 +12,7 @@ import { GetAllCourses } from "../api/services/courseService";
 import { courseActions } from "../api/reducers/courseReducer";
 
 const Courses = () => {
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState(null);
   const [courses, setCourses] = useState([]);
@@ -22,6 +23,7 @@ const Courses = () => {
     const response = await GetAllCourses({ search, filter });
     console.log(response.data);
     setCourses(response.data);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -47,7 +49,7 @@ const Courses = () => {
   };
 
   const Title = () => (
-    <Typography variant="body1" m="7% 0 0 3%">
+    <Typography variant="h5" m="3% 0 0 2%">
       Courses
     </Typography>
   );
@@ -62,14 +64,23 @@ const Courses = () => {
           <Grid item xs={10}>
             <Title />
             <SearchFilter onSearch={onSearch} />
-            <CourseList courses={courses} onClick={selectCourse} />
+            <CourseList
+              loading={loading}
+              courses={courses}
+              onClick={selectCourse}
+            />
           </Grid>
         </Grid>
       </DeskView>
       <MobileView>
         <SearchFilter onSearch={onSearch} onFilter={onFilter} />
         <Title />
-        <CourseList mobile courses={courses} onClick={selectCourse} />
+        <CourseList
+          loading={loading}
+          mobile
+          courses={courses}
+          onClick={selectCourse}
+        />
       </MobileView>
     </>
   );
