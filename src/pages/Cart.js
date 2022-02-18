@@ -6,21 +6,41 @@ import CourseList from "../components/CourseList";
 import Box from "../components/Box";
 import { SuccessButton } from "../components/Buttons";
 import Grid from "../components/Grid";
+import Container from "../components/Container";
+// import { Typography } from "../components/Typography";
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.courseReducer);
+
   return (
     <>
       <DeskView>
-        <CourseList cart courses={cart} />
-        <Box>
-          <Grid container spacing={2}>
-            <Grid item xs={8}></Grid>
-            <Grid item xs={4}>
-              <SuccessButton fullWidth>Checkout</SuccessButton>
-            </Grid>
-          </Grid>
-        </Box>
+        {cart.length ? (
+          <>
+            <CourseList cart courses={cart} />
+            <Box>
+              <Grid container spacing={2}>
+                <Grid item xs={8}></Grid>
+                <Grid item xs={4}>
+                  <SuccessButton fullWidth>Checkout</SuccessButton>
+                </Grid>
+              </Grid>
+            </Box>
+          </>
+        ) : (
+          <>
+            <Container>
+              <Box sx={{ marginTop: "45px" }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={3}></Grid>
+                  <Grid item xs={4}>
+                    <img src="/images/empty-cart.png" />
+                  </Grid>
+                </Grid>
+              </Box>
+            </Container>
+          </>
+        )}
       </DeskView>
       <MobileView>
         <Box mt={5}>
