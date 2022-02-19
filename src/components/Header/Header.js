@@ -18,7 +18,7 @@ import { Button, PrimaryButton } from "../Buttons";
 import BottomNav from "../Navigator/BottomNav";
 import TopNav from "../Navigator/TopNav";
 import { authActions } from "../../api/reducers/authReducer";
-import Popup from "../Popup";
+import Popup, { LoaderPopup } from "../Popup";
 import { MEMBER_ROLE } from "../../utils/Constants";
 import Span from "../Span";
 import { menuItems } from "../../utils/MenuItems";
@@ -27,7 +27,9 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const { isLoggedIn, userInfo } = useSelector((state) => state.authReducer);
+  const { isFetching, isLoggedIn, userInfo } = useSelector(
+    (state) => state.authReducer
+  );
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
 
@@ -49,7 +51,6 @@ const Header = () => {
   const onLogout = () => {
     handleNavigation();
     dispatch(authActions.logout({ isLoggedIn: false, user: {} }));
-    // handleNavigation();
   };
 
   const handleNavigation = (selectedNavigation = "/") =>
@@ -85,7 +86,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    console.log(isLoggedIn);
     if (!isLoggedIn) handleNavigation();
     if (userInfo?.isNewUser) handlePopupOpen();
     else if (isLoggedIn) handleNavigation("/enrolled-courses");
@@ -204,6 +204,7 @@ const Header = () => {
       </Box>
       <NavBar mobile />
       <Popup open={open} onClose={handlePopupClose}></Popup>
+      <LoaderPopup open={isFetching} />
     </>
   );
 };
