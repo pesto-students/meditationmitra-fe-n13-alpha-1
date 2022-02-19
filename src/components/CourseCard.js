@@ -9,12 +9,12 @@ import Box from "./Box";
 import { Typography } from "./Typography";
 
 const CourseCard = (props) => {
-  const { name, courseImage, author, rating, price, _id } = props.course;
+  const { name, courseImage, author, rating, price, slug } = props.course;
   const { mobile, cart, onClick } = props;
 
   const DesktopView = () => (
     <>
-      <Card onClick={() => onClick(_id)} sx={{ maxWidth: 345 }}>
+      <Card onClick={() => onClick(slug)} sx={{ maxWidth: 345 }}>
         <CardMedia
           component="img"
           height="300"
@@ -51,7 +51,7 @@ const CourseCard = (props) => {
   const MobileView = () => (
     <>
       <Card
-        onClick={() => onClick(_id)}
+        onClick={() => onClick(slug)}
         sx={{
           display: "flex",
           flexDirection: "row",

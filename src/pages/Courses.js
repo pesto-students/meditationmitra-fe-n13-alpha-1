@@ -21,7 +21,6 @@ const Courses = () => {
 
   useEffect(async () => {
     const response = await GetAllCourses({ search, filter });
-    console.log(response.data);
     setCourses(response.data);
     setLoading(false);
   }, []);
@@ -29,7 +28,6 @@ const Courses = () => {
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
       const response = await GetAllCourses({ search, filter });
-      console.log(response);
       setCourses(response.data);
     }, 300);
     return () => clearTimeout(delayDebounceFn);
