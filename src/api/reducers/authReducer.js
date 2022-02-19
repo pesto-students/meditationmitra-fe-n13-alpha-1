@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const authSlice = createSlice({
   name: "authReducer",
   initialState: {
-    isFetching: true,
+    isFetching: false,
     userInfo: {},
     error: "",
     isLoggedIn: false,
