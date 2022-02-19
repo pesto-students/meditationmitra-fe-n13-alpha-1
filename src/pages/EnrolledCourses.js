@@ -9,36 +9,22 @@ import { PrimaryButton } from "../components/Buttons";
 import { MOB_ENROLLMENT_PAGE_TITLE } from "../utils/Constants";
 import CourseList from "../components/CourseList";
 import { GetEnrolledCourses } from "../api/services/courseService";
-
-// TO DO: Remove the below post integration
-// import { courses } from "../__mock__/__mock__.js";
-
-// import { useSelector, useDispatch } from "react-redux";
-// import { authActions } from "../api/reducers/authReducer";
-// import { useLayoutEffect } from "react";
+import { useSelector } from "react-redux";
+import Span from "../components/Span";
+import { useNavigate } from "react-router-dom";
 
 const EnrolledCourses = () => {
+  const [loading, setLoading] = useState(true);
   const [courses, setCourses] = useState([]);
-  // const  = useDispatch();
+  const { userInfo } = useSelector((state) => state.authReducer);
+  const { firstName, lastName } = userInfo;
+  const navigate = useNavigate();
 
-  // useLayoutEffect(() => {
-  //   try {
-  //     dispatch(authActions.fetchAuth());
-  //   } catch (e) {
-  //     // TODO: integrate with component level error boundary
-  //     console.log(e);
-  //   }
-  // }, []);
-
-  // TODO: remove console.log after integration
-  // const response = useSelector((state) => console.log(state));
-  // TODO: remove console.log after integration
-  // console.log("******************", response);
   useEffect(() => {
     const getCourses = async () => {
       const response = await GetEnrolledCourses();
-      console.log(response);
-      setCourses(response);
+      setCourses(response.data);
+      setLoading(false);
     };
     getCourses();
   }, []);
@@ -55,9 +41,33 @@ const EnrolledCourses = () => {
             variant="h6"
             sx={{ padding: "3rem 0 0 0", textAlign: "center" }}
           >
-            Welcome Vaaiibhav, lets take a look at your courses.
+            Welcome{" "}
+            <Span style={{ textTransform: "capitalize" }}>{firstName}</Span>
+            <Span style={{ textTransform: "capitalize" }}>{lastName}</Span>,
+            lets take a look at your courses.
           </Typography>
-          <CourseList courses={courses} />
+          {courses.length ? (
+            <CourseList loading={loading} courses={courses} />
+          ) : (
+            <Box>
+              <Grid container spacing={2}>
+                <Grid item xs={4}></Grid>
+                <Grid item xs={4}>
+                  <img src="/images/no_courses.png" />
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      padding: "3rem 0 0 0",
+                      textAlign: "center",
+                      minHeight: 300,
+                    }}
+                  >
+                    No Enrolled Courses Found
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Box>
+          )}
         </Box>
         <Grid container spacing={2} mb={5}>
           <Grid item xs={10}>
@@ -67,7 +77,11 @@ const EnrolledCourses = () => {
           </Grid>
           <Grid item xs={2}>
             <Stack justifyContent="right">
-              <PrimaryButton variant="outlined" size="small">
+              <PrimaryButton
+                variant="outlined"
+                size="small"
+                onClick={() => navigate("/courses")}
+              >
                 Courses
               </PrimaryButton>
             </Stack>
@@ -78,7 +92,7 @@ const EnrolledCourses = () => {
         <Typography variant="body1" mt="7%" mb="5%" ml="3%">
           {MOB_ENROLLMENT_PAGE_TITLE}
         </Typography>
-        <CourseList mobile courses={courses} />
+        <CourseList loading={loading} mobile courses={courses} />
       </MobileView>
     </>
   );
