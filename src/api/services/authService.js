@@ -21,7 +21,7 @@ const UpdateUserRole = (data) => {
       Authorization: `Bearer ${window.localStorage.getItem("token")}`,
     },
   };
-  return Axios.post("user/update-role", data, axiosConfig)
+  return Axios.post("user/update-role", data.payload, axiosConfig)
     .then((response) => response)
     .catch((e) => e);
 };

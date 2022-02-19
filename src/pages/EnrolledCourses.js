@@ -77,7 +77,7 @@ const EnrolledCourses = () => {
             variant="h6"
             sx={{ padding: "3rem 0 0 0", textAlign: "center" }}
           >
-            Welcome{" "}
+            Welcome
             <Span style={{ textTransform: "capitalize" }}>{firstName}</Span>
             <Span style={{ textTransform: "capitalize" }}>{lastName}</Span>,
             lets take a look at your courses.

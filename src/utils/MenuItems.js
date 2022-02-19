@@ -28,7 +28,7 @@ export const menuItems = [
     path: "/user/add-course",
     icon: <AddIcon />,
     loginRequired: true,
-    courch: true,
+    coach: true,
   },
   {
     label: "Cart",

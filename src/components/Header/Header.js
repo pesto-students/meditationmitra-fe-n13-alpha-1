@@ -57,7 +57,6 @@ const Header = () => {
   useEffect(() => {
     console.log("useEff");
     if (!isLoggedIn) handleNavigation();
-    // if (isNewUser) updateRolePopupOpen();
     else if (isLoggedIn) handleNavigation("/enrolled-courses");
   }, []);
 
@@ -89,7 +88,7 @@ const Header = () => {
     if (userType === "member") {
       data.email = "guest.member@medmitra.com";
     } else {
-      data.email = "guest.couch@medmitra.com";
+      data.email = "guest.coach@medmitra.com";
     }
     try {
       dispatch(authActions.fetchAuth(data));
@@ -102,12 +101,12 @@ const Header = () => {
 
   const NavBar = ({ mobile }) => {
     let items = [];
-    console.log("New user " + isNewUser);
+    // console.log("New user " + isNewUser);
     if (isLoggedIn) {
       if (userInfo?.role === MEMBER_ROLE) {
-        items = menuItems.filter((item) => !item.courch);
+        items = menuItems.filter((item) => !item.coach);
       } else {
-        items = menuItems.filter((item) => item.courch);
+        items = menuItems.filter((item) => item.coach);
       }
     } else {
       items = menuItems.filter((item) => !item.loginRequired);

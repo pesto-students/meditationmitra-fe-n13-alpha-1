@@ -25,7 +25,7 @@ const Popup = ({ open, onClose, onLogin }) => (
             How would you like to register yourself?
           </Typography>
           <PrimaryButton onClick={() => onLogin("member")}>User</PrimaryButton>
-          <PrimaryButton onClick={() => onLogin("couch")}>
+          <PrimaryButton onClick={() => onLogin("coach")}>
             Instructor
           </PrimaryButton>
         </Stack>
