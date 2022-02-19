@@ -33,7 +33,7 @@ const routes = [
     element: <PostLogin />,
   },
   {
-    path: "/course-details",
+    path: "/course-details/:slug",
     element: <CourseDetails />,
   },
   {

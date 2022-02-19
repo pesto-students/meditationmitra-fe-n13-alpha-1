@@ -11,7 +11,6 @@ const CourseList = ({
   courses = [],
   mobile = false,
   cart = false,
-  onClick,
   loading,
 }) => {
   const DesktopView = () => (
@@ -29,7 +28,7 @@ const CourseList = ({
           <>
             {courses.map((course) => (
               <Grid item key={course.name}>
-                <CourseCard course={course} cart={cart} onClick={onClick} />
+                <CourseCard course={course} cart={cart} />
               </Grid>
             ))}
           </>
@@ -44,14 +43,12 @@ const CourseList = ({
         [1, 2, 3].map((num) => <MobileCourseCardSkeleton key={num} />)
       ) : (
         <>
-          {/* <MobileCourseCardSkeleton /> */}
           {courses.map((course) => (
             <CourseCard
               mobile={true}
               key={course.name}
               course={course}
               cart={cart}
-              onClick={onClick}
             />
           ))}
         </>

@@ -3,6 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import { Button } from "./Buttons";
 import Stack from "./Stack";
 import Box from "./Box";
@@ -10,11 +11,15 @@ import { Typography } from "./Typography";
 
 const CourseCard = (props) => {
   const { name, courseImage, author, rating, price, slug } = props.course;
-  const { mobile, cart, onClick } = props;
+  const { mobile, cart } = props;
+  const navigate = useNavigate();
 
+  const selectCourse = (slug) => {
+    navigate(`/course-details/${slug}`);
+  };
   const DesktopView = () => (
     <>
-      <Card onClick={() => onClick(slug)} sx={{ maxWidth: 345 }}>
+      <Card onClick={() => selectCourse(slug)} sx={{ maxWidth: 345 }}>
         <CardMedia
           component="img"
           height="300"
@@ -51,7 +56,7 @@ const CourseCard = (props) => {
   const MobileView = () => (
     <>
       <Card
-        onClick={() => onClick(slug)}
+        onClick={() => selectCourse(slug)}
         sx={{
           display: "flex",
           flexDirection: "row",
@@ -104,7 +109,6 @@ CourseCard.propTypes = {
   course: PropTypes.any,
   mobile: PropTypes.bool,
   cart: PropTypes.bool,
-  onClick: PropTypes.func,
 };
 
 export default CourseCard;

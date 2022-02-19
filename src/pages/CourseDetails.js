@@ -18,10 +18,12 @@ import Container from "../components/Container";
 import { Section } from "../components/Section";
 import { GetCourse } from "../api/services/courseService";
 import { courseActions } from "../api/reducers/courseReducer";
+import { useParams } from "react-router-dom";
 
 const CourseDetails = () => {
   const dispatch = useDispatch();
-  const { courseId } = useSelector((state) => state.courseReducer);
+  const { slug } = useParams();
+  // const { courseId } = useSelector((state) => state.courseReducer);
   const { isLoggedIn } = useSelector((state) => state.authReducer);
   const [course, setCourse] = useState({});
   const [mobViewHeight, setMoBViewHeight] = useState("55%");
@@ -30,7 +32,7 @@ const CourseDetails = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const course = await GetCourse(courseId);
+      const course = await GetCourse(slug);
       console.log(course.data);
       setCourse(course.data[0]);
     }
