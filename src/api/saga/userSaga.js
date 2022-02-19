@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import { UpdateUserRole } from "../services/authService";
-import { updateUserActions } from "../reducers/authReducer";
+import { authActions } from "../reducers/authReducer";
 
 export function* updateUserSaga(data) {
   try {
@@ -8,12 +8,12 @@ export function* updateUserSaga(data) {
     const response = yield call(UpdateUserRole, data);
     if (response.status === 200) {
       if (response.data) {
-        yield put(updateUserActions.updateUserRoleSuccess(response.data));
+        yield put(authActions.updateUserRoleSuccess(response.data));
       }
     } else {
-      yield put(updateUserActions.updateUserRoleFailure(response));
+      yield put(authActions.updateUserRoleFailure(response));
     }
   } catch (e) {
-    yield put(updateUserActions.updateUserRoleFailure(e));
+    yield put(authActions.updateUserRoleFailure(e));
   }
 }

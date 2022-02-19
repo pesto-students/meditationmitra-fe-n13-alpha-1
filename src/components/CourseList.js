@@ -45,7 +45,7 @@ const CourseList = ({
         <>
           {courses.map((course) => (
             <CourseCard
-              mobile={true}
+              mobile={mobile}
               key={course.name}
               course={course}
               cart={cart}

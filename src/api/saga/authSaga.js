@@ -2,10 +2,10 @@ import { call, put } from "redux-saga/effects";
 import { LoginService } from "../services/authService";
 import { authActions } from "../reducers/authReducer";
 
-export default function* authSaga() {
+export default function* authSaga(data) {
   try {
     // put yup validation here
-    const response = yield call(LoginService);
+    const response = yield call(LoginService, data.payload);
     if (response.status === 200) {
       if (response.data) {
         yield put(authActions.fetchAuthSuccess(response.data));

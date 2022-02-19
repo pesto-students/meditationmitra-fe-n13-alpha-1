@@ -7,6 +7,8 @@ const authSlice = createSlice({
     userInfo: {},
     error: "",
     isLoggedIn: false,
+    isNewUser: false,
+    // token: "",
   },
   reducers: {
     fetchAuth: (state) => {
@@ -16,6 +18,9 @@ const authSlice = createSlice({
       const { payload } = action;
       state.isFetching = false;
       state.userInfo = payload.user;
+      state.isNewUser = payload.isNewUser;
+      // state.token = payload.token;
+      window.localStorage.setItem("token", payload.token);
       state.isLoggedIn = true;
     },
     fetchAuthFailure: (state, action) => {
@@ -23,36 +28,28 @@ const authSlice = createSlice({
       state.isFetching = false;
       state.error = payload;
     },
-    logout: (state, action) => {
+    updateUserRole: (state) => {
+      state.isFetching = true;
+    },
+    updateUserRoleSuccess: (state, action) => {
       const { payload } = action;
-      state.userInfo = payload.user;
-      state.isLoggedIn = payload.isLoggedIn;
+      state.isFetching = false;
+      state.isNewUser = false;
+      state.userInfo.role = payload.role;
+    },
+    updateUserRoleFailure: (state, action) => {
+      const { payload } = action;
+      state.isFetching = false;
+      state.error = payload;
+    },
+    logout: (state) => {
+      state.userInfo = {};
+      state.isLoggedIn = false;
+      state.isNewUser = false;
+      // state.token = "";
+      window.localStorage.removeItem("token");
     },
   },
 });
 
 export const { actions: authActions, reducer: authReducer } = authSlice;
-
-const updateUserSlice = createSlice({
-  name: "updateUserReducer",
-  initialState: {
-    isUpdateing: true,
-    error: "",
-  },
-  reducers: {
-    updateUserRole: (state) => {
-      state.isUpdateing = true;
-    },
-    updateUserRoleSuccess: (state) => {
-      state.isUpdateing = false;
-    },
-    updateUserRoleFailure: (state, action) => {
-      const { payload } = action;
-      state.isUpdateing = false;
-      state.error = payload;
-    },
-  },
-});
-
-export const { actions: updateUserActions, reducer: updateUserReducer } =
-  updateUserSlice;
