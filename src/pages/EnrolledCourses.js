@@ -12,6 +12,8 @@ import { GetEnrolledCourses } from "../api/services/courseService";
 import { useSelector } from "react-redux";
 import Span from "../components/Span";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import Container from "../components/Container";
 
 const EnrolledCourses = () => {
   const [loading, setLoading] = useState(true);
@@ -28,6 +30,40 @@ const EnrolledCourses = () => {
     };
     getCourses();
   }, []);
+
+  const EmptyPage = ({ mobile }) => (
+    <>
+      <Container>
+        <Box sx={{ marginTop: "45px" }}>
+          {mobile ? (
+            <img src="/images/no_courses.png" style={{ width: "100%" }} />
+          ) : (
+            <Grid container spacing={2}>
+              <Grid item xs={4}></Grid>
+              <Grid item xs={4}>
+                <img src="/images/no_courses.png" />
+              </Grid>
+            </Grid>
+          )}
+          <Typography
+            variant="h6"
+            sx={{
+              padding: "3rem 0 0 0",
+              textAlign: "center",
+              minHeight: 300,
+            }}
+          >
+            No Enrolled Courses Found
+          </Typography>
+        </Box>
+      </Container>
+    </>
+  );
+
+  EmptyPage.propTypes = {
+    mobile: PropTypes.bool,
+  };
+
   return (
     <>
       <DeskView>
@@ -49,24 +85,7 @@ const EnrolledCourses = () => {
           {courses.length ? (
             <CourseList loading={loading} courses={courses} />
           ) : (
-            <Box>
-              <Grid container spacing={2}>
-                <Grid item xs={4}></Grid>
-                <Grid item xs={4}>
-                  <img src="/images/no_courses.png" />
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      padding: "3rem 0 0 0",
-                      textAlign: "center",
-                      minHeight: 300,
-                    }}
-                  >
-                    No Enrolled Courses Found
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Box>
+            <EmptyPage />
           )}
         </Box>
         <Grid container spacing={2} mb={5}>
@@ -92,7 +111,11 @@ const EnrolledCourses = () => {
         <Typography variant="body1" mt="7%" mb="5%" ml="3%">
           {MOB_ENROLLMENT_PAGE_TITLE}
         </Typography>
-        <CourseList loading={loading} mobile courses={courses} />
+        {courses.length ? (
+          <CourseList loading={loading} mobile courses={courses} />
+        ) : (
+          <EmptyPage mobile />
+        )}
       </MobileView>
     </>
   );
