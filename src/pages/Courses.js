@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import Grid from "../components/Grid";
 import { Typography } from "../components/Typography";
 import DeskView from "../components/DeskView";
@@ -9,15 +7,12 @@ import CourseList from "../components/CourseList";
 import SearchFilter from "../components/Filter/SearchFilter";
 import SideBarFilter from "../components/Filter/SideBarFilter";
 import { GetAllCourses } from "../api/services/courseService";
-import { courseActions } from "../api/reducers/courseReducer";
 
 const Courses = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState(null);
   const [courses, setCourses] = useState([]);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(async () => {
     const response = await GetAllCourses({ search, filter });
@@ -41,11 +36,6 @@ const Courses = () => {
     setFilter(filterObj);
   };
 
-  const selectCourse = (courseId) => {
-    dispatch(courseActions.updateCourseId(courseId));
-    navigate("/course-details");
-  };
-
   const Title = () => (
     <Typography variant="h5" m="3% 0 0 2%">
       Courses
@@ -62,23 +52,14 @@ const Courses = () => {
           <Grid item xs={10}>
             <Title />
             <SearchFilter onSearch={onSearch} />
-            <CourseList
-              loading={loading}
-              courses={courses}
-              onClick={selectCourse}
-            />
+            <CourseList loading={loading} courses={courses} />
           </Grid>
         </Grid>
       </DeskView>
       <MobileView>
         <SearchFilter onSearch={onSearch} onFilter={onFilter} />
         <Title />
-        <CourseList
-          loading={loading}
-          mobile
-          courses={courses}
-          onClick={selectCourse}
-        />
+        <CourseList loading={loading} mobile courses={courses} />
       </MobileView>
     </>
   );
