@@ -5,11 +5,11 @@ import authSaga from "./saga/authSaga";
 import { updateUserSaga } from "./saga/userSaga";
 
 //Actions/Reducer
-import { authActions, updateUserActions } from "./reducers/authReducer";
+import { authActions } from "./reducers/authReducer";
 
 export default function* rootSaga() {
   yield all([
     takeEvery(authActions.fetchAuth.type, authSaga),
-    takeEvery(updateUserActions.updateUserRole.type, updateUserSaga),
+    takeEvery(authActions.updateUserRole.type, updateUserSaga),
   ]);
 }

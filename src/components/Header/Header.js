@@ -27,37 +27,82 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const { isFetching, isLoggedIn, userInfo } = useSelector(
+  const [updateRoleModal, setUpdateRoleModal] = useState(false);
+  const { isFetching, isLoggedIn, userInfo, isNewUser } = useSelector(
     (state) => state.authReducer
   );
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
 
-  const handlePopupOpen = () => {
-    setOpen(true);
-  };
+  const handlePopupOpen = () => setOpen(true);
+
+  const updateRolePopupOpen = () => setUpdateRoleModal(true);
 
   const handlePopupClose = () => {
     setOpen(false);
+    setUpdateRoleModal(false);
   };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
 
   const onLogout = () => {
     handleNavigation();
-    dispatch(authActions.logout({ isLoggedIn: false, user: {} }));
+    dispatch(authActions.logout());
   };
 
   const handleNavigation = (selectedNavigation = "/") =>
     navigate(selectedNavigation);
 
+  useEffect(() => {
+    console.log("useEff");
+    if (!isLoggedIn) handleNavigation();
+    // if (isNewUser) updateRolePopupOpen();
+    else if (isLoggedIn) handleNavigation("/enrolled-courses");
+  }, []);
+
+  useEffect(() => {
+    console.log("useEff on isNewUser");
+    if (isNewUser) updateRolePopupOpen();
+  }, [isNewUser]);
+
+  const signIn = () => {
+    try {
+      dispatch(authActions.fetchAuth());
+    } catch (e) {
+      // TODO: integrate with component level error boundary
+      console.log(e);
+    }
+  };
+
+  const updateRole = (userType) => {
+    setUpdateRoleModal(false);
+    dispatch(authActions.updateUserRole({ role: userType }));
+  };
+
+  const signInAsGuest = (userType) => {
+    const data = {
+      firstName: "Guest",
+      lastName: "Guest",
+      avatar: "",
+    };
+    if (userType === "member") {
+      data.email = "guest.member@medmitra.com";
+    } else {
+      data.email = "guest.couch@medmitra.com";
+    }
+    try {
+      dispatch(authActions.fetchAuth(data));
+      setOpen(false);
+    } catch (e) {
+      // TODO: integrate with component level error boundary
+      console.log(e);
+    }
+  };
+
   const NavBar = ({ mobile }) => {
     let items = [];
+    console.log("New user " + isNewUser);
     if (isLoggedIn) {
       if (userInfo?.role === MEMBER_ROLE) {
         items = menuItems.filter((item) => !item.courch);
@@ -83,21 +128,6 @@ const Header = () => {
 
   NavBar.propTypes = {
     mobile: PropTypes.bool,
-  };
-
-  useEffect(() => {
-    if (!isLoggedIn) handleNavigation();
-    if (userInfo?.isNewUser) handlePopupOpen();
-    else if (isLoggedIn) handleNavigation("/enrolled-courses");
-  }, []);
-
-  const signIn = () => {
-    try {
-      dispatch(authActions.fetchAuth());
-    } catch (e) {
-      // TODO: integrate with component level error boundary
-      console.log(e);
-    }
   };
 
   return (
@@ -203,7 +233,16 @@ const Header = () => {
         </Container>
       </Box>
       <NavBar mobile />
-      <Popup open={open} onClose={handlePopupClose}></Popup>
+      <Popup
+        open={open}
+        onClose={handlePopupClose}
+        onLogin={signInAsGuest}
+      ></Popup>
+      <Popup
+        open={updateRoleModal}
+        onClose={handlePopupClose}
+        onLogin={updateRole}
+      ></Popup>
       <LoaderPopup open={isFetching} />
     </>
   );

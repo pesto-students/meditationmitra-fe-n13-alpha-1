@@ -6,19 +6,18 @@ const configureAxios = () => {
   Axios.defaults.headers.post["Accept"] = "application/json";
   Axios.defaults.headers.put["Accept"] = "application/json";
   const token = window.localStorage.getItem("token");
+  console.log(token);
   if (token) Axios.defaults.headers.common["Authorization"] = "Bearer " + token;
   // Axios.interceptors.request.use(function (config) {
   //   console.log(config);
   //   let axiosConfig = null;
   //   if (window.localStorage.getItem("token") !== null) {
-  //     axiosConfig = {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${JSON.parse(
-  //           window.localStorage.getItem("token")
-  //         )}`,
-  //       },
-  //     };
+  // axiosConfig = {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "Authorization": `Bearer ${window.localStorage.getItem("token")}`,
+  //   },
+  // };
   //   }
   //   return axiosConfig;
   // });
