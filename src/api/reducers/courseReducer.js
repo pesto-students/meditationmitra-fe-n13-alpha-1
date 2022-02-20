@@ -4,6 +4,7 @@ const courseSlice = createSlice({
   name: "courseReducer",
   initialState: {
     cart: [],
+    file: null,
   },
   reducers: {
     addToCart: (state, action) => {
@@ -11,6 +12,10 @@ const courseSlice = createSlice({
     },
     removeFromCart: (state, action) => {
       state.cart = state.cart.filter((course) => action.payload === course.id);
+    },
+    updateFile: (state, action) => {
+      const { payload } = action;
+      state.file = payload;
     },
   },
 });

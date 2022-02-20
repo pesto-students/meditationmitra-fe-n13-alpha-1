@@ -114,7 +114,7 @@ const EnrolledCourses = () => {
         {courses.length ? (
           <CourseList loading={loading} mobile courses={courses} />
         ) : (
-          <EmptyPage mobile />
+          <EmptyPage mobile={true} />
         )}
       </MobileView>
     </>
