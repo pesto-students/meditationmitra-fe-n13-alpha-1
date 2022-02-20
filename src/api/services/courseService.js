@@ -19,4 +19,22 @@ const GetCourse = async (slug) =>
   await Axios.get(`courses/${slug}`)
     .then((response) => response)
     .catch((e) => e);
-export { GetAllCourses, GetEnrolledCourses, GetFilteredCourses, GetCourse };
+
+const AddCourse = async (data) => {
+  const axiosConfig = {
+    headers: {
+      // "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+    },
+  };
+  return await Axios.post("courses/add-course", data, axiosConfig)
+    .then((response) => response)
+    .catch((e) => e);
+};
+export {
+  GetAllCourses,
+  GetEnrolledCourses,
+  GetFilteredCourses,
+  GetCourse,
+  AddCourse,
+};

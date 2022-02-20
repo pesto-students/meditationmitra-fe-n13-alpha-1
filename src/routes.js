@@ -1,4 +1,3 @@
-import AddCourse from "./pages/AddCourse";
 import Courses from "./pages/Courses";
 import EnrolledCourses from "./pages/EnrolledCourses";
 import Profile from "./pages/Profile";
@@ -6,6 +5,7 @@ import Home from "./pages/Home";
 import PostLogin from "./pages/PostLogin";
 import CourseDetails from "./pages/CourseDetails";
 import Cart from "./pages/Cart";
+import AddNewCourse from "./pages/AddNewCourse";
 
 const routes = [
   {
@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: "/user/add-course",
-    element: <AddCourse />,
+    element: <AddNewCourse />,
   },
   {
     path: "/",
