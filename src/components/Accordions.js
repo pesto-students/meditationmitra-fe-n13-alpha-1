@@ -15,16 +15,19 @@ export const CourseAccordion = ({ section }) => {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography variant="h6">{section.name}</Typography>
+        <Typography variant="h6">{section.sectionTitle}</Typography>
       </AccordionSummary>
-      {section.sessions.map((session) => (
+      <AccordionDetails>
+        <Typography variant="body1">{section.sectionDescription}</Typography>
+      </AccordionDetails>
+      {/* {section.sessions.map((session) => (
         <AccordionDetails
           key={"session" + session.id}
           sx={{ border: "1px solid var(--whiteGray)" }}
         >
           <Typography variant="body1">{session.name}</Typography>
         </AccordionDetails>
-      ))}
+      ))} */}
     </Accordion>
   );
 };

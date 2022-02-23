@@ -17,8 +17,10 @@ import { PrimaryButton } from "../components/Buttons";
 import { AddCourse } from "../api/services/courseService";
 import Stack from "../components/Stack";
 import { Typography } from "../components/Typography";
+import { LoaderPopup } from "../components/Popup";
 
 const AddNewCourse = () => {
+  const [submit, setSubmit] = useState(false);
   const { file } = useSelector((state) => state.courseReducer);
   const [date, setDate] = useState("");
   const [inputField, setInputField] = useState({
@@ -43,19 +45,23 @@ const AddNewCourse = () => {
   };
 
   const onSave = async () => {
+    setSubmit(true);
     console.log(file);
     console.log(inputField);
     console.log(date);
+    console.log(sectionValues);
+    console.log(JSON.stringify(sectionValues));
     const formData = new FormData();
     formData.append("course-image", file);
     formData.append("name", inputField.name);
     formData.append("courseDescription", inputField.description);
     formData.append("category", inputField.category);
     formData.append("price", inputField.price);
-    formData.append("sections", JSON.stringify(sectionValues));
+    formData.append("sessions", JSON.stringify(sectionValues));
     formData.append("startDate", date);
     console.log(formData);
     await AddCourse(formData);
+    setSubmit(false);
   };
 
   // const onChange = (section, type, value) => {
@@ -265,6 +271,7 @@ const AddNewCourse = () => {
         </Container>
       </DeskView>
       <MobileView>{form()}</MobileView>
+      <LoaderPopup open={submit} />
     </>
   );
 };

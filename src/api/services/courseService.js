@@ -16,7 +16,7 @@ const GetFilteredCourses = async ({ search, filters }) =>
     .catch((e) => e);
 
 const GetCourse = async (slug) =>
-  await Axios.get(`courses/${slug}`)
+  await Axios.get(`courses/slug/${slug}`)
     .then((response) => response)
     .catch((e) => e);
 

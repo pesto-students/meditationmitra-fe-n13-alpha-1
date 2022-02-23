@@ -14,7 +14,7 @@ import {
 const Courses = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  // const [filter, setFilter] = useState({});
+  const [filter, setFilter] = useState({});
   const [courses, setCourses] = useState([]);
 
   useEffect(async () => {
@@ -23,24 +23,29 @@ const Courses = () => {
     setLoading(false);
   }, []);
 
-  // useEffect(() => {
-  //   const delayDebounceFn = setTimeout(async () => {
-  //     const response = await GetAllCourses();
-  //     setCourses(response.data);
-  //   }, 500);
-  //   return () => clearTimeout(delayDebounceFn);
-  // }, [search]);
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(async () => {
+      const response = await GetFilteredCourses({ search, filter });
+      setCourses(response.data);
+    }, 500);
+    return () => clearTimeout(delayDebounceFn);
+  }, [search]);
 
-  const onSearch = (searchStr) => {
+  useEffect(() => {
+    const getFiltedCourses = async () => {
+      const response = await GetFilteredCourses({ search, filter });
+      setCourses(response.data);
+    };
+    getFiltedCourses();
+  }, [filter]);
+
+  const onSearch = async (searchStr) => {
     setSearch(searchStr);
   };
 
   const onFilter = async (filter) => {
     console.log(filter);
-    setLoading(true);
-    const response = await GetFilteredCourses({ search, filter });
-    setCourses(response.data);
-    setLoading(false);
+    setFilter(filter);
   };
 
   const Title = () => (
