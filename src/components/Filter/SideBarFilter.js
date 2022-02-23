@@ -10,47 +10,57 @@ import Box from "../Box";
 import { PrimaryButton } from "../Buttons";
 
 const SideBarFilter = ({ onFilter }) => {
-  const [filter, setFilter] = useState({});
-  const [price, setPrice] = useState([1000, 10000]);
-  const [catgories, setCategories] = useState([]);
+  const category = ["Focus", "Meditation"];
+  const ratings = [1, 2, 3, 4, 5];
 
-  const onCategoryCheck = (event) => {
-    console.log(event.target.value);
-    // console.log(event.target.checked);
-    setCategories([...catgories, event.target.value]);
-    //setCategories([]);
-    setFilter(filter);
+  const [categories, setCategories] = useState([]);
+  const [price, setPrice] = useState([1000, 10000]);
+  const [rating, setRating] = useState([]);
+
+  const onCategoryCheck = (e) => {
+    const name = e.target.value;
+    const data = categories;
+    if (data.includes(name)) {
+      const index = data.indexOf(name);
+      data.splice(index, 1);
+      setCategories(data);
+    } else {
+      data.push(name);
+      setCategories(data);
+    }
   };
 
-  const onApplyFilter = () => {
-    onCategoryCheck();
-    filter.categories = catgories;
-    onFilter(setFilter(filter));
+  const onRatingCheck = (e) => {
+    const name = e.target.value;
+    console.log(name);
+    const data = rating;
+    if (data.includes(name)) {
+      const index = data.indexOf(name);
+      data.splice(index, 1);
+      setRating(data);
+    } else {
+      data.push(name);
+      setRating(data);
+    }
+    console.log(rating);
   };
 
   const CategoryCheckBoxes = () => {
-    const categories = ["Focus", "Meditation"];
     return (
       <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
-        {categories.map((cat) => (
+        {category.map((name) => (
           <FormControlLabel
-            label={cat}
-            key={cat}
-            value={cat}
-            control={<Checkbox />}
+            label={name}
+            key={name}
+            control={<Checkbox value={name} onChange={onCategoryCheck} />}
             name="category"
-            onChange={onCategoryCheck}
           />
         ))}
       </Box>
     );
   };
 
-  const valuetext = (value) => {
-    return `${value}°C`;
-  };
-
-  const handleChange = (event, newValue) => {
+  const onPriceChange = (event, newValue) => {
     setPrice(newValue);
   };
 
@@ -60,9 +70,8 @@ const SideBarFilter = ({ onFilter }) => {
         index === 0 ? "Minimum price" : "Maximum price"
       }
       value={price}
-      onChange={handleChange}
+      onChange={onPriceChange}
       valueLabelDisplay="auto"
-      getAriaValueText={valuetext}
       min={1000}
       max={10000}
       step={500}
@@ -70,18 +79,26 @@ const SideBarFilter = ({ onFilter }) => {
   );
 
   const RatingCheckBoxes = () => {
-    const ratings = [1, 2, 3, 4, 5];
     return (
       <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
         {ratings.map((rating) => (
           <FormControlLabel
             key={rating}
             label={<Rating name="read-only" value={rating} readOnly />}
-            control={<Checkbox />}
+            control={<Checkbox value={rating} onChange={onRatingCheck} />}
           />
         ))}
       </Box>
     );
+  };
+
+  const onApplyFilter = () => {
+    const filter = {
+      categories: categories,
+      rating: rating,
+      price: { mix: price[0], max: price[1] },
+    };
+    onFilter(filter);
   };
 
   return (

@@ -6,34 +6,41 @@ import MobileView from "../components/MobileView";
 import CourseList from "../components/CourseList";
 import SearchFilter from "../components/Filter/SearchFilter";
 import SideBarFilter from "../components/Filter/SideBarFilter";
-import { GetAllCourses } from "../api/services/courseService";
+import {
+  GetAllCourses,
+  GetFilteredCourses,
+} from "../api/services/courseService";
 
 const Courses = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState(null);
+  // const [filter, setFilter] = useState({});
   const [courses, setCourses] = useState([]);
 
   useEffect(async () => {
-    const response = await GetAllCourses({ search, filter });
+    const response = await GetAllCourses();
     setCourses(response.data);
     setLoading(false);
   }, []);
 
-  useEffect(() => {
-    const delayDebounceFn = setTimeout(async () => {
-      const response = await GetAllCourses({ search, filter });
-      setCourses(response.data);
-    }, 300);
-    return () => clearTimeout(delayDebounceFn);
-  }, [search, filter]);
+  // useEffect(() => {
+  //   const delayDebounceFn = setTimeout(async () => {
+  //     const response = await GetAllCourses();
+  //     setCourses(response.data);
+  //   }, 500);
+  //   return () => clearTimeout(delayDebounceFn);
+  // }, [search]);
 
   const onSearch = (searchStr) => {
     setSearch(searchStr);
   };
 
-  const onFilter = (filterObj) => {
-    setFilter(filterObj);
+  const onFilter = async (filter) => {
+    console.log(filter);
+    setLoading(true);
+    const response = await GetFilteredCourses({ search, filter });
+    setCourses(response.data);
+    setLoading(false);
   };
 
   const Title = () => (
