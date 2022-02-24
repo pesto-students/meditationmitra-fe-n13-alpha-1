@@ -13,7 +13,7 @@ const TopNav = ({ items = [], onNavigate, NoOfCartItems }) => (
         selected={window.location.pathname === item.path}
         onClick={() => onNavigate(item.path)}
       >
-        {item.label}
+        {item.label}{" "}
         {item.label === "Cart" ? (
           <>
             <Badge badgeContent={NoOfCartItems} color="primary">

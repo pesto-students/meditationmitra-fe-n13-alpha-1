@@ -20,10 +20,20 @@ const GetCourse = async (slug) =>
     .then((response) => response)
     .catch((e) => e);
 
+const GetEnrolledCourse = async (slug) => {
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+    },
+  };
+  return await Axios.get(`courses/enrolled/${slug}`, axiosConfig)
+    .then((response) => response)
+    .catch((e) => e);
+};
+
 const AddCourse = async (data) => {
   const axiosConfig = {
     headers: {
-      // "Content-Type": "application/x-www-form-urlencoded",
       Authorization: `Bearer ${window.localStorage.getItem("token")}`,
     },
   };
@@ -37,4 +47,5 @@ export {
   GetFilteredCourses,
   GetCourse,
   AddCourse,
+  GetEnrolledCourse,
 };

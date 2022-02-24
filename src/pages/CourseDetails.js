@@ -16,7 +16,7 @@ import Span from "../components/Span";
 import { CourseAccordion } from "../components/Accordions";
 import Container from "../components/Container";
 import { Section } from "../components/Section";
-import { GetCourse } from "../api/services/courseService";
+import { GetCourse, GetEnrolledCourse } from "../api/services/courseService";
 import { courseActions } from "../api/reducers/courseReducer";
 import { useParams } from "react-router-dom";
 
@@ -32,7 +32,13 @@ const CourseDetails = () => {
 
   useLayoutEffect(() => {
     const fetchData = async () => {
-      const course = await GetCourse(slug);
+      let course = {};
+      if (isLoggedIn) {
+        course = await GetEnrolledCourse(slug);
+      } else {
+        course = await GetCourse(slug);
+      }
+
       console.log(course.data);
       setCourse(course.data);
     };
@@ -71,7 +77,7 @@ const CourseDetails = () => {
         <CourseAccordion
           key={"section" + index}
           section={section}
-          isPurchased={section.isPurchased}
+          isPurchased={course.isPurchased}
         />
       ))}
     </Box>
