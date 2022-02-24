@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
+import Badge from "@mui/material/Badge";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Stack from "../Stack";
 import { MenuLink } from "../Link";
-const TopNav = ({ items = [], onNavigate }) => (
+const TopNav = ({ items = [], onNavigate, NoOfCartItems }) => (
   <Stack direction="row" spacing={3}>
     {items.map((item) => (
       <MenuLink
@@ -12,6 +14,15 @@ const TopNav = ({ items = [], onNavigate }) => (
         onClick={() => onNavigate(item.path)}
       >
         {item.label}
+        {item.label === "Cart" ? (
+          <>
+            <Badge badgeContent={NoOfCartItems} color="primary">
+              <ShoppingCartOutlinedIcon />
+            </Badge>
+          </>
+        ) : (
+          ""
+        )}
       </MenuLink>
     ))}
   </Stack>
@@ -20,6 +31,7 @@ const TopNav = ({ items = [], onNavigate }) => (
 TopNav.propTypes = {
   items: PropTypes.array,
   onNavigate: PropTypes.func,
+  NoOfCartItems: PropTypes.number,
 };
 
 export default TopNav;

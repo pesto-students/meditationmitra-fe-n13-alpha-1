@@ -11,7 +11,7 @@ import { Typography } from "./Typography";
 
 const CourseCard = (props) => {
   const { name, courseImage, author, rating, price, slug } = props.course;
-  const { mobile, cart } = props;
+  const { mobile, cart, remove } = props;
   const navigate = useNavigate();
 
   const selectCourse = (slug) => {
@@ -46,6 +46,7 @@ const CourseCard = (props) => {
           color="error"
           txcolor="var(--error)"
           sx={{ marginTop: "10px", float: "right" }}
+          onClick={remove}
         >
           Remove
         </Button>
@@ -109,6 +110,7 @@ CourseCard.propTypes = {
   course: PropTypes.any,
   mobile: PropTypes.bool,
   cart: PropTypes.bool,
+  remove: PropTypes.func,
 };
 
 export default CourseCard;

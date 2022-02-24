@@ -68,7 +68,11 @@ const CourseDetails = () => {
   const Sections = () => (
     <Box>
       {course?.sections?.map((section, index) => (
-        <CourseAccordion key={"section" + index} section={section} />
+        <CourseAccordion
+          key={"section" + index}
+          section={section}
+          isPurchased={section.isPurchased}
+        />
       ))}
     </Box>
   );

@@ -6,8 +6,12 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PropTypes from "prop-types";
+import { CalendlyButton } from "./Buttons";
+import { CalendlyEventListener } from "react-calendly";
+// import { useState } from "react";
 
-export const CourseAccordion = ({ section }) => {
+export const CourseAccordion = ({ section, isPurchased }) => {
+  // const [calendlyBtnVisible, setCalendlyBtnVisible] = useState(true);
   return (
     <Accordion>
       <AccordionSummary
@@ -19,19 +23,30 @@ export const CourseAccordion = ({ section }) => {
       </AccordionSummary>
       <AccordionDetails>
         <Typography variant="body1">{section.sectionDescription}</Typography>
+
+        {isPurchased && (
+          <CalendlyEventListener
+            // onDateAndTimeSelected={(data) => {
+            //   console.log("onDateAndTimeSelected", data);
+            // }}
+            onEventScheduled={(data) => {
+              console.log("onEventScheduled", data);
+              // setCalendlyBtnVisible(false);
+            }}
+          >
+            <CalendlyButton
+              // styles={{ display: calendlyBtnVisible ? "block" : "none" }}
+              url="https://calendly.com/nukesh-poodi"
+              text="Schedule"
+            />
+          </CalendlyEventListener>
+        )}
       </AccordionDetails>
-      {/* {section.sessions.map((session) => (
-        <AccordionDetails
-          key={"session" + session.id}
-          sx={{ border: "1px solid var(--whiteGray)" }}
-        >
-          <Typography variant="body1">{session.name}</Typography>
-        </AccordionDetails>
-      ))} */}
     </Accordion>
   );
 };
 
 CourseAccordion.propTypes = {
   section: PropTypes.any,
+  isPurchased: PropTypes.bool,
 };
