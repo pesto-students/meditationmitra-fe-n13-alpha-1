@@ -58,13 +58,22 @@ const Header = () => {
 
   useEffect(() => {
     console.log("useEff");
-    if (!isLoggedIn) handleNavigation();
-    else if (isLoggedIn) handleNavigation("/enrolled-courses");
+    const currentPath = window.location.pathname;
+    if (!isLoggedIn) {
+      const isLoginRequired = menuItems.find(
+        (item) => item.path === currentPath
+      );
+      if (isLoginRequired) handleNavigation();
+      else handleNavigation(currentPath);
+    } else if (isLoggedIn) {
+      handleNavigation(currentPath);
+      //handleNavigation("/enrolled-courses");
+    }
   }, []);
 
   useEffect(() => {
     console.log("useEff on isNewUser");
-    if (isNewUser) updateRolePopupOpen();
+    if (isNewUser && userInfo.firstName !== "Guest") updateRolePopupOpen();
   }, [isNewUser]);
 
   const signIn = () => {

@@ -5,8 +5,13 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import PropTypes from "prop-types";
+// import { useSelector, useDispatch } from "react-redux";
+// import { courseActions } from "../api/reducers/courseReducer";
+// import { EnrollCourse } from "../api/services/courseService";
 
 export default function CheckoutForm({ clientSecret }) {
+  //   const dispatch = useDispatch();
+  //   const { cart } = useSelector((state) => state.courseReducer);
   const stripe = useStripe();
   const elements = useElements();
 
@@ -29,6 +34,7 @@ export default function CheckoutForm({ clientSecret }) {
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
         case "succeeded":
+          console.log("success");
           setMessage("Payment succeeded!");
           break;
         case "processing":
@@ -68,7 +74,7 @@ export default function CheckoutForm({ clientSecret }) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
+        return_url: process.env.REACT_APP_URL + "user/payment-success",
       },
     });
     console.log(data);

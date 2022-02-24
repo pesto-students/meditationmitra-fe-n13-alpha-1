@@ -6,6 +6,7 @@ import PostLogin from "./pages/PostLogin";
 import CourseDetails from "./pages/CourseDetails";
 import Cart from "./pages/Cart";
 import AddNewCourse from "./pages/AddNewCourse";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 const routes = [
   {
@@ -39,6 +40,10 @@ const routes = [
   {
     path: "/user/cart",
     element: <Cart />,
+  },
+  {
+    path: "/user/payment-success",
+    element: <PaymentSuccess />,
   },
   // {
   //     path: '*',
