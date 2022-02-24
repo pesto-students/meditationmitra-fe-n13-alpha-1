@@ -41,6 +41,19 @@ const AddCourse = async (data) => {
     .then((response) => response)
     .catch((e) => e);
 };
+
+const EnrollCourse = async (data) => {
+  const axiosConfig = {
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+    },
+  };
+  return await Axios.post("user/enroll-course", data, axiosConfig)
+    .then((response) => response)
+    .catch((e) => e);
+};
+
 export {
   GetAllCourses,
   GetEnrolledCourses,
@@ -48,4 +61,5 @@ export {
   GetCourse,
   AddCourse,
   GetEnrolledCourse,
+  EnrollCourse,
 };

@@ -1,6 +1,5 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
 import DeskView from "../components/DeskView";
 import MobileView from "../components/MobileView";
 import CourseList from "../components/CourseList";
@@ -36,7 +35,7 @@ const Cart = () => {
       const respData = response.data;
       setClientSecret(respData.clientSecret);
       setOpen(true);
-      if (respData.status === 200) dispatch(courseActions.clearCart());
+      //if (respData.status === 200) dispatch(courseActions.clearCart());
     };
     payout();
   };
