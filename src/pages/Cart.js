@@ -9,7 +9,6 @@ import { SuccessButton } from "../components/Buttons";
 import Grid from "../components/Grid";
 import Container from "../components/Container";
 import { Typography } from "../components/Typography";
-// import { useState } from "react";
 import Stack from "../components/Stack";
 import { ProceedToPay } from "../api/services/paymentService";
 import { courseActions } from "../api/reducers/courseReducer";
@@ -17,7 +16,6 @@ import { courseActions } from "../api/reducers/courseReducer";
 const Cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.courseReducer);
-  // const [total, setTotal] = useState(0);
   const onCheckout = () => {
     const payout = async () => {
       const data = {
