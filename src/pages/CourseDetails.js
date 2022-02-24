@@ -1,5 +1,5 @@
 import { Divider } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Rating from "@mui/material/Rating";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -23,19 +23,19 @@ import { useParams } from "react-router-dom";
 const CourseDetails = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
-  // const { courseId } = useSelector((state) => state.courseReducer);
+  const { cart } = useSelector((state) => state.courseReducer);
   const { isLoggedIn } = useSelector((state) => state.authReducer);
   const [course, setCourse] = useState({});
   const [mobViewHeight, setMoBViewHeight] = useState("55%");
   const [seeDetailsBtnLabel, setSeeDetailsBtnLabel] = useState("See Details");
   const [showDetailsFlag, setShowDetailsFlag] = useState(true);
 
-  useEffect(() => {
-    async function fetchData() {
+  useLayoutEffect(() => {
+    const fetchData = async () => {
       const course = await GetCourse(slug);
       console.log(course.data);
-      setCourse(course.data[0]);
-    }
+      setCourse(course.data);
+    };
     fetchData();
   }, []);
 
@@ -58,10 +58,21 @@ const CourseDetails = () => {
     dispatch(courseActions.addToCart(course));
   };
 
+  const isItemInCart = () => {
+    console.log(cart);
+    if (!cart?.length) return true;
+    const flag = cart.find((item) => item.slug === slug);
+    return !flag;
+  };
+
   const Sections = () => (
     <Box>
-      {course?.section?.map((section) => (
-        <CourseAccordion key={"section" + section.id} section={section} />
+      {course?.sections?.map((section, index) => (
+        <CourseAccordion
+          key={"section" + index}
+          section={section}
+          isPurchased={section.isPurchased}
+        />
       ))}
     </Box>
   );
@@ -75,8 +86,8 @@ const CourseDetails = () => {
       >
         <Container maxWidth="lg">
           <Box sx={{ padding: "2rem 0", color: "var(--white)" }}>
-            <Typography variant="h4">{course.name}</Typography>
-            <Typography variant="body1">{course.courseDescription}</Typography>
+            <Typography variant="h4">{course?.name}</Typography>
+            <Typography variant="body1">{course?.courseDescription}</Typography>
           </Box>
         </Container>
       </Section>
@@ -87,18 +98,18 @@ const CourseDetails = () => {
               <AccountCircleIcon fontSize="large" />
               <Box>
                 <Typography variant="body1">Trainer</Typography>
-                <Typography variant="body2">{course.author}</Typography>
+                <Typography variant="body2">{course?.author}</Typography>
               </Box>
             </Stack>
           </Grid>
           <Grid item xs={2} sx={gridItemStyles}>
             <Typography variant="body1">Category</Typography>
-            <Typography variant="body2">{course.category}</Typography>
+            <Typography variant="body2">{course?.category}</Typography>
           </Grid>
           <Grid item xs={2} sx={gridItemStyles}>
             <Typography>Reviews</Typography>
             <Stack direction="row">
-              <Rating name="read-only" value={course.rating} readOnly />
+              <Rating name="read-only" value={course?.rating} readOnly />
               <Typography>(123)</Typography>
             </Stack>
           </Grid>
@@ -109,7 +120,7 @@ const CourseDetails = () => {
             </Stack>
           </Grid>
           <Grid item xs={2} sx={{ paddingTop: "0" }}>
-            {isLoggedIn && (
+            {isLoggedIn && isItemInCart() && (
               <SuccessButton
                 title="Add to Cart"
                 startIcon={<ShoppingCartOutlinedIcon />}
@@ -132,7 +143,7 @@ const CourseDetails = () => {
       <Typography variant="body1" sx={{ margin: "6% 0 1% 0" }}>
         Description
       </Typography>
-      <Typography variant="body2">{course.courseDescription}</Typography>
+      <Typography variant="body2">{course?.courseDescription}</Typography>
       <Button variant="text" txcolor="var(--orange)">
         Show more
       </Button>
@@ -151,7 +162,7 @@ const CourseDetails = () => {
             <img />
           </Grid>
           <Grid item xs={10}>
-            <Typography variant="subtitle2">{course.author}</Typography>
+            <Typography variant="subtitle2">{course?.author}</Typography>
             <Span>No.Of courses</Span> <Span>No.Of students</Span>
           </Grid>
         </Grid>

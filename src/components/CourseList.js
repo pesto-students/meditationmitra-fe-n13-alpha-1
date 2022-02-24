@@ -12,6 +12,7 @@ const CourseList = ({
   mobile = false,
   cart = false,
   loading,
+  remove,
 }) => {
   const DesktopView = () => (
     <Container mt="3rem">
@@ -28,7 +29,7 @@ const CourseList = ({
           <>
             {courses.map((course) => (
               <Grid item key={course.name}>
-                <CourseCard course={course} cart={cart} />
+                <CourseCard course={course} remove={remove} cart={cart} />
               </Grid>
             ))}
           </>
@@ -49,6 +50,7 @@ const CourseList = ({
               key={course.name}
               course={course}
               cart={cart}
+              remove={remove}
             />
           ))}
         </>
@@ -65,6 +67,7 @@ CourseList.propTypes = {
   cart: PropTypes.bool,
   onClick: PropTypes.func,
   loading: PropTypes.bool,
+  remove: PropTypes.func,
 };
 
 export default CourseList;

@@ -31,6 +31,8 @@ const Header = () => {
   const { isFetching, isLoggedIn, userInfo, isNewUser } = useSelector(
     (state) => state.authReducer
   );
+  const { cart } = useSelector((state) => state.courseReducer);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
 
@@ -120,6 +122,7 @@ const Header = () => {
         <TopNav
           items={items.filter((it) => !it.mobile)}
           onNavigate={handleNavigation}
+          NoOfCartItems={cart?.length}
         />
       </>
     );

@@ -11,7 +11,12 @@ const courseSlice = createSlice({
       state.cart = [...state.cart, action.payload];
     },
     removeFromCart: (state, action) => {
-      state.cart = state.cart.filter((course) => action.payload === course.id);
+      state.cart = state.cart.filter(
+        (course) => action.payload === course.slug
+      );
+    },
+    clearCart: (state) => {
+      state.cart = [];
     },
     updateFile: (state, action) => {
       const { payload } = action;
