@@ -42,6 +42,7 @@ const CourseCard = (props) => {
       </Card>
       {cart && (
         <Button
+          fullWidth
           variant="outlined"
           color="error"
           txcolor="var(--error)"
@@ -96,7 +97,7 @@ const CourseCard = (props) => {
         />
       </Card>
       {cart && (
-        <Button variant="outlined" color="error" txcolor="red">
+        <Button fullWidth variant="outlined" color="error" txcolor="red">
           Remove
         </Button>
       )}

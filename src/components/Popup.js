@@ -49,4 +49,19 @@ export const LoaderPopup = ({ open }) => (
 LoaderPopup.propTypes = {
   open: PropTypes.bool,
 };
+
+export const PaymentPopup = ({ open, childern }) => {
+  console.log(childern);
+  return (
+    <Dialog open={open}>
+      <Box sx={{ paddingX: "30px", paddingY: "50px" }}>{childern}</Box>
+    </Dialog>
+  );
+};
+
+PaymentPopup.propTypes = {
+  open: PropTypes.bool,
+  childern: PropTypes.any,
+};
+
 export default Popup;

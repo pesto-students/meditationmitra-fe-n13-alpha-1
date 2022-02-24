@@ -9,6 +9,7 @@ import Header from "./components/Header/Header";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import routes from "./routes";
 import Footer from "./components/Footer/Footer";
+// import "./App.css";
 
 sagaMiddleware.run(rootSaga);
 

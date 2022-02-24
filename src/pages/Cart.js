@@ -12,9 +12,18 @@ import { Typography } from "../components/Typography";
 import Stack from "../components/Stack";
 import { ProceedToPay } from "../api/services/paymentService";
 import { courseActions } from "../api/reducers/courseReducer";
+import CheckoutForm from "./CheckoutForm";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { useState } from "react";
+import { PaymentPopup } from "../components/Popup";
+
+const stripePromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const [clientSecret, setClientSecret] = useState("");
+  const [open, setOpen] = useState(false);
   const { cart } = useSelector((state) => state.courseReducer);
   const onCheckout = () => {
     const payout = async () => {
@@ -25,6 +34,8 @@ const Cart = () => {
       const response = await ProceedToPay(data);
       console.log(response);
       const respData = response.data;
+      setClientSecret(respData.clientSecret);
+      setOpen(true);
       if (respData.status === 200) dispatch(courseActions.clearCart());
     };
     payout();
@@ -58,6 +69,14 @@ const Cart = () => {
 
   EmptyCart.propTypes = {
     mobile: PropTypes.bool,
+  };
+
+  const appearance = {
+    theme: "stripe",
+  };
+  const options = {
+    clientSecret,
+    appearance,
   };
 
   return (
@@ -108,6 +127,16 @@ const Cart = () => {
           )}
         </Box>
       </MobileView>
+      <PaymentPopup
+        open={open}
+        childern={
+          clientSecret && (
+            <Elements options={options} stripe={stripePromise}>
+              <CheckoutForm clientSecret={clientSecret} />
+            </Elements>
+          )
+        }
+      />
     </>
   );
 };
