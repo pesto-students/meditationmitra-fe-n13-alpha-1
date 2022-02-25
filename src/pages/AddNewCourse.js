@@ -18,8 +18,11 @@ import { AddCourse } from "../api/services/courseService";
 import Stack from "../components/Stack";
 import { Typography } from "../components/Typography";
 import { LoaderPopup } from "../components/Popup";
+import { useDispatch } from "react-redux";
+import { courseActions } from "../api/reducers/courseReducer";
 
 const AddNewCourse = () => {
+  const dispatch = useDispatch();
   const [submit, setSubmit] = useState(false);
   const { file } = useSelector((state) => state.courseReducer);
   const [date, setDate] = useState("");
@@ -46,11 +49,6 @@ const AddNewCourse = () => {
 
   const onSave = async () => {
     setSubmit(true);
-    console.log(file);
-    console.log(inputField);
-    console.log(date);
-    console.log(sectionValues);
-    console.log(JSON.stringify(sectionValues));
     const formData = new FormData();
     formData.append("course-image", file);
     formData.append("name", inputField.name);
@@ -59,27 +57,21 @@ const AddNewCourse = () => {
     formData.append("price", inputField.price);
     formData.append("sessions", JSON.stringify(sectionValues));
     formData.append("startDate", date);
-    console.log(formData);
     await AddCourse(formData);
     setSubmit(false);
+    resetForm();
   };
 
-  // const onChange = (section, type, value) => {
-  //   const data = sectionValues;
-  //   if (e.target.name.startsWith("TF"))
-  //     data[e.target.name] = {
-  //       ...data[e.target.name],
-  //       ...{ sectionTitle: e.target.value },
-  //     };
-  //   else
-  //     data[e.target.name] = {
-  //       ...data[e.target.name],
-  //       ...{ sectionDescription: e.target.value },
-  //     };
-
-  //   setSectionValues(data);
-  //   console.log(data);
-  // };
+  const resetForm = () => {
+    inputField({ target: { name: "name", value: "" } });
+    inputField({ target: { name: "price", value: "" } });
+    inputField({ target: { name: "description", value: "" } });
+    inputField({ target: { name: "category", value: "" } });
+    setDate("");
+    dispatch(courseActions.updateFile(null));
+    setSectionValues([]);
+    setSections([]);
+  };
 
   const onChange = (section, type, value) => {
     const data = sectionValues;
@@ -95,7 +87,7 @@ const AddNewCourse = () => {
       };
 
     setSectionValues(data);
-    console.log(data);
+    //console.log(data);
   };
 
   const Section = () => (

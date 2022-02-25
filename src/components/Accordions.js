@@ -9,7 +9,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PropTypes from "prop-types";
 import { CalendlyButton } from "./Buttons";
 import { CalendlyEventListener } from "react-calendly";
-import { GetMeetLink } from "../api/services/meetService";
+import { GetMeetLink, GetCalendlyEvent } from "../api/services/meetService";
 
 export const CourseAccordion = ({
   section,
@@ -34,9 +34,11 @@ export const CourseAccordion = ({
           <CalendlyEventListener
             onEventScheduled={async (data) => {
               if (googleMeetCal) {
+                const cData = await GetCalendlyEvent();
                 await GetMeetLink({
                   courseId,
                   sectionName: section.sectionTitle,
+                  cData,
                 });
                 setGoogleMeetCal(false);
               }
