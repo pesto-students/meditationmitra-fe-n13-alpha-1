@@ -12,9 +12,15 @@
   </a>
 </p>
 
+
 > Meditation Mitra is an App for Connecting Users with Meditation Coaches and have a live one to one session using Google Meets and Book using Calendly API's
 
 ### 🏠 [Homepage](https://github.com/pesto-students/meditationmitra-fe-n13-alpha-1#readme)
+
+Screenshot
+
+https://github.com/pesto-students/meditationmitra-fe-n13-alpha-1/blob/master/screenshot1.jfif
+
 
 ### ✨ [Demo-Frontend](https://meditationmitra.herokuapp.com/)
 ### ✨ [Demo-Backend](https://meditation-mitra.herokuapp.com/)
