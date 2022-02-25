@@ -1,39 +1,50 @@
-import DeskView from "../components/DeskView";
+import PropTypes from "prop-types";
 import MobileView from "../components/MobileView";
-import { TextDark, TextBlack } from "../components/Typography";
+import { Typography } from "../components/Typography";
 import { PrimaryButton } from "../components/Buttons";
-import CenterContent from "../components/CenterContent";
+import Container from "../components/Container";
+import Stack from "../components/Stack";
+import Box from "../components/Box";
 
-const PostLogin = () => {
+const PostLogin = ({ handlePopupOpen, signIn }) => {
   return (
     <>
-      <DeskView>
-        <CenterContent>
-          <br />
-          <br />
-          <PrimaryButton> Register as User </PrimaryButton>
-          <br />
-          <br />
-          <PrimaryButton> Register as Coach </PrimaryButton>
-        </CenterContent>
-      </DeskView>
       <MobileView>
-        <CenterContent>
-          <TextBlack>Welcome to</TextBlack>
-          <TextDark>Meditation Mitra</TextDark>
-          <TextBlack>How would you like to register yourself?</TextBlack>
-          <br />
-          <br />
-          <PrimaryButton> Register as User </PrimaryButton>
-          <br />
-          <br />
-          <PrimaryButton> Register as Coach </PrimaryButton>
-        </CenterContent>
+        <Container>
+          <Stack direction="column" spacing={4}>
+            <Box>
+              <Typography textAlign="center">Welcome to</Typography>
+              <Typography textAlign="center">Meditation Mitra</Typography>
+              <Typography textAlign="center">
+                How would you like to register yourself?
+              </Typography>
+            </Box>
+            <PrimaryButton
+              fullWidth
+              variant="contained"
+              size="small"
+              onClick={handlePopupOpen}
+            >
+              Guest Login
+            </PrimaryButton>
+            <PrimaryButton
+              fullWidth
+              variant="contained"
+              size="small"
+              onClick={signIn}
+            >
+              Google Login
+            </PrimaryButton>
+          </Stack>
+        </Container>
       </MobileView>
-      {/* <DeskView>PostLogin page</DeskView> */}
-      {/* <MobileView>PostLogin page</MobileView> */}
     </>
   );
+};
+
+PostLogin.propTypes = {
+  handlePopupOpen: PropTypes.func,
+  signIn: PropTypes.func,
 };
 
 export default PostLogin;

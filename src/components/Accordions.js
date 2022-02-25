@@ -4,11 +4,11 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
+import { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PropTypes from "prop-types";
 import { CalendlyButton } from "./Buttons";
 import { CalendlyEventListener } from "react-calendly";
-// import { useState } from "react";
 import { GetMeetLink } from "../api/services/meetService";
 
 export const CourseAccordion = ({
@@ -17,7 +17,7 @@ export const CourseAccordion = ({
   courseId,
   fetchData,
 }) => {
-  // const [calendlyBtnVisible, setCalendlyBtnVisible] = useState(true);
+  const [googleMeetCal, setGoogleMeetCal] = useState(true);
   return (
     <Accordion>
       <AccordionSummary
@@ -32,13 +32,19 @@ export const CourseAccordion = ({
 
         {isPurchased && (
           <CalendlyEventListener
-            onEventScheduled={async () => {
-              await GetMeetLink({
-                courseId,
-                sectionName: section.sectionTitle,
-              });
+            onEventScheduled={async (data) => {
+              if (googleMeetCal) {
+                await GetMeetLink({
+                  courseId,
+                  sectionName: section.sectionTitle,
+                });
+                setGoogleMeetCal(false);
+              }
               await fetchData();
-              // console.log("onEventScheduled", data);
+              console.log("onEventScheduled", data);
+            }}
+            onDateAndTimeSelected={(data) => {
+              console.log(data);
             }}
           >
             <CalendlyButton

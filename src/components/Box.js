@@ -46,7 +46,7 @@ const Box = styled(MaterailBox)`
           z-index: 1;
           overflow: auto;
     `};
-
+  ${({ height }) => height && `height: ${height}`}
   ${({ mobCourseCard }) =>
     mobCourseCard &&
     `
