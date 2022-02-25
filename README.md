@@ -1,39 +1,63 @@
-# Meditation Mitra
+<h1 align="center">Welcome to Meditation Mitra Frontend👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-2.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://github.com/pesto-students/meditationmitra-fe-n13-alpha-1#readme" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/pesto-students/meditationmitra-fe-n13-alpha-1/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href="https://github.com/pesto-students/meditationmitra-fe-n13-alpha-1/blob/master/LICENSE" target="_blank">
+    <img alt="License: ISC" src="https://img.shields.io/github/license/vaaiibhav/Meditation Mitra" />
+  </a>
+</p>
 
-Meditation Mitra is an online platform for relaxing, rejuvenating and finding inner peace in practicing your favorite Meditations at home. In the most recent years rise in health ailments due to sedative lifestyle has been exponential. We as humans are in a need of a healthy dose of exercise for the mind and for the body. Meditation Mitra is here to bridge this gap.
+> Meditation Mitra is an App for Connecting Users with Meditation Coaches and have a live one to one session using Google Meets and Book using Calendly API's
 
-Table of Contents:
-1. Demo
-2. Installation
-3. Technology stack
-4. Authors
-5. License
+### 🏠 [Homepage](https://github.com/pesto-students/meditationmitra-fe-n13-alpha-1#readme)
 
-Demo:
+### ✨ [Demo-Frontend](https://meditationmitra.herokuapp.com/)
+### ✨ [Demo-Backend](https://meditation-mitra.herokuapp.com/)
+!!! Data Hosted on Mongodb Atlas
 
-[Live Demo](https://meditationmitra.herokuapp.com/)
+## Install
 
-Please Note: We recommend using this app in Google Chrome
+```sh
+npm install
+```
 
-Installation:
-1. Fork or directly clone this repository to your local machine
-2. Use the yarn command to install dependencies
-3. Once the dependencies are finished installing, use the yarn start command inside the root directory to open the app in your local browser of choice
+## Usage
 
-Technology Stack:
-We tried to use a completely modern tech stack while testing out some new technologies that we had never used before. This resulted in a fast, performant, and easily-extensible web app that should be fairly future-proof for the coming next several years. We used:
- 
-* React JS
-* Redux
-* Material UI
-* Firebase
+```sh
+npm start
+```
 
-Authors:
-* Nukesh Poodi
-* Vaibhav Vaidya
 
-License:
-[MIT](https://opensource.org/licenses/MIT)
 
+## Author
+
+👤 **Vaaiibhav**
+
+* Twitter: [@vaaiibhav](https://twitter.com/vaaiibhav)
+* Github: [@vaaiibhav](https://github.com/vaaiibhav)
+* LinkedIn: [@vaaiibhav](https://www.linkedin.com/in/vaaiibhav/)
+
+
+👤 **Nukesh**
+
+* Github: [@nukeshpoodi](https://github.com/Nukeshpoodi)
+* LinkedIn: [@nukesh-poodi](https://www.linkedin.com/in/nukesh-poodi-03749355)
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/pesto-students/meditationmitra-fe-n13-alpha-1/issues). You can also take a look at the [contributing guide](https://github.com/pesto-students/meditationmitra-fe-n13-alpha-1/blob/master/CONTRIBUTING.md).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2022 [Vaaiibhav](https://github.com/vaaiibhav) & [@nukeshpoodi](https://github.com/Nukeshpoodi).<br />
+This project is [ISC](https://github.com/pesto-students/meditationmitra-fe-n13-alpha-1/blob/master/LICENSE) licensed.
 
 
