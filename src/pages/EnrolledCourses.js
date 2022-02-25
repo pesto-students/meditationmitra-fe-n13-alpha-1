@@ -53,7 +53,7 @@ const EnrolledCourses = () => {
               minHeight: 300,
             }}
           >
-            No Enrolled Courses Found
+            No Courses Found!
           </Typography>
         </Box>
       </Container>
@@ -78,9 +78,13 @@ const EnrolledCourses = () => {
             sx={{ padding: "3rem 0 0 0", textAlign: "center" }}
           >
             Welcome
-            <Span style={{ textTransform: "capitalize" }}>{firstName}</Span>
-            <Span style={{ textTransform: "capitalize" }}>{lastName}</Span>,
-            lets take a look at your courses.
+            <Span style={{ textTransform: "capitalize" }}>
+              {" " + firstName + ", "}
+            </Span>
+            <Span style={{ textTransform: "capitalize" }}>
+              {lastName + " "}
+            </Span>
+            , lets take a look at your courses.
           </Typography>
           {courses.length ? (
             <CourseList loading={loading} courses={courses} />

@@ -22,6 +22,9 @@ import Popup, { LoaderPopup } from "../Popup";
 import { MEMBER_ROLE } from "../../utils/Constants";
 import Span from "../Span";
 import { menuItems } from "../../utils/MenuItems";
+import PostLogin from "../../pages/PostLogin";
+// import MobileView from "../MobileView";
+import MobileHomePage from "../../pages/MobileHomePage";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -115,9 +118,9 @@ const Header = () => {
     // console.log("New user " + isNewUser);
     if (isLoggedIn) {
       if (userInfo?.role === MEMBER_ROLE) {
-        items = menuItems.filter((item) => !item.coach);
+        items = menuItems.filter((item) => !item.coach || item.common);
       } else {
-        items = menuItems.filter((item) => item.coach);
+        items = menuItems.filter((item) => item.coach || item.common);
       }
     } else {
       items = menuItems.filter((item) => !item.loginRequired);
@@ -243,6 +246,10 @@ const Header = () => {
           </Grid>
         </Container>
       </Box>
+      {!isLoggedIn && (
+        <PostLogin handlePopupOpen={handlePopupOpen} signIn={signIn} />
+      )}
+      {isLoggedIn && window.location.pathname === "/" && <MobileHomePage />}
       <NavBar mobile />
       <Popup
         open={open}

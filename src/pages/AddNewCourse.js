@@ -217,6 +217,7 @@ const AddNewCourse = () => {
           />
         ))}
       </Grid>
+      <FileUpload display={["block", "block", "none"]} />
       {/* <FormControl fullWidth sx={{ my: "10px" }}>
         <Box component="label" htmlFor="datePicker">
           Select Start Date

@@ -15,6 +15,7 @@ export const menuItems = [
     path: "/enrolled-courses",
     icon: <HomeOutlinedIcon />,
     loginRequired: true,
+    common: true,
   },
   {
     label: "Profile",
@@ -22,6 +23,7 @@ export const menuItems = [
     icon: <PermIdentityIcon />,
     loginRequired: true,
     mobile: true,
+    common: true,
   },
   {
     label: "Add Course",
