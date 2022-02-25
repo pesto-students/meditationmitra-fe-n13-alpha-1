@@ -6,6 +6,7 @@ import {
   CourseCardSkeleton,
   MobileCourseCardSkeleton,
 } from "./CourseCardSkeleton";
+import { Typography } from "./Typography";
 
 const CourseList = ({
   courses = [],
@@ -32,6 +33,7 @@ const CourseList = ({
                 <CourseCard course={course} remove={remove} cart={cart} />
               </Grid>
             ))}
+            <Typography>{!courses.length && "No courses found"}</Typography>
           </>
         )}
       </Grid>
@@ -53,6 +55,7 @@ const CourseList = ({
               remove={remove}
             />
           ))}
+          <Typography>{!courses.length && "No courses found"}</Typography>
         </>
       )}
     </>
