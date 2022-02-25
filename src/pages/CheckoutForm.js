@@ -5,6 +5,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import PropTypes from "prop-types";
+import { PrimaryButton } from "../components/Buttons";
 // import { useSelector, useDispatch } from "react-redux";
 // import { courseActions } from "../api/reducers/courseReducer";
 // import { EnrollCourse } from "../api/services/courseService";
@@ -96,12 +97,11 @@ export default function CheckoutForm({ clientSecret }) {
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
+      <PrimaryButton disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
         </span>
-      </button>
-      {/* Show any error or success messages */}
+      </PrimaryButton>
       {message && <div id="payment-message">{message}</div>}
     </form>
   );

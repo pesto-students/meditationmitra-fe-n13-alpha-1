@@ -30,18 +30,17 @@ const CourseDetails = () => {
   const [seeDetailsBtnLabel, setSeeDetailsBtnLabel] = useState("See Details");
   const [showDetailsFlag, setShowDetailsFlag] = useState(true);
 
+  const fetchData = async () => {
+    let course = {};
+    if (isLoggedIn) {
+      course = await GetEnrolledCourse(slug);
+    } else {
+      course = await GetCourse(slug);
+    }
+    console.log(course.data);
+    setCourse(course.data);
+  };
   useLayoutEffect(() => {
-    const fetchData = async () => {
-      let course = {};
-      if (isLoggedIn) {
-        course = await GetEnrolledCourse(slug);
-      } else {
-        course = await GetCourse(slug);
-      }
-
-      console.log(course.data);
-      setCourse(course.data);
-    };
     fetchData();
   }, []);
 
@@ -78,6 +77,8 @@ const CourseDetails = () => {
           key={"section" + index}
           section={section}
           isPurchased={course.isPurchased}
+          courseId={course._id}
+          fetchData={fetchData}
         />
       ))}
     </Box>
