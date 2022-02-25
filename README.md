@@ -29,8 +29,8 @@ We tried to use a completely modern tech stack while testing out some new techno
 * Firebase
 
 Authors:
-Nukesh Poodi
-Vaibhav Vaidya
+* Nukesh Poodi
+* Vaibhav Vaidya
 
 License:
 [MIT](https://opensource.org/licenses/MIT)
