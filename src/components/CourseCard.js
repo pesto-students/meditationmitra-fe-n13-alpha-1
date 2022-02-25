@@ -67,31 +67,49 @@ const CourseCard = (props) => {
           borderRadius: "10px",
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", width: "90%" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography component="div" variant="h6">
+            <Typography component="div" variant="button">
               {name}
             </Typography>
             <Typography
-              variant="subtitle1"
-              color="text.secondary"
+              variant="body1"
+              // color="text.secondary"
               component="div"
             >
-              {price}
+              INR {price}/-
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "row" }}>
               <Box component="span" sx={{ lineHeight: "5px" }}>
                 <StarBorderIcon />
               </Box>
-              <Box component="span">{rating}</Box>
-              <Box component="span">{author}</Box>
-              <Box component="span">All levels</Box>
+              <Box sx={{ margin: "5px" }} component="span">
+                {rating}
+              </Box>
+              <Box sx={{ margin: "5px" }} component="span">
+                <Typography
+                  variant="button"
+                  color="text.secondary"
+                  component="div"
+                >
+                  By {author}
+                </Typography>
+              </Box>
+              <Box sx={{ margin: "5px" }} component="span">
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  component="div"
+                >
+                  All levels{" "}
+                </Typography>{" "}
+              </Box>
             </Box>
           </CardContent>
         </Box>
         <CardMedia
           component="img"
-          sx={{ width: 130, maxHeight: 130, padding: "3%", marginLeft: "12%" }}
+          sx={{ width: 130, maxHeight: 90, padding: "3%", marginLeft: "12%" }}
           image={courseImage || "images/course-default.png"}
           alt={name}
         />

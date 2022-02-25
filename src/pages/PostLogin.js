@@ -12,7 +12,7 @@ const PostLogin = ({ handlePopupOpen, signIn }) => {
       <MobileView>
         <Container>
           <Stack direction="column" spacing={4}>
-            <Box>
+            <Box mt={10}>
               <Typography textAlign="center">Welcome to</Typography>
               <Typography textAlign="center">Meditation Mitra</Typography>
               <Typography textAlign="center">
