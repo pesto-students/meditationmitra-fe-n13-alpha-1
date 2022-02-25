@@ -9,8 +9,14 @@ import PropTypes from "prop-types";
 import { CalendlyButton } from "./Buttons";
 import { CalendlyEventListener } from "react-calendly";
 // import { useState } from "react";
+import { GetMeetLink } from "../api/services/meetService";
 
-export const CourseAccordion = ({ section, isPurchased }) => {
+export const CourseAccordion = ({
+  section,
+  isPurchased,
+  courseId,
+  fetchData,
+}) => {
   // const [calendlyBtnVisible, setCalendlyBtnVisible] = useState(true);
   return (
     <Accordion>
@@ -26,16 +32,16 @@ export const CourseAccordion = ({ section, isPurchased }) => {
 
         {isPurchased && (
           <CalendlyEventListener
-            // onDateAndTimeSelected={(data) => {
-            //   console.log("onDateAndTimeSelected", data);
-            // }}
-            onEventScheduled={(data) => {
-              console.log("onEventScheduled", data);
-              // setCalendlyBtnVisible(false);
+            onEventScheduled={async () => {
+              await GetMeetLink({
+                courseId,
+                sectionName: section.sectionTitle,
+              });
+              await fetchData();
+              // console.log("onEventScheduled", data);
             }}
           >
             <CalendlyButton
-              // styles={{ display: calendlyBtnVisible ? "block" : "none" }}
               url="https://calendly.com/nukesh-poodi"
               text="Schedule"
             />
@@ -49,4 +55,6 @@ export const CourseAccordion = ({ section, isPurchased }) => {
 CourseAccordion.propTypes = {
   section: PropTypes.any,
   isPurchased: PropTypes.bool,
+  courseId: PropTypes.string,
+  fetchData: PropTypes.func,
 };
