@@ -126,7 +126,7 @@ const CourseDetails = () => {
             </Stack>
           </Grid>
           <Grid item xs={2} sx={{ paddingTop: "0" }}>
-            {isLoggedIn && isItemInCart() && (
+            {isLoggedIn && isItemInCart() && !course.isPurchased && (
               <SuccessButton
                 title="Add to Cart"
                 startIcon={<ShoppingCartOutlinedIcon />}
@@ -180,7 +180,7 @@ const CourseDetails = () => {
         >
           {seeDetailsBtnLabel}
         </PrimaryButton>
-        {isLoggedIn && (
+        {isLoggedIn && isItemInCart() && !course.isPurchased && (
           <SuccessButton
             fullWidth
             title="Add to Cart"
