@@ -13,6 +13,9 @@ const PostLogin = ({ handlePopupOpen, signIn }) => {
         <Container>
           <Stack direction="column" spacing={4}>
             <Box mt={10}>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <img src="/images/logo-img.png" width={250} />
+              </Box>
               <Typography textAlign="center">Welcome to</Typography>
               <Typography textAlign="center">Meditation Mitra</Typography>
               <Typography textAlign="center">

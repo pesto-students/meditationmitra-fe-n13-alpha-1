@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+// import { useSelector } from "react-redux";
 import Grid from "../components/Grid";
 import { Typography } from "../components/Typography";
 import DeskView from "../components/DeskView";
@@ -6,6 +7,7 @@ import MobileView from "../components/MobileView";
 import CourseList from "../components/CourseList";
 import SearchFilter from "../components/Filter/SearchFilter";
 import SideBarFilter from "../components/Filter/SideBarFilter";
+// import { courseActions } from "../api/reducers/courseReducer";
 import {
   GetAllCourses,
   GetFilteredCourses,
@@ -15,6 +17,7 @@ const Courses = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState({});
+  // let { filter } = useSelector((state) => state.courseReducer);
   const [courses, setCourses] = useState([]);
 
   useEffect(async () => {
@@ -34,7 +37,17 @@ const Courses = () => {
     return () => clearTimeout(delayDebounceFn);
   }, [search]);
 
-  const getFiltedCourses = async () => {
+  useEffect(() => {
+    if (!search) {
+      const callMe = async () => {
+        const response = await GetAllCourses();
+        setCourses(response.data);
+      };
+      callMe();
+    }
+  }, [search]);
+
+  const getFiltedCourses = async (filter) => {
     console.log(filter);
     const response = await GetFilteredCourses({
       search,
@@ -43,18 +56,15 @@ const Courses = () => {
     setCourses(response.data);
   };
 
-  useEffect(() => {
-    getFiltedCourses();
-  }, [filter]);
-
   const onSearch = async (searchStr) => {
     setSearch(searchStr);
   };
 
   const onFilter = async (filter) => {
+    setFilter({});
     console.log(filter);
     setFilter(filter);
-    getFiltedCourses();
+    await getFiltedCourses(filter);
   };
 
   const Title = () => (

@@ -86,10 +86,13 @@ const EnrolledCourses = () => {
             </Span>
             , lets take a look at your courses.
           </Typography>
-          {courses.length ? (
-            <CourseList loading={loading} courses={courses} />
+
+          {courses?.length ? (
+            <CourseList courses={courses} />
+          ) : loading ? (
+            <CourseList loading={loading} />
           ) : (
-            <EmptyPage />
+            <EmptyPage mobile={true} />
           )}
         </Box>
         <Grid container spacing={2} mb={5}>
@@ -116,7 +119,9 @@ const EnrolledCourses = () => {
           {MOB_ENROLLMENT_PAGE_TITLE}
         </Typography>
         {courses.length ? (
-          <CourseList loading={loading} mobile courses={courses} />
+          <CourseList mobile courses={courses} />
+        ) : loading ? (
+          <CourseList loading={loading} mobile />
         ) : (
           <EmptyPage mobile={true} />
         )}
