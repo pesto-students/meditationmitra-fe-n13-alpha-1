@@ -79,7 +79,7 @@ const EnrolledCourses = () => {
           >
             Welcome
             <Span style={{ textTransform: "capitalize" }}>
-              {" " + firstName + ", "}
+              {" " + firstName + " "}
             </Span>
             <Span style={{ textTransform: "capitalize" }}>
               {lastName + " "}

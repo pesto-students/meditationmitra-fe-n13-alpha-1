@@ -5,7 +5,6 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import PropTypes from "prop-types";
-import { PrimaryButton } from "../components/Buttons";
 // import { useSelector, useDispatch } from "react-redux";
 // import { courseActions } from "../api/reducers/courseReducer";
 // import { EnrollCourse } from "../api/services/courseService";
@@ -41,12 +40,12 @@ export default function CheckoutForm({ clientSecret }) {
         case "processing":
           setMessage("Your payment is processing.");
           break;
-        case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
-          break;
-        default:
-          setMessage("Something went wrong.");
-          break;
+        // case "requires_payment_method":
+        //   setMessage("Your payment was not successful, please try again.");
+        //   break;
+        // default:
+        //   setMessage("Something went wrong.");
+        //   break;
       }
     });
   }, [stripe]);
@@ -97,11 +96,24 @@ export default function CheckoutForm({ clientSecret }) {
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" />
-      <PrimaryButton disabled={isLoading || !stripe || !elements} id="submit">
+      <button
+        style={{
+          marginTop: "5%",
+          fontSize: "var(--semibold-weight)",
+          border: "none",
+          background: "var(--orange)",
+          color: "var(--white)",
+          padding: "10px 20px",
+          width: "100%",
+        }}
+        disabled={isLoading || !stripe || !elements}
+        id="submit"
+      >
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
         </span>
-      </PrimaryButton>
+      </button>
+      {/* Show any error or success messages */}
       {message && <div id="payment-message">{message}</div>}
     </form>
   );

@@ -28,16 +28,38 @@ const CourseCard = (props) => {
         />
         <CardContent>
           <Stack direction="row" spacing={10} mb={2}>
-            <Box component="span"> {author} </Box>
             <Box component="span">
-              <StarBorderIcon /> {rating}
+              {" "}
+              <Typography component="div" variant="button">
+                {" "}
+                {author}
+              </Typography>{" "}
             </Box>
-            <Box component="span">All levels</Box>
+            <Box component="span">
+              <StarBorderIcon />
+              {rating}
+            </Box>
+            <Box component="span">
+              {" "}
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                component="div"
+              >
+                All levels
+              </Typography>
+            </Box>
           </Stack>
-          <Typography variant="body1" mb={2}>
+          <Typography component="div" variant="button" fontWeight="bold">
             {name}
           </Typography>
-          <Typography variant="body2">Rs. {price}</Typography>
+          <Typography
+            variant="body1"
+            // color="text.secondary"
+            component="div"
+          >
+            INR {price}/-
+          </Typography>
         </CardContent>
       </Card>
       {cart && (
@@ -69,14 +91,10 @@ const CourseCard = (props) => {
       >
         <Box sx={{ display: "flex", flexDirection: "column", width: "90%" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography component="div" variant="button">
+            <Typography component="div" variant="button" fontWeight="bold">
               {name}
             </Typography>
-            <Typography
-              variant="body1"
-              // color="text.secondary"
-              component="div"
-            >
+            <Typography variant="body1" component="div">
               INR {price}/-
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "row" }}>
