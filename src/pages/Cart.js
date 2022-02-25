@@ -108,9 +108,8 @@ const Cart = () => {
         <Box mt={5}>
           {cart.length ? (
             <>
-              <CourseList mobile cart courses={cart} />
+              <CourseList mobile cart remove={removeItem} courses={cart} />
               <Box mt={5}>
-                {/* <SuccessButton fullWidth>Checkout</SuccessButton> */}
                 <Stack direction="column">
                   <Typography sx={{ marginBottom: "50px" }}>
                     Total Amount : {calcTotalAmount()}

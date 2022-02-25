@@ -3,6 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import AddIcon from "@mui/icons-material/Add";
+import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 
 export const menuItems = [
   {
@@ -18,7 +19,7 @@ export const menuItems = [
   {
     label: "My Courses",
     path: "/enrolled-courses",
-    icon: <HomeOutlinedIcon />,
+    icon: <LocalLibraryOutlinedIcon />,
     loginRequired: true,
     common: true,
   },
