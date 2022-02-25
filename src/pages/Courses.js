@@ -25,17 +25,25 @@ const Courses = () => {
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
-      const response = await GetFilteredCourses({ search, filter });
+      const response = await GetFilteredCourses({
+        search,
+        filter: Object.keys(filter).length ? filter : null,
+      });
       setCourses(response.data);
     }, 500);
     return () => clearTimeout(delayDebounceFn);
   }, [search]);
 
+  const getFiltedCourses = async () => {
+    console.log(filter);
+    const response = await GetFilteredCourses({
+      search,
+      filter: Object.keys(filter).length ? filter : null,
+    });
+    setCourses(response.data);
+  };
+
   useEffect(() => {
-    const getFiltedCourses = async () => {
-      const response = await GetFilteredCourses({ search, filter });
-      setCourses(response.data);
-    };
     getFiltedCourses();
   }, [filter]);
 
@@ -46,6 +54,7 @@ const Courses = () => {
   const onFilter = async (filter) => {
     console.log(filter);
     setFilter(filter);
+    getFiltedCourses();
   };
 
   const Title = () => (

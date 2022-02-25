@@ -6,6 +6,11 @@ import AddIcon from "@mui/icons-material/Add";
 
 export const menuItems = [
   {
+    label: "Home",
+    path: "/",
+    icon: <HomeOutlinedIcon />,
+  },
+  {
     label: "Courses",
     path: "/courses",
     icon: <SearchIcon />,

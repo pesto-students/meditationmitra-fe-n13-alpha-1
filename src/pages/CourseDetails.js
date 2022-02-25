@@ -147,7 +147,11 @@ const CourseDetails = () => {
 
   const Mobile = () => (
     <MobileView height={mobViewHeight} bgcolor="var(--white)">
-      <Typography variant="body1" sx={{ margin: "6% 0 1% 0" }}>
+      <Typography
+        variant="body1"
+        color="text.secondary"
+        sx={{ margin: "6% 0 1% 0" }}
+      >
         Description
       </Typography>
       <Typography variant="body2">{course?.courseDescription}</Typography>
@@ -155,7 +159,7 @@ const CourseDetails = () => {
         Show more
       </Button>
       <Divider />
-      <Typography>Trainer</Typography>
+      <Typography color="text.secondary">Author</Typography>
       <Box
         sx={{
           width: "90%",
@@ -169,12 +173,13 @@ const CourseDetails = () => {
             <img />
           </Grid>
           <Grid item xs={10}>
-            <Typography variant="subtitle2">{course?.author}</Typography>
-            <Span>No.Of courses</Span> <Span>No.Of students</Span>
+            <Typography variant="button">{course?.author}</Typography>
+            <br />
+            <Span>14 Courses</Span> <Span>1400 Students</Span>
           </Grid>
         </Grid>
       </Box>
-      <Stack direction="row" spacing={6} mt={1}>
+      <Stack direction="row" spacing={4} mt={1}>
         <PrimaryButton
           fullWidth
           onClick={showDetailsFlag ? showMoreDetails : hideMoreDetails}

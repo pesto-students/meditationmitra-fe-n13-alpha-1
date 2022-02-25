@@ -10,10 +10,20 @@ const GetEnrolledCourses = async () =>
     .then((response) => response)
     .catch((e) => e);
 
-const GetFilteredCourses = async ({ search, filters }) =>
-  await Axios.get(`courses`, { search, filters })
+const GetFilteredCourses = async ({ search, filters }) => {
+  let uri = `courses?`;
+  if (search) {
+    uri += `search=${search}`;
+  }
+  console.log("filters ", filters);
+  if (filters) {
+    uri += `&filter=${JSON.parse(filters)}`;
+  }
+  console.log("uri", uri);
+  return await Axios.get(uri)
     .then((response) => response)
     .catch((e) => e);
+};
 
 const GetCourse = async (slug) =>
   await Axios.get(`courses/slug/${slug}`)
