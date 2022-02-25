@@ -1,0 +1,35 @@
+:root {
+    /*colors*/
+    --orange: #F17445;
+    --white: #FFFFFF;
+    --white-gray: #F2F2F2;
+    --black: #000000;
+    --bgColor: #F1F1FA;
+    --a-selected: #1976d2;
+    --gray: #C4C4C4;
+    --error: #da2020;
+    --success: #75C46B;
+
+
+
+    /* Font Weights */
+    --hairline-weight: 100;
+    --thin-weight: 200;
+    --light-weight: 300;
+    --normal-weight: 400;
+    --medium-weight: 500;
+    --semibold-weight: 600;
+    --bold-weight: 700;
+    --xbold-weight: 800;
+    --black-weight: 900;
+
+    /* Font Sizes */
+    --fs-base: 1rem;
+    --fs-h4: 1.5rem;
+    --fs-a-selected: 1.25rem
+    --fs-head-icon: 50px;
+    --fs-logo-text: 36px
+
+    /* Font Families */
+    --ff-bm-sarif: DM Serif Display;
+}
