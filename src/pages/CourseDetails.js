@@ -26,6 +26,7 @@ const CourseDetails = () => {
   const { cart } = useSelector((state) => state.courseReducer);
   const { isLoggedIn } = useSelector((state) => state.authReducer);
   const [course, setCourse] = useState({});
+  const [courseLinks, setCourseLinks] = useState([]);
   const [mobViewHeight, setMoBViewHeight] = useState("55%");
   const [seeDetailsBtnLabel, setSeeDetailsBtnLabel] = useState("See Details");
   const [showDetailsFlag, setShowDetailsFlag] = useState(true);
@@ -38,7 +39,8 @@ const CourseDetails = () => {
       course = await GetCourse(slug);
     }
     console.log(course.data);
-    setCourse(course.data);
+    setCourse(course.data.course);
+    setCourseLinks(course.data.coursesMeetLinks);
   };
   useLayoutEffect(() => {
     fetchData();
@@ -78,6 +80,7 @@ const CourseDetails = () => {
           section={section}
           isPurchased={course.isPurchased}
           courseId={course._id}
+          link={courseLinks[index]?.link}
           fetchData={fetchData}
         />
       ))}

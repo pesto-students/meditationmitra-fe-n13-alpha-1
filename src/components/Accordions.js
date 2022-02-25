@@ -7,7 +7,7 @@ import {
 import { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PropTypes from "prop-types";
-import { CalendlyButton } from "./Buttons";
+import { CalendlyButton, PrimaryButton } from "./Buttons";
 import { CalendlyEventListener } from "react-calendly";
 import { GetMeetLink, GetCalendlyEvent } from "../api/services/meetService";
 
@@ -16,6 +16,7 @@ export const CourseAccordion = ({
   isPurchased,
   courseId,
   fetchData,
+  link,
 }) => {
   const [googleMeetCal, setGoogleMeetCal] = useState(true);
   return (
@@ -30,7 +31,7 @@ export const CourseAccordion = ({
       <AccordionDetails>
         <Typography variant="body1">{section.sectionDescription}</Typography>
 
-        {isPurchased && (
+        {isPurchased && !link && (
           <CalendlyEventListener
             onEventScheduled={async (data) => {
               if (googleMeetCal) {
@@ -55,6 +56,17 @@ export const CourseAccordion = ({
             />
           </CalendlyEventListener>
         )}
+
+        {isPurchased && link && (
+          <PrimaryButton
+            href={link}
+            target="_blank"
+            // style={{ color: "var(--orange)" }}
+            variant="text"
+          >
+            Google Meet
+          </PrimaryButton>
+        )}
       </AccordionDetails>
     </Accordion>
   );
@@ -65,4 +77,5 @@ CourseAccordion.propTypes = {
   isPurchased: PropTypes.bool,
   courseId: PropTypes.string,
   fetchData: PropTypes.func,
+  link: PropTypes.any,
 };
