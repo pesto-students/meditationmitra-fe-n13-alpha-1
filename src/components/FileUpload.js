@@ -3,16 +3,34 @@ import Box from "./Box";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { useDispatch } from "react-redux";
 import { courseActions } from "../api/reducers/courseReducer";
+import { useState } from "react";
 
 const FileUpload = ({ id = "fileId", display, icon }) => {
+  const [imageURL, setImageURL] = useState("");
   const dispatch = useDispatch();
-  const onfileChange = (e) =>
+  const onfileChange = (e) => {
+    if (e.target.files[0]) setImageURL(URL.createObjectURL(e.target.files[0]));
     dispatch(courseActions.updateFile(e.target.files[0]));
+  };
 
   return (
     <Box display={display}>
       <Box component="label" htmlFor={id}>
-        {icon || (
+        {(imageURL ? (
+          <Box
+            sx={{
+              margin: "auto",
+              marginTop: "100px",
+              width: "40%",
+              height: "13vh",
+              border: "1px dashed var(--black)",
+            }}
+          >
+            <img src={imageURL} width="100%" height="100vh" />
+          </Box>
+        ) : (
+          icon
+        )) || (
           <>
             <UploadFileIcon fontSize="large" />
             <Box component="span">Choose Poster</Box>

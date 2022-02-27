@@ -36,9 +36,11 @@ const AddNewCourse = () => {
   const [sectionValues, setSectionValues] = useState({});
 
   const inputHandler = (e) => {
-    const data = inputField;
-    data[e.target.name] = e.target.value;
-    setInputField(data);
+    const { name, value } = e.target;
+    setInputField((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
   const categories = ["Focus", "Meditation"];
   const onClickOnChip = (chip) => {
@@ -63,10 +65,15 @@ const AddNewCourse = () => {
   };
 
   const resetForm = () => {
-    inputField({ target: { name: "name", value: "" } });
-    inputField({ target: { name: "price", value: "" } });
-    inputField({ target: { name: "description", value: "" } });
-    inputField({ target: { name: "category", value: "" } });
+    setInputField({
+      name: "",
+      price: "",
+      description: "",
+      category: "",
+    });
+    // setInputField({ target: { name: "price", value: "" } });
+    // setInputField({ target: { name: "description", value: "" } });
+    // setInputField({ target: { name: "category", value: "" } });
     setDate("");
     dispatch(courseActions.updateFile(null));
     setSectionValues([]);
@@ -121,8 +128,9 @@ const AddNewCourse = () => {
         marginTop: "100px",
         paddingTop: "13%",
         width: "40%",
-        height: "20vh",
+        height: "10vh",
         background: "var(--gray)",
+        border: "1px dashed var(--black)",
       }}
     >
       <Box
@@ -180,6 +188,7 @@ const AddNewCourse = () => {
         name="name"
         placeholder="Enter the course title"
         onChange={inputHandler}
+        value={inputField.name}
       />
       <TextField
         sx={{ my: "10px" }}
@@ -187,6 +196,7 @@ const AddNewCourse = () => {
         name="price"
         placeholder="Enter the course price"
         onChange={inputHandler}
+        value={inputField.price}
       />
       <FormControl fullWidth sx={{ my: "10px" }}>
         <TextareaAutosize
@@ -196,6 +206,7 @@ const AddNewCourse = () => {
           minRows={5}
           maxRows={10}
           onChange={inputHandler}
+          value={inputField.description}
         />
       </FormControl>
       <Grid container my="2%">
