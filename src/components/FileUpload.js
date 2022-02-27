@@ -1,16 +1,20 @@
 import PropTypes from "prop-types";
 import Box from "./Box";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { courseActions } from "../api/reducers/courseReducer";
-import { useState } from "react";
 
-const FileUpload = ({ id = "fileId", display, icon }) => {
-  const [imageURL, setImageURL] = useState("");
+const FileUpload = ({ id = "fileId", display, icon, image }) => {
   const dispatch = useDispatch();
+  const { imageURL } = useSelector((state) => state.courseReducer);
   const onfileChange = (e) => {
-    if (e.target.files[0]) setImageURL(URL.createObjectURL(e.target.files[0]));
-    dispatch(courseActions.updateFile(e.target.files[0]));
+    let selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const imageURL = URL.createObjectURL(e.target.files[0]);
+      dispatch(courseActions.updateFile({ file: selectedFile, imageURL }));
+    } else {
+      dispatch(courseActions.updateFile({ file: null, imageURL: image }));
+    }
   };
 
   return (
@@ -56,7 +60,7 @@ FileUpload.propTypes = {
   display: PropTypes.array,
   icon: PropTypes.any,
   mobile: PropTypes.bool,
-  // value: PropTypes.string,
+  image: PropTypes.string,
 };
 
 export default FileUpload;

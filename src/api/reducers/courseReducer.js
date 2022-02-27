@@ -5,6 +5,7 @@ const courseSlice = createSlice({
   initialState: {
     cart: [],
     file: null,
+    imageURL: "",
   },
   reducers: {
     addToCart: (state, action) => {
@@ -20,7 +21,13 @@ const courseSlice = createSlice({
     },
     updateFile: (state, action) => {
       const { payload } = action;
-      state.file = payload;
+      if (payload) {
+        state.file = payload.file;
+        state.imageURL = payload.imageURL;
+      } else {
+        state.file = null;
+        state.imageURL = "";
+      }
     },
   },
 });
