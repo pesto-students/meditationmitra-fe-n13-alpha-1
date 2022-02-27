@@ -3,11 +3,13 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import PropTypes from "prop-types";
+import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./Buttons";
 import Stack from "./Stack";
 import Box from "./Box";
 import { Typography } from "./Typography";
+// import Span from "./Span";
 
 const CourseCard = (props) => {
   const { name, courseImage, author, rating, price, slug } = props.course;
@@ -27,7 +29,7 @@ const CourseCard = (props) => {
           alt={name}
         />
         <CardContent>
-          <Stack direction="row" spacing={10} mb={2}>
+          <Stack direction="row" spacing={4} mb={2}>
             <Box component="span">
               {" "}
               <Typography component="div" variant="button">
@@ -36,8 +38,11 @@ const CourseCard = (props) => {
               </Typography>{" "}
             </Box>
             <Box component="span">
-              <StarBorderIcon />
-              {rating}
+              {/* <Box>
+                <StarBorderIcon />
+              </Box>
+              <Span >{rating}</Span> */}
+              <Rating name="read-only" value={rating} readOnly />
             </Box>
             <Box component="span">
               {" "}
