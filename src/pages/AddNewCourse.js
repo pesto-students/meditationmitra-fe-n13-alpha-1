@@ -4,9 +4,11 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { useSelector } from "react-redux";
 import { Chip } from "@mui/material";
-import DatePicker from "react-datepicker";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import MobileDatePicker from "@mui/lab/MobileDatePicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
+import DateAdapter from "@mui/lab/AdapterMoment";
 import Box from "../components/Box";
 import FileUpload from "../components/FileUpload";
 import Grid from "../components/Grid";
@@ -20,12 +22,13 @@ import { Typography } from "../components/Typography";
 import { LoaderPopup } from "../components/Popup";
 import { useDispatch } from "react-redux";
 import { courseActions } from "../api/reducers/courseReducer";
+import { categories } from "../utils/Constants";
 
 const AddNewCourse = () => {
   const dispatch = useDispatch();
   const [submit, setSubmit] = useState(false);
-  const { file } = useSelector((state) => state.courseReducer);
-  const [date, setDate] = useState("");
+  const { file, imageURL } = useSelector((state) => state.courseReducer);
+  const [date, setDate] = useState(new Date());
   const [inputField, setInputField] = useState({
     name: "",
     price: "",
@@ -42,11 +45,12 @@ const AddNewCourse = () => {
       [name]: value,
     }));
   };
-  const categories = ["Focus", "Meditation"];
+
   const onClickOnChip = (chip) => {
-    const data = inputField;
-    data.category = chip;
-    setInputField(data);
+    setInputField((prevState) => ({
+      ...prevState,
+      category: chip,
+    }));
   };
 
   const onSave = async () => {
@@ -71,13 +75,11 @@ const AddNewCourse = () => {
       description: "",
       category: "",
     });
-    // setInputField({ target: { name: "price", value: "" } });
-    // setInputField({ target: { name: "description", value: "" } });
-    // setInputField({ target: { name: "category", value: "" } });
-    setDate("");
+    setDate(new Date());
     dispatch(courseActions.updateFile(null));
     setSectionValues([]);
     setSections([]);
+    dispatch(courseActions.updateFile({ file: null, imageURL: "" }));
   };
 
   const onChange = (section, type, value) => {
@@ -92,9 +94,7 @@ const AddNewCourse = () => {
         ...data[section],
         ...{ sectionDescription: value },
       };
-
     setSectionValues(data);
-    //console.log(data);
   };
 
   const Section = () => (
@@ -126,7 +126,7 @@ const AddNewCourse = () => {
       sx={{
         margin: "auto",
         marginTop: "100px",
-        paddingTop: "13%",
+        paddingY: "8%",
         width: "40%",
         height: "10vh",
         background: "var(--gray)",
@@ -216,32 +216,24 @@ const AddNewCourse = () => {
             label={item}
             name="tags"
             onClick={() => onClickOnChip(item, index)}
-            sx={{ marginRight: "2%" }}
+            sx={{
+              marginRight: "2%",
+              background: inputField.category === item && "var(--orange)",
+              color: inputField.category === item && "var(--white)",
+            }}
           />
         ))}
       </Grid>
       <FileUpload display={["block", "block", "none"]} />
-      {/* <FormControl fullWidth sx={{ my: "10px" }}>
-        <Box component="label" htmlFor="datePicker">
-          Select Start Date
-        </Box>
-        <Box hidden>
-          <DatePicker
-            id="datePicker"
-            // display="hidden"
-            placeholderText="Select Start Date"
-            selected={date}
-            onChange={(date) => setDate(date)}
-          />
-        </Box>
-      </FormControl> */}
       <FormControl fullWidth sx={{ my: "10px" }}>
-        <DatePicker
-          id="datePicker1"
-          placeholderText="Select Start Date"
-          selected={date}
-          onChange={(date) => setDate(date)}
-        />
+        <LocalizationProvider dateAdapter={DateAdapter}>
+          <MobileDatePicker
+            label="Select Start Date"
+            value={date}
+            onChange={(date) => setDate(date)}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
       </FormControl>
       <Box
         sx={{ border: "1px solid var(--orange)", padding: "2%", marginY: "2%" }}
@@ -256,6 +248,7 @@ const AddNewCourse = () => {
       </Box>
       <Stack direction="row" spacing={4}>
         <PrimaryButton onClick={onSave}>Save</PrimaryButton>
+        <PrimaryButton onClick={resetForm}>Reset</PrimaryButton>
       </Stack>
     </Container>
   );
@@ -266,7 +259,11 @@ const AddNewCourse = () => {
         <Container st>
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              <FileUpload id="fileId" icon={<DeskTopViewFileUplod />} />
+              <FileUpload
+                id="fileId"
+                icon={<DeskTopViewFileUplod />}
+                image={imageURL}
+              />
             </Grid>
             <Grid item xs={8}>
               {form()}

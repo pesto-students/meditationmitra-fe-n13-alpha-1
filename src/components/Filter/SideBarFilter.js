@@ -8,12 +8,13 @@ import Container from "../Container";
 import { Typography } from "../Typography";
 import Box from "../Box";
 import { PrimaryButton } from "../Buttons";
+import { categories as category } from "../../utils/Constants";
 // import { useDispatch } from "react-redux";
 // import { courseActions } from "../../api/reducers/courseReducer";
 
 const SideBarFilter = ({ onFilter }) => {
   // const dispatch = useDispatch();
-  const category = ["Focus", "Meditation"];
+  // const category = ["Focus", "Meditation"];
   const ratings = [1, 2, 3, 4, 5];
 
   const [categories, setCategories] = useState([]);

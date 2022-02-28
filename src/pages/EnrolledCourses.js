@@ -118,7 +118,7 @@ const EnrolledCourses = () => {
         <Typography variant="body1" mt="7%" mb="5%" ml="3%">
           {MOB_ENROLLMENT_PAGE_TITLE}
         </Typography>
-        {courses.length ? (
+        {courses?.length ? (
           <CourseList mobile courses={courses} />
         ) : loading ? (
           <CourseList loading={loading} mobile />
