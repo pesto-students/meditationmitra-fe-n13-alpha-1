@@ -9,60 +9,37 @@ import { Typography } from "../Typography";
 import Box from "../Box";
 import { PrimaryButton } from "../Buttons";
 import { categories as category } from "../../utils/Constants";
-// import { useDispatch } from "react-redux";
-// import { courseActions } from "../../api/reducers/courseReducer";
 
 const SideBarFilter = ({ onFilter }) => {
-  // const dispatch = useDispatch();
-  // const category = ["Focus", "Meditation"];
   const ratings = [1, 2, 3, 4, 5];
 
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(
+    new Array(category.length).fill(false)
+  );
   const [price, setPrice] = useState([1000, 10000]);
-  const [rating, setRating] = useState([]);
+  const [rating, setRating] = useState(new Array(ratings.length).fill(false));
 
-  const onCategoryCheck = (e) => {
-    const name = e.target.value;
-    console.log(name);
-    let data = categories;
-    // data = JSON.parse(JSON.stringify(data));
-    console.log(data);
-    if (data.includes(name)) {
-      const index = data.indexOf(name);
-      data.splice(index, 1);
-      setCategories(data);
-    } else {
-      data.push(name);
-      setCategories(data);
-    }
-    console.log(categories);
+  const onCategoryCheck = (index) => {
+    const updated = categories.map((item, i) => (index === i ? !item : item));
+    setCategories(updated);
   };
 
-  const onRatingCheck = (e) => {
-    const name = e.target.value;
-    console.log(name);
-    let data = rating;
-    // data = JSON.parse(JSON.stringify(data));
-    console.log(data);
-    if (rating.includes(name)) {
-      const index = data.indexOf(name);
-      data.splice(index, 1);
-      setRating(data);
-    } else {
-      data.push(name);
-      setRating(data);
-    }
-    console.log(rating);
+  const onRatingCheck = (index) => {
+    const updated = rating.map((item, i) => (index === i ? !item : item));
+    setRating(updated);
   };
 
   const CategoryCheckBoxes = () => {
     return (
       <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
-        {category.map((cat) => (
+        {category.map((cat, index) => (
           <FormControlLabel
             key={cat}
             label={cat}
-            control={<Checkbox value={cat} onChange={onCategoryCheck} />}
+            checked={categories[index]}
+            control={
+              <Checkbox value={cat} onChange={() => onCategoryCheck(index)} />
+            }
             name="category"
           />
         ))}
@@ -73,11 +50,14 @@ const SideBarFilter = ({ onFilter }) => {
   const RatingCheckBoxes = () => {
     return (
       <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
-        {ratings.map((rating) => (
+        {ratings.map((rate, index) => (
           <FormControlLabel
-            key={rating}
-            label={<Rating name="read-only" value={rating} readOnly />}
-            control={<Checkbox value={rating} onChange={onRatingCheck} />}
+            key={rate}
+            checked={rating[index]}
+            label={<Rating name="read-only" value={rate} readOnly />}
+            control={
+              <Checkbox value={rate} onChange={() => onRatingCheck(index)} />
+            }
           />
         ))}
       </Box>
@@ -104,13 +84,15 @@ const SideBarFilter = ({ onFilter }) => {
 
   const onApplyFilter = () => {
     const filter = {
-      category: categories,
-      rating: rating,
+      category: categories
+        .filter((item) => item)
+        .map((item, index) => category[index]),
+      rating: rating
+        .filter((item) => item)
+        .map((item, index) => ratings[index]),
       price: { min: price[0], max: price[1] },
     };
     onFilter(filter);
-
-    // dispatch(courseActions.updateFilter(filter));
   };
 
   return (

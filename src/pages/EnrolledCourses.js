@@ -25,7 +25,7 @@ const EnrolledCourses = () => {
   useEffect(() => {
     const getCourses = async () => {
       const response = await GetEnrolledCourses();
-      setCourses(response.data);
+      if (response.data) setCourses(response.data);
       setLoading(false);
     };
     getCourses();
@@ -87,7 +87,7 @@ const EnrolledCourses = () => {
             , lets take a look at your courses.
           </Typography>
 
-          {courses?.length ? (
+          {courses.length ? (
             <CourseList courses={courses} />
           ) : loading ? (
             <CourseList loading={loading} />
