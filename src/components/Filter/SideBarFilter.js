@@ -29,6 +29,10 @@ const SideBarFilter = ({ onFilter }) => {
     setRating(updated);
   };
 
+  const onPriceChange = (event, newValue) => {
+    setPrice(newValue);
+  };
+
   const CategoryCheckBoxes = () => {
     return (
       <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
@@ -64,10 +68,6 @@ const SideBarFilter = ({ onFilter }) => {
     );
   };
 
-  const onPriceChange = (event, newValue) => {
-    setPrice(newValue);
-  };
-
   const PriceSlider = () => (
     <Slider
       getAriaLabel={(index) =>
@@ -78,18 +78,26 @@ const SideBarFilter = ({ onFilter }) => {
       valueLabelDisplay="auto"
       min={1000}
       max={10000}
-      step={500}
+      step={100}
     />
   );
 
   const onApplyFilter = () => {
+    const checkedCategories = categories
+      .map((it, i) => {
+        return { item: it, index: i };
+      })
+      .filter((it) => it.item)
+      .map((it) => category[it.index]);
+    const checkedRatings = rating
+      .map((it, i) => {
+        return { item: it, index: i };
+      })
+      .filter((it) => it.item)
+      .map((it) => ratings[it.index]);
     const filter = {
-      category: categories
-        .filter((item) => item)
-        .map((item, index) => category[index]),
-      rating: rating
-        .filter((item) => item)
-        .map((item, index) => ratings[index]),
+      category: checkedCategories,
+      rating: checkedRatings,
       price: { min: price[0], max: price[1] },
     };
     onFilter(filter);
