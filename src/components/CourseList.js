@@ -7,6 +7,7 @@ import {
   MobileCourseCardSkeleton,
 } from "./CourseCardSkeleton";
 import { Typography } from "./Typography";
+import Box from "./Box";
 
 const CourseList = ({
   courses = [],
@@ -33,7 +34,19 @@ const CourseList = ({
                 <CourseCard course={course} remove={remove} cart={cart} />
               </Grid>
             ))}
-            <Typography>{!courses.length && "No courses found"}</Typography>
+
+            {!courses.length && (
+              <Box
+                sx={{
+                  mt: "100px",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography variant="h6">No courses found</Typography>
+              </Box>
+            )}
           </>
         )}
       </Grid>
@@ -55,7 +68,18 @@ const CourseList = ({
               remove={remove}
             />
           ))}
-          <Typography>{!courses.length && "No courses found"}</Typography>
+          {!courses.length && (
+            <Box
+              sx={{
+                mt: "100px",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Typography variant="h6">No courses found</Typography>
+            </Box>
+          )}
         </>
       )}
     </>

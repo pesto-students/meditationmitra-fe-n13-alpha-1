@@ -7,8 +7,22 @@ import Stack from "../Stack";
 import Box from "../Box";
 import { IconButton } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { useState } from "react";
 
 const SearchFilter = ({ onSearch, onFilter }) => {
+  const [search, setSearch] = useState("");
+  const onChange = (e) => {
+    const { value } = e.target;
+    setSearch(value);
+    onSearch(value);
+  };
+
+  const clearSearch = () => {
+    setSearch("");
+    onSearch("");
+  };
+
   return (
     <Stack direction="row">
       <Box display={["block", "block", "none"]} mt="2rem">
@@ -19,13 +33,18 @@ const SearchFilter = ({ onSearch, onFilter }) => {
       <Container mt="1rem" sx={{ display: "flex", justifyContent: "center" }}>
         <TextField
           fullWidth
-          onKeyPress={(event) => onSearch(event.target.value)}
+          onChange={onChange}
           label="Search for Courses"
           sx={{ width: "70%" }}
+          value={search}
           InputProps={{
             endAdornment: (
               <IconButton>
-                <SearchOutlinedIcon />
+                {!search ? (
+                  <SearchOutlinedIcon />
+                ) : (
+                  <CloseOutlinedIcon onClick={clearSearch} />
+                )}
               </IconButton>
             ),
           }}
