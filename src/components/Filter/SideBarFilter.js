@@ -133,7 +133,9 @@ const SideBarFilter = ({ onFilter }) => {
           Ratings
         </Typography>
         <RatingCheckBoxes />
-        <PrimaryButton onClick={onApplyFilter}>Apply Filters</PrimaryButton>
+        <Box sx={{ mt: "15px", display: "flex", justifyContent: "end" }}>
+          <PrimaryButton onClick={onApplyFilter}>Apply</PrimaryButton>
+        </Box>
       </Container>
     </>
   );

@@ -9,6 +9,7 @@ import MobileDatePicker from "@mui/lab/MobileDatePicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
 import DateAdapter from "@mui/lab/AdapterMoment";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import Box from "../components/Box";
 import FileUpload from "../components/FileUpload";
 import Grid from "../components/Grid";
@@ -137,16 +138,11 @@ const AddNewCourse = () => {
         sx={{
           margin: "auto",
           marginTop: "30px",
-          width: "30%",
+          width: "15%",
+          color: "var(--white-gray)",
         }}
       >
-        <Fab
-          size="small"
-          aria-label="add"
-          sx={{ margin: "auto", boxShadow: "none" }}
-        >
-          <AddIcon />
-        </Fab>
+        <AddCircleOutlineOutlinedIcon />
       </Box>
     </Box>
   );

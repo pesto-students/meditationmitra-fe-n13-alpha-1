@@ -70,6 +70,7 @@ const Courses = () => {
     if (!filter) {
       setCourses([]);
       setLoading(true);
+      setSearch("");
       const response = await GetAllCourses();
       console.log(response);
       setCourses(response.data);

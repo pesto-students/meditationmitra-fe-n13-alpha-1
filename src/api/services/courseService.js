@@ -15,11 +15,11 @@ const GetFilteredCourses = async ({ search, filter }) => {
   if (search) {
     uri += `search=${search}`;
   }
-  console.log("filter ", filter);
+  //console.log("filter ", filter);
   if (filter) {
     uri += `&filter=${JSON.stringify(filter)}`;
   }
-  console.log("uri", uri);
+  // console.log("uri", uri);
   return await Axios.get(uri)
     .then((response) => response)
     .catch((e) => e);
