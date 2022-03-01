@@ -2,6 +2,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Rating from "@mui/material/Rating";
 import Slider from "@mui/material/Slider";
+import AutorenewOutlinedIcon from "@mui/icons-material/AutorenewOutlined";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Container from "../Container";
@@ -9,6 +10,7 @@ import { Typography } from "../Typography";
 import Box from "../Box";
 import { PrimaryButton } from "../Buttons";
 import { categories as category } from "../../utils/Constants";
+import Stack from "../Stack";
 
 const SideBarFilter = ({ onFilter }) => {
   const ratings = [1, 2, 3, 4, 5];
@@ -103,10 +105,22 @@ const SideBarFilter = ({ onFilter }) => {
     onFilter(filter);
   };
 
+  const resetFilter = () => {
+    setCategories(new Array(category.length).fill(false));
+    setPrice([1000, 10000]);
+    setRating(new Array(ratings.length).fill(false));
+    onFilter();
+  };
+
   return (
     <>
       <Container mt="3rem">
-        <Typography variant="h6">Filters</Typography>
+        <Stack direction="row" spacing={12}>
+          <Typography variant="h6">Filters</Typography>
+          <Typography>
+            <AutorenewOutlinedIcon titleAccess="Reset" onClick={resetFilter} />
+          </Typography>
+        </Stack>
         <Typography variant="subtitle1" mt={1}>
           Categories
         </Typography>
