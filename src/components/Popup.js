@@ -13,7 +13,7 @@ import Box from "./Box";
 const Popup = ({ open, onClose, onLogin }) => (
   <Dialog open={open}>
     <Box sx={{ paddingX: "30px", paddingY: "50px" }}>
-      <Box sx={{ justifyContent: "end" }}>
+      <Box sx={{ display: "flex", justifyContent: "end" }}>
         <CloseOutlinedIcon sx={{ cursor: "pointer" }} onClick={onClose} />
       </Box>
       <DialogTitle style={{ textAlign: "center" }}>
