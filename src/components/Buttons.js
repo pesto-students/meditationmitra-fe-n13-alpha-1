@@ -18,6 +18,9 @@ export const PrimaryButton = styled(Button)`
 
 export const PrimaryTransparentButton = styled(Button)`
   border-color: var(--white);
+  &:hover {
+    border-color: var(--white);
+  }
 `;
 
 export const SecondaryButton = styled(Button)(() => ({

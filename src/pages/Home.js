@@ -54,7 +54,7 @@ const Home = function () {
                 <Grid item xs={5} md={6} lg={6}>
                   <Box
                     sx={{
-                      width: "100%",
+                      width: "50%",
                       height: "100%",
                       background: "url(../images/img1.jpeg) no-repeat",
                       backgroundPosition: "center right",
