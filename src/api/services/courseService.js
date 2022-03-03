@@ -5,10 +5,16 @@ const GetAllCourses = async () =>
     .then((response) => response)
     .catch((e) => e);
 
-const GetEnrolledCourses = async () =>
-  await Axios.get("courses/enrolled")
+const GetEnrolledCourses = async () => {
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+    },
+  };
+  return await Axios.get("courses/enrolled", axiosConfig)
     .then((response) => response)
     .catch((e) => e);
+};
 
 const GetFilteredCourses = async ({ search, filter }) => {
   let uri = `courses?`;

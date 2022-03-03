@@ -87,12 +87,12 @@ const EnrolledCourses = () => {
             , lets take a look at your courses.
           </Typography>
 
-          {courses.length ? (
+          {courses?.length ? (
             <CourseList courses={courses} />
           ) : loading ? (
             <CourseList loading={loading} />
           ) : (
-            <EmptyPage mobile={true} />
+            <EmptyPage />
           )}
         </Box>
         <Grid container spacing={2} mb={5}>
