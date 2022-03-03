@@ -1,4 +1,4 @@
-import { Divider } from "@mui/material";
+import { Divider, Skeleton } from "@mui/material";
 import { useLayoutEffect, useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Rating from "@mui/material/Rating";
@@ -22,6 +22,7 @@ import { useParams } from "react-router-dom";
 
 const CourseDetails = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   const { slug } = useParams();
   const { cart } = useSelector((state) => state.courseReducer);
   const { isLoggedIn } = useSelector((state) => state.authReducer);
@@ -41,6 +42,7 @@ const CourseDetails = () => {
     console.log(course.data);
     setCourse(course.data.course);
     setCourseLinks(course.data.coursesMeetLinks);
+    setLoading(false);
   };
   useLayoutEffect(() => {
     fetchData();
@@ -96,8 +98,21 @@ const CourseDetails = () => {
       >
         <Container maxWidth="lg">
           <Box sx={{ padding: "2rem 0", color: "var(--white)" }}>
-            <Typography variant="h4">{course?.name}</Typography>
-            <Typography variant="body1">{course?.courseDescription}</Typography>
+            <Typography variant="h4">
+              {loading ? <Skeleton width={400} /> : course?.name}
+            </Typography>
+            <Typography variant="body1">
+              {loading ? (
+                <>
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                </>
+              ) : (
+                course?.courseDescription
+              )}
+            </Typography>
           </Box>
         </Container>
       </Section>
@@ -108,26 +123,38 @@ const CourseDetails = () => {
               <AccountCircleIcon fontSize="large" />
               <Box>
                 <Typography variant="body1">Trainer</Typography>
-                <Typography variant="body2">{course?.author}</Typography>
+                <Typography variant="body2">
+                  {loading ? <Skeleton /> : course?.author}
+                </Typography>
               </Box>
             </Stack>
           </Grid>
           <Grid item xs={2} sx={gridItemStyles}>
             <Typography variant="body1">Category</Typography>
-            <Typography variant="body2">{course?.category}</Typography>
+            <Typography variant="body2">
+              {loading ? <Skeleton width={100} /> : course?.category}
+            </Typography>
           </Grid>
           <Grid item xs={2} sx={gridItemStyles}>
             <Typography>Reviews</Typography>
             <Stack direction="row">
-              <Rating name="read-only" value={course?.rating} readOnly />
-              <Typography>(123)</Typography>
+              {loading ? (
+                <Skeleton width={100} />
+              ) : (
+                <>
+                  <Rating name="read-only" value={course?.rating} readOnly />
+                  <Typography>(123)</Typography>
+                </>
+              )}
             </Stack>
           </Grid>
           <Grid item xs={2} sx={{ paddingTop: "0" }}>
-            <Stack direction="row" spacing={1}>
-              <FavoriteBorderIcon />
-              <Typography>Wishlist</Typography>
-            </Stack>
+            {isLoggedIn && (
+              <Stack direction="row" spacing={1}>
+                <FavoriteBorderIcon />
+                <Typography>Wishlist</Typography>
+              </Stack>
+            )}
           </Grid>
           <Grid item xs={2} sx={{ paddingTop: "0" }}>
             {isLoggedIn && isItemInCart() && !course.isPurchased && (
@@ -143,7 +170,16 @@ const CourseDetails = () => {
         </Grid>
       </Container>
       <Box sx={{ padding: "2rem 7rem" }}>
-        <Sections />
+        {loading ? (
+          <>
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </>
+        ) : (
+          <Sections />
+        )}
       </Box>
     </DeskView>
   );
@@ -157,7 +193,17 @@ const CourseDetails = () => {
       >
         Description
       </Typography>
-      <Typography variant="body2">{course?.courseDescription}</Typography>
+      <Typography variant="body2">
+        {loading ? (
+          <>
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </>
+        ) : (
+          course?.courseDescription
+        )}
+      </Typography>
       <Button variant="text" txcolor="var(--orange)">
         Show more
       </Button>
@@ -176,7 +222,9 @@ const CourseDetails = () => {
             <img />
           </Grid>
           <Grid item xs={10}>
-            <Typography variant="button">{course?.author}</Typography>
+            <Typography variant="button">
+              {loading ? <Skeleton /> : course?.author}
+            </Typography>
             <br />
             <Span>14 Courses</Span> <Span>1400 Students</Span>
           </Grid>
