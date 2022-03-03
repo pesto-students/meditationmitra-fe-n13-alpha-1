@@ -1,8 +1,9 @@
 import { Fragment, useState } from "react";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import PropTypes from "prop-types";
-import { Button } from "../Buttons";
+import Box from "../Box";
 
 const Drawer = ({ children }) => {
   const [state, setState] = useState(false);
@@ -28,14 +29,19 @@ const Drawer = ({ children }) => {
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
       >
-        <Button
-          onClick={() => setState(false)}
-          variant="text"
-          txcolor="var(--black)"
-          sx={{ alignContent: "end" }}
+        <Box
+          sx={{
+            mt: "10px",
+            mr: "10px",
+            display: "flex",
+            justifyContent: "end",
+          }}
         >
-          x
-        </Button>
+          <CloseOutlinedIcon
+            sx={{ cursor: "pointer" }}
+            onClick={() => setState(false)}
+          />
+        </Box>
         {children}
       </SwipeableDrawer>
     </Fragment>

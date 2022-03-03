@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Box from "../components/Box";
 import { Section } from "../components/Section";
 import Container from "../components/Container";
@@ -7,6 +8,7 @@ import { Typography } from "../components/Typography";
 import { PrimaryTransparentButton } from "../components/Buttons";
 import MobileView from "../components/MobileView";
 const MobileHomePage = () => {
+  const navigate = useNavigate();
   return (
     <MobileView>
       <Box>
@@ -43,7 +45,7 @@ const MobileHomePage = () => {
                     <PrimaryTransparentButton
                       variant="outlined"
                       size="large"
-                      //   onClick={() => navigate("/courses")}
+                      onClick={() => navigate("/courses")}
                     >
                       Learn More
                     </PrimaryTransparentButton>
