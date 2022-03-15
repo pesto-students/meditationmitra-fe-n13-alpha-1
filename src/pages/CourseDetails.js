@@ -1,5 +1,6 @@
 import { Divider, Skeleton } from "@mui/material";
 import { useLayoutEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Rating from "@mui/material/Rating";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -18,7 +19,26 @@ import Container from "../components/Container";
 import { Section } from "../components/Section";
 import { GetCourse, GetEnrolledCourse } from "../api/services/courseService";
 import { courseActions } from "../api/reducers/courseReducer";
-import { useParams } from "react-router-dom";
+import {
+  BG_COLOR,
+  BLOCK,
+  BODY1,
+  BODY2,
+  BUTTON,
+  H4,
+  LARGE,
+  LG,
+  NONE,
+  ORANGE,
+  RELATIVE,
+  ROW,
+  TEXT_SECONDARY,
+  TEXT,
+  VH10,
+  WHITE,
+  ZERO,
+  SECTION,
+} from "../utils/Constants";
 
 const CourseDetails = () => {
   const dispatch = useDispatch();
@@ -60,7 +80,7 @@ const CourseDetails = () => {
   };
   const gridItemStyles = {
     borderRight: "1px solid var(--orange)",
-    paddingTop: "0",
+    paddingTop: ZERO,
   };
 
   const addToCart = () => {
@@ -78,7 +98,7 @@ const CourseDetails = () => {
     <Box>
       {course?.sections?.map((section, index) => (
         <CourseAccordion
-          key={"section" + index}
+          key={SECTION + index}
           section={section}
           isPurchased={course.isPurchased}
           courseId={course._id}
@@ -92,16 +112,16 @@ const CourseDetails = () => {
   const Desktop = () => (
     <DeskView noContainer>
       <Section
-        bgColor="var(--orange)"
-        position="relative"
-        style={{ marginBottom: "10vh" }}
+        bgColor={ORANGE}
+        position={RELATIVE}
+        style={{ marginBottom: VH10 }}
       >
-        <Container maxWidth="lg">
-          <Box sx={{ padding: "2rem 0", color: "var(--white)" }}>
-            <Typography variant="h4">
+        <Container maxWidth={LG}>
+          <Box sx={{ paddingY: "2rem", color: WHITE }}>
+            <Typography variant={H4}>
               {loading ? <Skeleton width={400} /> : course?.name}
             </Typography>
-            <Typography variant="body1">
+            <Typography variant={BODY1}>
               {loading ? (
                 <>
                   <Skeleton />
@@ -116,28 +136,28 @@ const CourseDetails = () => {
           </Box>
         </Container>
       </Section>
-      <Container maxWidth="lg">
+      <Container maxWidth={LG}>
         <Grid container spacing={4}>
           <Grid item xs={2} sx={gridItemStyles}>
-            <Stack direction="row" spacing={2}>
-              <AccountCircleIcon fontSize="large" />
+            <Stack direction={ROW} spacing={2}>
+              <AccountCircleIcon fontSize={LARGE} />
               <Box>
-                <Typography variant="body1">Trainer</Typography>
-                <Typography variant="body2">
+                <Typography variant={BODY1}>Trainer</Typography>
+                <Typography variant={BODY2}>
                   {loading ? <Skeleton /> : course?.author}
                 </Typography>
               </Box>
             </Stack>
           </Grid>
           <Grid item xs={2} sx={gridItemStyles}>
-            <Typography variant="body1">Category</Typography>
-            <Typography variant="body2">
+            <Typography variant={BODY1}>Category</Typography>
+            <Typography variant={BODY2}>
               {loading ? <Skeleton width={100} /> : course?.category}
             </Typography>
           </Grid>
           <Grid item xs={2} sx={gridItemStyles}>
             <Typography>Reviews</Typography>
-            <Stack direction="row">
+            <Stack direction={ROW}>
               {loading ? (
                 <Skeleton width={100} />
               ) : (
@@ -148,15 +168,15 @@ const CourseDetails = () => {
               )}
             </Stack>
           </Grid>
-          <Grid item xs={2} sx={{ paddingTop: "0" }}>
+          <Grid item xs={2} sx={{ paddingTop: ZERO }}>
             {isLoggedIn && (
-              <Stack direction="row" spacing={1}>
+              <Stack direction={ROW} spacing={1}>
                 <FavoriteBorderIcon />
                 <Typography>Wishlist</Typography>
               </Stack>
             )}
           </Grid>
-          <Grid item xs={2} sx={{ paddingTop: "0" }}>
+          <Grid item xs={2} sx={{ paddingTop: ZERO }}>
             {isLoggedIn && isItemInCart() && !course.isPurchased && (
               <SuccessButton
                 title="Add to Cart"
@@ -185,15 +205,15 @@ const CourseDetails = () => {
   );
 
   const Mobile = () => (
-    <MobileView height={mobViewHeight} bgcolor="var(--white)">
+    <MobileView height={mobViewHeight} bgcolor={WHITE}>
       <Typography
-        variant="body1"
-        color="text.secondary"
+        variant={BODY1}
+        color={TEXT_SECONDARY}
         sx={{ margin: "6% 0 1% 0" }}
       >
         Description
       </Typography>
-      <Typography variant="body2">
+      <Typography variant={BODY2}>
         {loading ? (
           <>
             <Skeleton />
@@ -204,17 +224,17 @@ const CourseDetails = () => {
           course?.courseDescription
         )}
       </Typography>
-      <Button variant="text" txcolor="var(--orange)">
+      <Button variant={TEXT} txcolor={ORANGE}>
         Show more
       </Button>
       <Divider />
-      <Typography color="text.secondary">Author</Typography>
+      <Typography color={TEXT_SECONDARY}>Author</Typography>
       <Box
         sx={{
           width: "90%",
-          padding: "5% 5%",
+          padding: "5%",
           borderRadius: "10px",
-          background: "var(--bgColor)",
+          background: BG_COLOR,
         }}
       >
         <Grid container spacing={2}>
@@ -222,7 +242,7 @@ const CourseDetails = () => {
             <img />
           </Grid>
           <Grid item xs={10}>
-            <Typography variant="button">
+            <Typography variant={BUTTON}>
               {loading ? <Skeleton /> : course?.author}
             </Typography>
             <br />
@@ -230,7 +250,7 @@ const CourseDetails = () => {
           </Grid>
         </Grid>
       </Box>
-      <Stack direction="row" spacing={4} mt={1}>
+      <Stack direction={ROW} spacing={4} mt={1}>
         <PrimaryButton
           fullWidth
           onClick={showDetailsFlag ? showMoreDetails : hideMoreDetails}
@@ -250,8 +270,8 @@ const CourseDetails = () => {
       </Stack>
       <Box
         sx={{
-          padding: "2rem 0",
-          display: showDetailsFlag ? "none" : "block",
+          paddingY: "2rem",
+          display: showDetailsFlag ? NONE : BLOCK,
         }}
       >
         <Sections />

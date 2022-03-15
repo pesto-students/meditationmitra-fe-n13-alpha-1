@@ -8,13 +8,12 @@ import Container from "../components/Container";
 import Grid from "../components/Grid";
 import Box from "../components/Box";
 import { EnrollCourse } from "../api/services/courseService";
+import { PAYMENT_SUCCESS, _100_PERC } from "../utils/Constants";
 
 const PaymentSuccess = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.courseReducer);
-  //   const [tempCart, setTempCart] = useState([]);
   useLayoutEffect(() => {
-    // setTempCart(cart);
     EnrollCourse(cart.map((item) => item._id))
       .then((response) => {
         console.log(response);
@@ -28,12 +27,12 @@ const PaymentSuccess = () => {
       <Container>
         <Box sx={{ marginTop: "45px" }}>
           {mobile ? (
-            <img src="/images/Payment-success.png" style={{ width: "100%" }} />
+            <img src={PAYMENT_SUCCESS} style={{ width: _100_PERC }} />
           ) : (
             <Grid container spacing={2}>
               <Grid item xs={3}></Grid>
               <Grid item xs={4}>
-                <img src="/images/Payment-success.png" width="100%" />
+                <img src={PAYMENT_SUCCESS} width={_100_PERC} />
               </Grid>
             </Grid>
           )}
@@ -57,7 +56,5 @@ const PaymentSuccess = () => {
     </>
   );
 };
-
-// PaymentSuccess.propTypes = {};
 
 export default PaymentSuccess;

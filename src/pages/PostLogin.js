@@ -5,35 +5,43 @@ import { PrimaryButton } from "../components/Buttons";
 import Container from "../components/Container";
 import Stack from "../components/Stack";
 import Box from "../components/Box";
+import {
+  COLUMN,
+  CENTER,
+  LOGO,
+  FLEX,
+  CONTAINED,
+  SMALL,
+} from "../utils/Constants";
 
 const PostLogin = ({ handlePopupOpen, signIn }) => {
   return (
     <>
       <MobileView>
         <Container>
-          <Stack direction="column" spacing={4}>
+          <Stack direction={COLUMN} spacing={4}>
             <Box mt={10}>
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <img src="/images/logo-img.png" width={250} />
+              <Box sx={{ display: FLEX, justifyContent: CENTER }}>
+                <img src={LOGO} width={250} />
               </Box>
-              <Typography textAlign="center">Welcome to</Typography>
-              <Typography textAlign="center">Meditation Mitra</Typography>
-              <Typography textAlign="center">
+              <Typography textAlign={CENTER}>Welcome to</Typography>
+              <Typography textAlign={CENTER}>Meditation Mitra</Typography>
+              <Typography textAlign={CENTER}>
                 How would you like to register yourself?
               </Typography>
             </Box>
             <PrimaryButton
               fullWidth
-              variant="contained"
-              size="small"
+              variant={CONTAINED}
+              size={SMALL}
               onClick={handlePopupOpen}
             >
               Guest Login
             </PrimaryButton>
             <PrimaryButton
               fullWidth
-              variant="contained"
-              size="small"
+              variant={CONTAINED}
+              size={SMALL}
               onClick={signIn}
             >
               Google Login
