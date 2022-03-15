@@ -1,10 +1,11 @@
 import Box from "./Box";
 import Container from "./Container";
 import PropTypes from "prop-types";
+import { DESKTOP_RESPONSIVE, XL } from "../utils/Constants";
 
 const DeskView = ({ children, noContainer }) => (
-  <Box display={["none", "none", "block"]}>
-    {noContainer ? children : <Container maxWidth="xl">{children}</Container>}
+  <Box display={DESKTOP_RESPONSIVE}>
+    {noContainer ? children : <Container maxWidth={XL}>{children}</Container>}
   </Box>
 );
 

@@ -1,18 +1,27 @@
 import PropTypes from "prop-types";
+import {
+  ABSOLUTE,
+  MOBILE_RESPONSIVE,
+  ORANGE,
+  TRUE_STR,
+  XL,
+  ZERO,
+  _100_PERC,
+} from "../utils/Constants";
 import Box from "./Box";
 import Container from "./Container";
 
 const MobileView = ({ children }) => (
   <Box
-    display={["block", "block", "none"]}
-    width="100%"
-    height="100%"
-    bgcolor="var(--orange)"
-    zIndex="0"
-    position="absolute"
+    display={MOBILE_RESPONSIVE}
+    width={_100_PERC}
+    height={_100_PERC}
+    bgcolor={ORANGE}
+    zIndex={ZERO}
+    position={ABSOLUTE}
   >
     <Box mobBody>
-      <Container mobbody="true" maxWidth="xl" marginx="10%">
+      <Container mobbody={TRUE_STR} maxWidth={XL} marginx="10%">
         {children}
       </Container>
     </Box>

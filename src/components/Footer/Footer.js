@@ -11,17 +11,30 @@ import Container from "../Container";
 import Grid from "../Grid";
 import { Typography } from "../Typography";
 import Stack from "../Stack";
+import {
+  BODY1,
+  CENTER,
+  COVER,
+  H6,
+  LG,
+  LOGO,
+  ORANGE,
+  RELATIVE,
+  ROW,
+  WHITE,
+  _100_PERC,
+} from "../../utils/Constants";
 
 const Footer = () => (
   <DeskView noContainer>
-    <FooterSection bgColor="var(--orange)" color="var(--white)">
-      <Container maxWidth="lg">
+    <FooterSection bgColor={ORANGE} color={WHITE}>
+      <Container maxWidth={LG}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <Typography variant="body1">
+            <Typography variant={BODY1}>
               We earned a reputation of being good at what we do.
             </Typography>
-            <Typography variant="body1">
+            <Typography variant={BODY1}>
               Let us take your Mental Health on whole positive level !!!!
             </Typography>
             <Box
@@ -29,31 +42,31 @@ const Footer = () => (
                 width: "20%",
                 height: "150px",
                 marginTop: "5vh",
-                background: "url(../images/logo-img.png) no-repeat",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
+                background: `url(${LOGO}) no-repeat`,
+                backgroundSize: COVER,
+                backgroundPosition: CENTER,
               }}
             />
 
-            <Stack sx={{ marginBottom: "5vh" }} direction="row" spacing={1}>
+            <Stack sx={{ marginBottom: "5vh" }} direction={ROW} spacing={1}>
               <FacebookIcon />
               <InstagramIcon />
               <TwitterIcon />
               <LinkedInIcon />
             </Stack>
-            <Typography variant="body1">
+            <Typography variant={BODY1}>
               Copyright © 2020 . Your company name All rights reserved
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="h6" mb="5vh">
+            <Typography variant={H6} mb="5vh">
               RECEIVE EMAIL UPDATES
             </Typography>
             <Box
               component="form"
               sx={{
-                width: "100%",
-                position: "relative",
+                width: _100_PERC,
+                position: RELATIVE,
                 marginBottom: "5vh",
               }}
             >
@@ -61,7 +74,7 @@ const Footer = () => (
                 fullWidth
                 sx={{
                   borderColor: "transparent",
-                  backgroundColor: "#FFF",
+                  backgroundColor: WHITE,
                   height: "61px",
                 }}
               />
@@ -69,11 +82,11 @@ const Footer = () => (
             </Box>
 
             <hr style={{ marginBottom: "5vh" }} />
-            <Typography variant="h6">Contact Us:</Typography>
-            <Typography variant="body1">
+            <Typography variant={H6}>Contact Us:</Typography>
+            <Typography variant={BODY1}>
               Email: support@meditationmitra.com
             </Typography>
-            <Typography variant="body1">Phone: 01647470457</Typography>
+            <Typography variant={BODY1}>Phone: 01647470457</Typography>
           </Grid>
         </Grid>
       </Container>

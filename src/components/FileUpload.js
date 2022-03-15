@@ -3,6 +3,7 @@ import Box from "./Box";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { useDispatch, useSelector } from "react-redux";
 import { courseActions } from "../api/reducers/courseReducer";
+import { AUTO, LARGE, SPAN, _100_PERC } from "../utils/Constants";
 
 const FileUpload = ({ id = "fileId", display, icon, image }) => {
   const dispatch = useDispatch();
@@ -23,21 +24,21 @@ const FileUpload = ({ id = "fileId", display, icon, image }) => {
         {(imageURL ? (
           <Box
             sx={{
-              margin: "auto",
+              margin: AUTO,
               marginTop: "100px",
               width: "40%",
               height: "13vh",
               border: "1px dashed var(--black)",
             }}
           >
-            <img src={imageURL} width="100%" height="100vh" />
+            <img src={imageURL} width={_100_PERC} height="100vh" />
           </Box>
         ) : (
           icon
         )) || (
           <>
-            <UploadFileIcon fontSize="large" />
-            <Box component="span">Choose Poster</Box>
+            <UploadFileIcon fontSize={LARGE} />
+            <Box component={SPAN}>Choose Poster</Box>
           </>
         )}
       </Box>

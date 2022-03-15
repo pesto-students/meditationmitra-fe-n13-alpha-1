@@ -8,6 +8,7 @@ import {
 } from "./CourseCardSkeleton";
 import { Typography } from "./Typography";
 import Box from "./Box";
+import { CENTER, FLEX, H6, _100_PERC } from "../utils/Constants";
 
 const CourseList = ({
   courses = [],
@@ -39,12 +40,12 @@ const CourseList = ({
               <Box
                 sx={{
                   mt: "100px",
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
+                  width: _100_PERC,
+                  display: FLEX,
+                  justifyContent: CENTER,
                 }}
               >
-                <Typography variant="h6">No courses found</Typography>
+                <Typography variant={H6}>No courses found</Typography>
               </Box>
             )}
           </>
@@ -72,12 +73,12 @@ const CourseList = ({
             <Box
               sx={{
                 mt: "100px",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
+                width: _100_PERC,
+                display: FLEX,
+                justifyContent: CENTER,
               }}
             >
-              <Typography variant="h6">No courses found</Typography>
+              <Typography variant={H6}>No courses found</Typography>
             </Box>
           )}
         </>

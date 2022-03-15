@@ -9,23 +9,35 @@ import PropTypes from "prop-types";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { PrimaryButton } from "./Buttons";
 import Box from "./Box";
+import {
+  BODY1,
+  CENTER,
+  COACH_ROLE,
+  END,
+  FLEX,
+  LOADER_IMG,
+  MEMBER_ROLE,
+  POINTER,
+} from "../utils/Constants";
 
 const Popup = ({ open, onClose, onLogin }) => (
   <Dialog open={open}>
     <Box sx={{ paddingX: "30px", paddingY: "50px" }}>
-      <Box sx={{ display: "flex", justifyContent: "end" }}>
-        <CloseOutlinedIcon sx={{ cursor: "pointer" }} onClick={onClose} />
+      <Box sx={{ display: FLEX, justifyContent: END }}>
+        <CloseOutlinedIcon sx={{ cursor: POINTER }} onClick={onClose} />
       </Box>
-      <DialogTitle style={{ textAlign: "center" }}>
+      <DialogTitle style={{ textAlign: CENTER }}>
         Welcome to Meditation Mitra
       </DialogTitle>
       <DialogContent>
         <Stack spacing={4}>
-          <Typography variant="body1">
+          <Typography variant={BODY1}>
             How would you like to register yourself?
           </Typography>
-          <PrimaryButton onClick={() => onLogin("member")}>User</PrimaryButton>
-          <PrimaryButton onClick={() => onLogin("coach")}>
+          <PrimaryButton onClick={() => onLogin(MEMBER_ROLE)}>
+            User
+          </PrimaryButton>
+          <PrimaryButton onClick={() => onLogin(COACH_ROLE)}>
             Instructor
           </PrimaryButton>
         </Stack>
@@ -42,7 +54,7 @@ Popup.propTypes = {
 
 export const LoaderPopup = ({ open }) => (
   <Dialog open={open}>
-    <img src="/images/loader.gif" width={100} />
+    <img src={LOADER_IMG} width={100} />
   </Dialog>
 );
 

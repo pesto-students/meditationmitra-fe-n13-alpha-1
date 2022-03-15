@@ -8,7 +8,32 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { PROJECT_TITLE } from "../../utils/Constants";
+import {
+  BLACK,
+  BUTTON,
+  CAPITALIZE,
+  CONTAINED,
+  DESKTOP_RESPONSIVE,
+  EMPTY_STRING,
+  FS_BOLD,
+  GUEST,
+  GUEST_COACH_EMAIL,
+  GUEST_MEMBER_EMAIL,
+  HOME_PATH,
+  LONG_BUTTON,
+  LONG_MENU,
+  MOBILE_RESPONSIVE,
+  MORE,
+  PRIMARY,
+  PROJECT_TITLE,
+  RIGHT,
+  ROW,
+  SMALL,
+  TEXT,
+  TRUE_STR,
+  USER_PROFILE_PATH,
+  XL,
+} from "../../utils/Constants";
 import Box from "../Box";
 import Container from "../Container";
 import Grid from "../Grid";
@@ -23,7 +48,6 @@ import { MEMBER_ROLE } from "../../utils/Constants";
 import Span from "../Span";
 import { menuItems } from "../../utils/MenuItems";
 import PostLogin from "../../pages/PostLogin";
-// import MobileView from "../MobileView";
 import MobileHomePage from "../../pages/MobileHomePage";
 
 const Header = () => {
@@ -56,11 +80,10 @@ const Header = () => {
     dispatch(authActions.logout());
   };
 
-  const handleNavigation = (selectedNavigation = "/") =>
+  const handleNavigation = (selectedNavigation = HOME_PATH) =>
     navigate(selectedNavigation);
 
   useEffect(() => {
-    console.log("useEff");
     const currentPath = window.location.pathname;
     if (!isLoggedIn) {
       const isLoginRequired = menuItems.find(
@@ -75,8 +98,7 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    console.log("useEff on isNewUser");
-    if (isNewUser && userInfo.firstName !== "Guest") updateRolePopupOpen();
+    if (isNewUser && userInfo.firstName !== GUEST) updateRolePopupOpen();
   }, [isNewUser]);
 
   const signIn = () => {
@@ -95,15 +117,14 @@ const Header = () => {
 
   const signInAsGuest = (userType) => {
     const data = {
-      firstName: "Guest",
-      lastName: "Guest",
-      avatar: "",
+      firstName: GUEST,
+      lastName: GUEST,
+      avatar: EMPTY_STRING,
     };
-    if (userType === "member") {
-      data.email = "guest.member@medmitra.com";
-    } else {
-      data.email = "guest.coach@medmitra.com";
-    }
+
+    data.email =
+      userType === MEMBER_ROLE ? GUEST_MEMBER_EMAIL : GUEST_COACH_EMAIL;
+
     try {
       dispatch(authActions.fetchAuth(data));
       setOpen(false);
@@ -115,7 +136,6 @@ const Header = () => {
 
   const NavBar = ({ mobile }) => {
     let items = [];
-    // console.log("New user " + isNewUser);
     if (isLoggedIn) {
       if (userInfo?.role === MEMBER_ROLE) {
         items = menuItems.filter((item) => !item.coach || item.common);
@@ -126,7 +146,7 @@ const Header = () => {
       items = menuItems.filter((item) => !item.loginRequired);
     }
     return mobile ? (
-      <Box mobHeader display={["block", "block", "none"]}>
+      <Box mobHeader display={MOBILE_RESPONSIVE}>
         <BottomNav items={items} onNavigate={handleNavigation} />
       </Box>
     ) : (
@@ -146,14 +166,14 @@ const Header = () => {
 
   return (
     <>
-      <Box header display={["none", "none", "block"]}>
-        <Container maxWidth="xl">
+      <Box header display={DESKTOP_RESPONSIVE}>
+        <Container maxWidth={XL}>
           <Grid container spacing={2}>
             <Grid item xs={8}>
-              <Stack direction="row" spacing={4}>
+              <Stack direction={ROW} spacing={4}>
                 <LogoLink
-                  component="button"
-                  onClick={() => handleNavigation("/")}
+                  component={BUTTON}
+                  onClick={() => handleNavigation(HOME_PATH)}
                 >
                   {PROJECT_TITLE}
                 </LogoLink>
@@ -161,32 +181,32 @@ const Header = () => {
               </Stack>
             </Grid>
             <Grid item xs={4}>
-              <Stack direction="row" spacing={2} justifyContent="right">
+              <Stack direction={ROW} spacing={2} justifyContent={RIGHT}>
                 {isLoggedIn ? (
                   <>
                     <Span
                       style={{
-                        textTransform: "capitalize",
+                        textTransform: CAPITALIZE,
                         marginLeft: 5,
-                        fontSize: "var(--fs-bold-weight)",
+                        fontSize: FS_BOLD,
                       }}
                     >
                       Welcome back, {userInfo.firstName} {userInfo.lastName}
                     </Span>
                     <IconButton
-                      aria-label="more"
-                      id="long-button"
-                      aria-controls={openMenu ? "long-menu" : undefined}
-                      aria-expanded={openMenu ? "true" : undefined}
-                      aria-haspopup="true"
+                      aria-label={MORE}
+                      id={LONG_BUTTON}
+                      aria-controls={openMenu ? LONG_MENU : undefined}
+                      aria-expanded={openMenu ? TRUE_STR : undefined}
+                      aria-haspopup={TRUE_STR}
                       onClick={handleClick}
                     >
                       <MoreVertIcon />
                     </IconButton>
                     <Menu
-                      id="long-menu"
+                      id={LONG_MENU}
                       MenuListProps={{
-                        "aria-labelledby": "long-button",
+                        "aria-labelledby": LONG_BUTTON,
                       }}
                       anchorEl={anchorEl}
                       open={openMenu}
@@ -194,13 +214,13 @@ const Header = () => {
                     >
                       <MenuItem
                         onClick={() => {
-                          handleNavigation("/user/profile");
+                          handleNavigation(USER_PROFILE_PATH);
                           handleClose();
                         }}
                       >
                         <Button
-                          variant="text"
-                          txcolor="var(--black)"
+                          variant={TEXT}
+                          txcolor={BLACK}
                           startIcon={<AccountCircleTwoToneIcon />}
                         >
                           Profile
@@ -213,10 +233,10 @@ const Header = () => {
                       >
                         <Button
                           onClick={() => onLogout()}
-                          color="primary"
-                          txcolor="var(--black)"
+                          color={PRIMARY}
+                          txcolor={BLACK}
                           startIcon={<LogoutOutlinedIcon />}
-                          variant="text"
+                          variant={TEXT}
                         >
                           Logout
                         </Button>
@@ -226,15 +246,15 @@ const Header = () => {
                 ) : (
                   <>
                     <PrimaryButton
-                      variant="contained"
-                      size="small"
+                      variant={CONTAINED}
+                      size={SMALL}
                       onClick={handlePopupOpen}
                     >
                       Guest Login
                     </PrimaryButton>
                     <PrimaryButton
-                      variant="contained"
-                      size="small"
+                      variant={CONTAINED}
+                      size={SMALL}
                       onClick={signIn}
                     >
                       Google Login
@@ -249,7 +269,9 @@ const Header = () => {
       {!isLoggedIn && (
         <PostLogin handlePopupOpen={handlePopupOpen} signIn={signIn} />
       )}
-      {isLoggedIn && window.location.pathname === "/" && <MobileHomePage />}
+      {isLoggedIn && window.location.pathname === HOME_PATH && (
+        <MobileHomePage />
+      )}
       <NavBar mobile />
       <Popup
         open={open}
