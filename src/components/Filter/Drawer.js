@@ -4,6 +4,16 @@ import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import PropTypes from "prop-types";
 import Box from "../Box";
+import {
+  FLEX,
+  KEYDOWN,
+  LEFT,
+  POINTER,
+  PX10,
+  SHIFT,
+  TAB,
+  END,
+} from "../../utils/Constants";
 
 const Drawer = ({ children }) => {
   const [state, setState] = useState(false);
@@ -11,8 +21,8 @@ const Drawer = ({ children }) => {
   const toggleDrawer = (open) => (event) => {
     if (
       event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
+      event.type === KEYDOWN &&
+      (event.key === TAB || event.key === SHIFT)
     ) {
       return;
     }
@@ -24,21 +34,21 @@ const Drawer = ({ children }) => {
     <Fragment>
       <FilterAltOutlinedIcon onClick={toggleDrawer(true)} />
       <SwipeableDrawer
-        anchor="left"
+        anchor={LEFT}
         open={state}
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
       >
         <Box
           sx={{
-            mt: "10px",
-            mr: "10px",
-            display: "flex",
-            justifyContent: "end",
+            mt: PX10,
+            mr: PX10,
+            display: FLEX,
+            justifyContent: END,
           }}
         >
           <CloseOutlinedIcon
-            sx={{ cursor: "pointer" }}
+            sx={{ cursor: POINTER }}
             onClick={() => setState(false)}
           />
         </Box>

@@ -5,13 +5,9 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import PropTypes from "prop-types";
-// import { useSelector, useDispatch } from "react-redux";
-// import { courseActions } from "../api/reducers/courseReducer";
-// import { EnrollCourse } from "../api/services/courseService";
+import { NONE, ORANGE, WHITE, _100_PERC } from "../utils/Constants";
 
 export default function CheckoutForm({ clientSecret }) {
-  //   const dispatch = useDispatch();
-  //   const { cart } = useSelector((state) => state.courseReducer);
   const stripe = useStripe();
   const elements = useElements();
 
@@ -100,11 +96,11 @@ export default function CheckoutForm({ clientSecret }) {
         style={{
           marginTop: "5%",
           fontSize: "var(--semibold-weight)",
-          border: "none",
-          background: "var(--orange)",
-          color: "var(--white)",
+          border: NONE,
+          background: ORANGE,
+          color: WHITE,
           padding: "10px 20px",
-          width: "100%",
+          width: _100_PERC,
         }}
         disabled={isLoading || !stripe || !elements}
         id="submit"

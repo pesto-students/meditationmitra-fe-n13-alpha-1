@@ -1,17 +1,24 @@
 import TextField from "@mui/material/TextField";
 import PropTypes from "prop-types";
+import { IconButton } from "@mui/material";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { useState } from "react";
 import SideBarFilter from "./SideBarFilter";
 import Container from "../Container";
 import Drawer from "./Drawer";
 import Stack from "../Stack";
 import Box from "../Box";
-import { IconButton } from "@mui/material";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { useState } from "react";
+import {
+  CENTER,
+  EMPTY_STRING,
+  FLEX,
+  MOBILE_RESPONSIVE,
+  ROW,
+} from "../../utils/Constants";
 
 const SearchFilter = ({ onSearch, onFilter }) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(EMPTY_STRING);
   const onChange = (e) => {
     const { value } = e.target;
     setSearch(value);
@@ -19,18 +26,18 @@ const SearchFilter = ({ onSearch, onFilter }) => {
   };
 
   const clearSearch = () => {
-    setSearch("");
-    onSearch("");
+    setSearch(EMPTY_STRING);
+    onSearch(EMPTY_STRING);
   };
 
   return (
-    <Stack direction="row">
-      <Box display={["block", "block", "none"]} mt="2rem">
+    <Stack direction={ROW}>
+      <Box display={MOBILE_RESPONSIVE} mt="2rem">
         <Drawer>
           <SideBarFilter onFilter={onFilter} />
         </Drawer>
       </Box>
-      <Container mt="1rem" sx={{ display: "flex", justifyContent: "center" }}>
+      <Container mt="1rem" sx={{ display: FLEX, justifyContent: CENTER }}>
         <TextField
           fullWidth
           onChange={onChange}

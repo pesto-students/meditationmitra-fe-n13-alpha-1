@@ -9,7 +9,28 @@ import { Button } from "./Buttons";
 import Stack from "./Stack";
 import Box from "./Box";
 import { Typography } from "./Typography";
-// import Span from "./Span";
+import {
+  ERROR,
+  ERROR_COLOR,
+  OUTLINED,
+  RIGHT,
+  PX10,
+  COURSE_DETAILS_PATH,
+  IMG,
+  COURSE_DEFAULT_IMG,
+  ROW,
+  SPAN,
+  DIV,
+  BODY1,
+  TEXT_SECONDARY,
+  BUTTON,
+  FW_BOLD,
+  FLEX,
+  COLUMN,
+  RED,
+} from "../utils/Constants";
+
+const StyleMargin = { margin: "5px" };
 
 const CourseCard = (props) => {
   const { name, courseImage, author, rating, price, slug } = props.course;
@@ -17,52 +38,45 @@ const CourseCard = (props) => {
   const navigate = useNavigate();
 
   const selectCourse = (slug) => {
-    navigate(`/course-details/${slug}`);
+    navigate(COURSE_DETAILS_PATH + slug);
   };
   const DesktopView = () => (
     <>
       <Card onClick={() => selectCourse(slug)} sx={{ maxWidth: 345 }}>
         <CardMedia
-          component="img"
+          component={IMG}
           height="300"
-          image={courseImage || "images/course-default.png"}
+          image={courseImage || COURSE_DEFAULT_IMG}
           alt={name}
         />
         <CardContent>
-          <Stack direction="row" spacing={4} mb={2}>
-            <Box component="span">
-              {" "}
-              <Typography component="div" variant="button">
-                {" "}
+          <Stack direction={ROW} spacing={4} mb={2}>
+            <Box component={SPAN}>
+              <Typography component={DIV} variant={Button}>
                 {author}
-              </Typography>{" "}
+              </Typography>
             </Box>
-            <Box component="span">
+            <Box component={SPAN}>
               {/* <Box>
                 <StarBorderIcon />
               </Box>
               <Span >{rating}</Span> */}
               <Rating name="read-only" value={rating} readOnly />
             </Box>
-            <Box component="span">
-              {" "}
+            <Box component={SPAN}>
               <Typography
-                variant="body1"
-                color="text.secondary"
-                component="div"
+                variant={BODY1}
+                color={TEXT_SECONDARY}
+                component={DIV}
               >
                 All levels
               </Typography>
             </Box>
           </Stack>
-          <Typography component="div" variant="button" fontWeight="bold">
+          <Typography component={DIV} variant={BUTTON} fontWeight={FW_BOLD}>
             {name}
           </Typography>
-          <Typography
-            variant="body1"
-            // color="text.secondary"
-            component="div"
-          >
+          <Typography variant={BODY1} component={DIV}>
             INR {price}/-
           </Typography>
         </CardContent>
@@ -70,10 +84,10 @@ const CourseCard = (props) => {
       {cart && (
         <Button
           fullWidth
-          variant="outlined"
-          color="error"
-          txcolor="var(--error)"
-          sx={{ marginTop: "10px", float: "right" }}
+          variant={OUTLINED}
+          color={ERROR}
+          txcolor={ERROR_COLOR}
+          sx={{ marginTop: PX10, float: RIGHT }}
           onClick={remove}
         >
           Remove
@@ -87,62 +101,62 @@ const CourseCard = (props) => {
       <Card
         onClick={() => selectCourse(slug)}
         sx={{
-          display: "flex",
-          flexDirection: "row",
+          display: FLEX,
+          flexDirection: ROW,
           width: "95%",
           margin: "10px auto",
-          borderRadius: "10px",
+          borderRadius: PX10,
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: "column", width: "90%" }}>
+        <Box sx={{ display: FLEX, flexDirection: COLUMN, width: "90%" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography component="div" variant="button" fontWeight="bold">
+            <Typography component={DIV} variant={BUTTON} fontWeight={FW_BOLD}>
               {name}
             </Typography>
-            <Typography variant="body1" component="div">
+            <Typography variant={BODY1} component={DIV}>
               INR {price}/-
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-              <Box component="span" sx={{ lineHeight: "5px" }}>
+            <Box sx={{ display: FLEX, flexDirection: ROW }}>
+              <Box component={SPAN} sx={{ lineHeight: "5px" }}>
                 <StarBorderIcon />
               </Box>
-              <Box sx={{ margin: "5px" }} component="span">
+              <Box sx={StyleMargin} component={SPAN}>
                 {rating}
               </Box>
-              <Box sx={{ margin: "5px" }} component="span">
+              <Box sx={StyleMargin} component={SPAN}>
                 <Typography
-                  variant="button"
-                  color="text.secondary"
-                  component="div"
+                  variant={BUTTON}
+                  color={TEXT_SECONDARY}
+                  component={DIV}
                 >
                   By {author}
                 </Typography>
               </Box>
-              <Box sx={{ margin: "5px" }} component="span">
+              <Box sx={StyleMargin} component={SPAN}>
                 <Typography
-                  variant="body1"
-                  color="text.secondary"
-                  component="div"
+                  variant={BODY1}
+                  color={TEXT_SECONDARY}
+                  component={DIV}
                 >
-                  All levels{" "}
-                </Typography>{" "}
+                  All levels
+                </Typography>
               </Box>
             </Box>
           </CardContent>
         </Box>
         <CardMedia
-          component="img"
+          component={IMG}
           sx={{ width: 130, maxHeight: 90, padding: "3%", marginLeft: "12%" }}
-          image={courseImage || "images/course-default.png"}
+          image={courseImage || COURSE_DEFAULT_IMG}
           alt={name}
         />
       </Card>
       {cart && (
         <Button
           fullWidth
-          variant="outlined"
-          color="error"
-          txcolor="red"
+          variant={OUTLINED}
+          color={ERROR}
+          txcolor={RED}
           onClick={remove}
         >
           Remove

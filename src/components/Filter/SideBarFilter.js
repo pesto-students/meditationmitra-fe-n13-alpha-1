@@ -9,7 +9,19 @@ import Container from "../Container";
 import { Typography } from "../Typography";
 import Box from "../Box";
 import { PrimaryButton } from "../Buttons";
-import { categories as category } from "../../utils/Constants";
+import {
+  AUTO,
+  categories as category,
+  COLUMN,
+  END,
+  FLEX,
+  H6,
+  MAXIMUM_PRICE,
+  MINIMUM_PRICE,
+  READ_ONLY,
+  ROW,
+  SUBTITLE1,
+} from "../../utils/Constants";
 import Stack from "../Stack";
 
 const SideBarFilter = ({ onFilter }) => {
@@ -37,7 +49,7 @@ const SideBarFilter = ({ onFilter }) => {
 
   const CategoryCheckBoxes = () => {
     return (
-      <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
+      <Box sx={{ display: FLEX, flexDirection: COLUMN, ml: 3 }}>
         {category.map((cat, index) => (
           <FormControlLabel
             key={cat}
@@ -55,12 +67,12 @@ const SideBarFilter = ({ onFilter }) => {
 
   const RatingCheckBoxes = () => {
     return (
-      <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
+      <Box sx={{ display: FLEX, flexDirection: COLUMN, ml: 3 }}>
         {ratings.map((rate, index) => (
           <FormControlLabel
             key={rate}
             checked={rating[index]}
-            label={<Rating name="read-only" value={rate} readOnly />}
+            label={<Rating name={READ_ONLY} value={rate} readOnly />}
             control={
               <Checkbox value={rate} onChange={() => onRatingCheck(index)} />
             }
@@ -72,12 +84,10 @@ const SideBarFilter = ({ onFilter }) => {
 
   const PriceSlider = () => (
     <Slider
-      getAriaLabel={(index) =>
-        index === 0 ? "Minimum price" : "Maximum price"
-      }
+      getAriaLabel={(index) => (index === 0 ? MINIMUM_PRICE : MAXIMUM_PRICE)}
       value={price}
       onChange={onPriceChange}
-      valueLabelDisplay="auto"
+      valueLabelDisplay={AUTO}
       min={1000}
       max={10000}
       step={100}
@@ -115,25 +125,25 @@ const SideBarFilter = ({ onFilter }) => {
   return (
     <>
       <Container mt="3rem">
-        <Stack direction="row" spacing={12}>
-          <Typography variant="h6">Filters</Typography>
+        <Stack direction={ROW} spacing={12}>
+          <Typography variant={H6}>Filters</Typography>
           <Typography>
             <AutorenewOutlinedIcon titleAccess="Reset" onClick={resetFilter} />
           </Typography>
         </Stack>
-        <Typography variant="subtitle1" mt={1}>
+        <Typography variant={SUBTITLE1} mt={1}>
           Categories
         </Typography>
         <CategoryCheckBoxes />
-        <Typography variant="subtitle1" mt={1}>
+        <Typography variant={SUBTITLE1} mt={1}>
           Price Range
         </Typography>
         <PriceSlider />
-        <Typography variant="subtitle1" mt={1}>
+        <Typography variant={SUBTITLE1} mt={1}>
           Ratings
         </Typography>
         <RatingCheckBoxes />
-        <Box sx={{ mt: "15px", display: "flex", justifyContent: "end" }}>
+        <Box sx={{ mt: "15px", display: FLEX, justifyContent: END }}>
           <PrimaryButton onClick={onApplyFilter}>Apply</PrimaryButton>
         </Box>
       </Container>

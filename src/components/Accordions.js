@@ -7,9 +7,10 @@ import {
 import { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PropTypes from "prop-types";
-import { CalendlyButton, PrimaryButton } from "./Buttons";
 import { CalendlyEventListener } from "react-calendly";
+import { CalendlyButton, PrimaryButton } from "./Buttons";
 import { GetMeetLink, GetCalendlyEvent } from "../api/services/meetService";
+import { BODY1, H6, TEXT, _BLANK } from "../utils/Constants";
 
 export const CourseAccordion = ({
   section,
@@ -26,10 +27,10 @@ export const CourseAccordion = ({
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography variant="h6">{section.sectionTitle}</Typography>
+        <Typography variant={H6}>{section.sectionTitle}</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography variant="body1">{section.sectionDescription}</Typography>
+        <Typography variant={BODY1}>{section.sectionDescription}</Typography>
 
         {isPurchased && !link && (
           <CalendlyEventListener
@@ -58,12 +59,7 @@ export const CourseAccordion = ({
         )}
 
         {isPurchased && link && (
-          <PrimaryButton
-            href={link}
-            target="_blank"
-            // style={{ color: "var(--orange)" }}
-            variant="text"
-          >
+          <PrimaryButton href={link} target={_BLANK} variant={TEXT}>
             Google Meet
           </PrimaryButton>
         )}

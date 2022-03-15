@@ -5,13 +5,14 @@ import {
   TextareaAutosize,
 } from "@mui/material";
 import PropTypes from "prop-types";
+import { OUTLINED } from "../utils/Constants";
 
 const TextArea = ({ title, placeholder, value }) => (
   <FormControl fullWidth sx={{ margin: "2% 0" }}>
     <FormLabel>{title}</FormLabel>
     <FormGroup>
       <TextareaAutosize
-        variant="outlined"
+        variant={OUTLINED}
         placeholder={placeholder}
         value={value}
         minRows={5}

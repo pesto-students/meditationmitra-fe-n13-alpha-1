@@ -5,14 +5,15 @@ import {
   TextField as MaterialTextField,
 } from "@mui/material";
 import PropTypes from "prop-types";
+import { OUTLINED, WHITE } from "../utils/Constants";
 
 const TextField = ({ title, placeholder, value, disabled }) => (
   <FormControl fullWidth sx={{ margin: "2% 0" }}>
     <FormLabel>{title}</FormLabel>
     <FormGroup>
       <MaterialTextField
-        sx={{ background: "var(--white)" }}
-        variant="outlined"
+        sx={{ background: WHITE }}
+        variant={OUTLINED}
         placeholder={placeholder}
         value={value}
         disabled={disabled}
