@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import MobileView from "../components/MobileView";
 import DeskView from "../components/DeskView";
 import Box from "../components/Box";
@@ -6,15 +9,27 @@ import { Typography } from "../components/Typography";
 import Grid from "../components/Grid";
 import Stack from "../components/Stack";
 import { PrimaryButton } from "../components/Buttons";
-import { MOB_ENROLLMENT_PAGE_TITLE } from "../utils/Constants";
+import {
+  BODY1,
+  CAPITALIZE,
+  CENTER,
+  CHAR_SPACE,
+  COURSES_PATH,
+  H6,
+  MOB_ENROLLMENT_PAGE_TITLE,
+  NO_COURSES,
+  ORANGE,
+  OUTLINED,
+  RIGHT,
+  SMALL,
+  _100_PERC,
+} from "../utils/Constants";
 import CourseList from "../components/CourseList";
 import { GetEnrolledCourses } from "../api/services/courseService";
-import { useSelector } from "react-redux";
 import Span from "../components/Span";
-import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 import Container from "../components/Container";
 
+const StyleTextTransformCap = { textTransform: CAPITALIZE };
 const EnrolledCourses = () => {
   const [loading, setLoading] = useState(true);
   const [courses, setCourses] = useState([]);
@@ -36,20 +51,20 @@ const EnrolledCourses = () => {
       <Container>
         <Box sx={{ marginTop: "45px" }}>
           {mobile ? (
-            <img src="/images/no_courses.png" style={{ width: "100%" }} />
+            <img src={NO_COURSES} style={{ width: _100_PERC }} />
           ) : (
             <Grid container spacing={2}>
               <Grid item xs={4}></Grid>
               <Grid item xs={4}>
-                <img src="/images/no_courses.png" />
+                <img src={NO_COURSES} />
               </Grid>
             </Grid>
           )}
           <Typography
-            variant="h6"
+            variant={H6}
             sx={{
               padding: "3rem 0 0 0",
-              textAlign: "center",
+              textAlign: CENTER,
               minHeight: 300,
             }}
           >
@@ -74,17 +89,15 @@ const EnrolledCourses = () => {
           }}
         >
           <Typography
-            variant="h6"
-            sx={{ padding: "3rem 0 0 0", textAlign: "center" }}
+            variant={H6}
+            sx={{ padding: "3rem 0 0 0", textAlign: CENTER }}
           >
             Welcome
-            <Span style={{ textTransform: "capitalize" }}>
-              {" " + firstName + " "}
+            <Span style={StyleTextTransformCap}>
+              {CHAR_SPACE + firstName + CHAR_SPACE}
             </Span>
-            <Span style={{ textTransform: "capitalize" }}>
-              {lastName + " "}
-            </Span>
-            , lets take a look at your courses.
+            <Span style={StyleTextTransformCap}>{lastName + CHAR_SPACE}</Span>,
+            lets take a look at your courses.
           </Typography>
 
           {courses?.length ? (
@@ -97,16 +110,16 @@ const EnrolledCourses = () => {
         </Box>
         <Grid container spacing={2} mb={5}>
           <Grid item xs={10}>
-            <Typography variant="body1" color="var(--orange)">
+            <Typography variant={BODY1} color={ORANGE}>
               Take a look at some other Courses!
             </Typography>
           </Grid>
           <Grid item xs={2}>
-            <Stack justifyContent="right">
+            <Stack justifyContent={RIGHT}>
               <PrimaryButton
-                variant="outlined"
-                size="small"
-                onClick={() => navigate("/courses")}
+                variant={OUTLINED}
+                size={SMALL}
+                onClick={() => navigate(COURSES_PATH)}
               >
                 Courses
               </PrimaryButton>
@@ -115,7 +128,7 @@ const EnrolledCourses = () => {
         </Grid>
       </DeskView>
       <MobileView>
-        <Typography variant="body1" mt="7%" mb="5%" ml="3%">
+        <Typography variant={BODY1} mt="7%" mb="5%" ml="3%">
           {MOB_ENROLLMENT_PAGE_TITLE}
         </Typography>
         {courses?.length ? (

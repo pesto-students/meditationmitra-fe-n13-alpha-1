@@ -1,38 +1,55 @@
 import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardActions } from "@mui/material";
 import Box from "../components/Box";
 import { Section } from "../components/Section";
 import Container from "../components/Container";
 import Grid from "../components/Grid";
-import { Card, CardContent, CardActions } from "@mui/material";
 import { Typography } from "../components/Typography";
 import { PrimaryTransparentButton } from "../components/Buttons";
 import MobileView from "../components/MobileView";
+import {
+  BODY2,
+  CENTER,
+  CONTAIN,
+  COURSES_PATH,
+  H6,
+  HOME_PAGE_IMG1,
+  LARGE,
+  LG,
+  NONE,
+  ORANGE,
+  OUTLINED,
+  RELATIVE,
+  VH10,
+  WHITE,
+  ZERO,
+  _100_PERC,
+} from "../utils/Constants";
+
+const StyleNoPadding = { padding: ZERO };
+
 const MobileHomePage = () => {
   const navigate = useNavigate();
   return (
     <MobileView>
       <Box>
-        <Section
-          bgColor="var(--orange)"
-          mt="20px"
-          style={{ borderRadius: "20px" }}
-        >
-          <Container maxWidth="lg">
+        <Section bgColor={ORANGE} mt="20px" style={{ borderRadius: "20px" }}>
+          <Container maxWidth={LG}>
             <Grid container spacing={2}>
-              <Grid item xs={7} md={6} lg={6} style={{ padding: "0" }}>
+              <Grid item xs={7} md={6} lg={6} style={StyleNoPadding}>
                 <Card
                   sx={{
-                    padding: "10vh 0",
-                    background: "none",
-                    boxShadow: "none",
-                    color: "var(--white)",
+                    paddingY: VH10,
+                    background: NONE,
+                    boxShadow: NONE,
+                    color: WHITE,
                   }}
                 >
-                  <CardContent sx={{ padding: "0" }}>
-                    <Typography variant="h6" mb={5}>
+                  <CardContent sx={StyleNoPadding}>
+                    <Typography variant={H6} mb={5}>
                       One to One Sessions with World Renown Coaches
                     </Typography>
-                    <Typography variant="body2">Easy as 1-2-3.</Typography>
+                    <Typography variant={BODY2}>Easy as 1-2-3.</Typography>
                     <ol>
                       <li>Enroll Course</li>
                       <li>Book Convinient slot</li>
@@ -43,9 +60,9 @@ const MobileHomePage = () => {
                   </CardContent>
                   <CardActions>
                     <PrimaryTransparentButton
-                      variant="outlined"
-                      size="large"
-                      onClick={() => navigate("/courses")}
+                      variant={OUTLINED}
+                      size={LARGE}
+                      onClick={() => navigate(COURSES_PATH)}
                     >
                       Learn More
                     </PrimaryTransparentButton>
@@ -55,26 +72,26 @@ const MobileHomePage = () => {
               <Grid item xs={5} md={6} lg={6}>
                 <Box
                   sx={{
-                    width: "100%",
-                    height: "100%",
-                    background: "url(../images/img1.jpeg) no-repeat ",
-                    backgroundSize: "contain",
-                    backgroundPosition: "center",
-                    position: "relative",
+                    width: _100_PERC,
+                    height: _100_PERC,
+                    background: `url(${HOME_PAGE_IMG1}) no-repeat`,
+                    backgroundSize: CONTAIN,
+                    backgroundPosition: CENTER,
+                    position: RELATIVE,
                   }}
                 />
               </Grid>
             </Grid>
           </Container>
         </Section>
-        <Container maxWidth="lg" sx={{ padding: "10vh 0" }}>
-          <Grid container alignItems="center">
+        <Container maxWidth={LG} sx={{ paddingY: VH10 }}>
+          <Grid container alignItems={CENTER}>
             <Grid item xs={12}>
               <Box>
-                <Grid container justifyContent="center">
+                <Grid container justifyContent={CENTER}>
                   <Grid item md={2} xs={2}></Grid>
                   <Grid item md={10} xs={10}>
-                    <Typography variant="h6" mb={5}>
+                    <Typography variant={H6} mb={5}>
                       One hour with a Master today is equal to Thousands
                       Tommorrow
                     </Typography>

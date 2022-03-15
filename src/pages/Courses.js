@@ -10,10 +10,11 @@ import {
   GetAllCourses,
   GetFilteredCourses,
 } from "../api/services/courseService";
+import { EMPTY_STRING as EMPTY, H5 } from "../utils/Constants";
 
 const Courses = () => {
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(EMPTY);
   const [filter, setFilter] = useState({});
   const [courses, setCourses] = useState([]);
 
@@ -51,8 +52,7 @@ const Courses = () => {
   }, [search]);
 
   const getFiltedCourses = async (filter) => {
-    console.log(filter);
-    //setCourses([]);
+    // console.log(filter);
     setLoading(false);
     const response = await GetFilteredCourses({
       search,
@@ -70,21 +70,21 @@ const Courses = () => {
     if (!filter) {
       setCourses([]);
       setLoading(true);
-      setSearch("");
+      setSearch(EMPTY);
       const response = await GetAllCourses();
-      console.log(response);
+      // console.log(response);
       setCourses(response.data);
       setLoading(false);
       return;
     }
     setFilter({});
-    console.log(filter);
+    // console.log(filter);
     setFilter(filter);
     await getFiltedCourses(filter);
   };
 
   const Title = () => (
-    <Typography variant="h5" m="3% 0 0 2%">
+    <Typography variant={H5} m="3% 0 0 2%">
       Courses
     </Typography>
   );

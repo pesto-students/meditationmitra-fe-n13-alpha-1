@@ -23,7 +23,22 @@ import { Typography } from "../components/Typography";
 import { LoaderPopup } from "../components/Popup";
 import { useDispatch } from "react-redux";
 import { courseActions } from "../api/reducers/courseReducer";
-import { categories } from "../utils/Constants";
+import {
+  AUTO,
+  BODY1,
+  categories,
+  EMPTY_STRING,
+  GRAY,
+  MOBILE_RESPONSIVE,
+  ORANGE,
+  ROW,
+  SECTION,
+  SMALL,
+  SPAN,
+  VH10,
+  WHITE,
+  WHITE_GRAY,
+} from "../utils/Constants";
 
 const AddNewCourse = () => {
   const dispatch = useDispatch();
@@ -31,10 +46,10 @@ const AddNewCourse = () => {
   const { file, imageURL } = useSelector((state) => state.courseReducer);
   const [date, setDate] = useState(new Date());
   const [inputField, setInputField] = useState({
-    name: "",
-    price: "",
-    description: "",
-    category: "",
+    name: EMPTY_STRING,
+    price: EMPTY_STRING,
+    description: EMPTY_STRING,
+    category: EMPTY_STRING,
   });
   const [sections, setSections] = useState([]);
   const [sectionValues, setSectionValues] = useState({});
@@ -71,16 +86,16 @@ const AddNewCourse = () => {
 
   const resetForm = () => {
     setInputField({
-      name: "",
-      price: "",
-      description: "",
-      category: "",
+      name: EMPTY_STRING,
+      price: EMPTY_STRING,
+      description: EMPTY_STRING,
+      category: EMPTY_STRING,
     });
     setDate(new Date());
     dispatch(courseActions.updateFile(null));
     setSectionValues([]);
     setSections([]);
-    dispatch(courseActions.updateFile({ file: null, imageURL: "" }));
+    dispatch(courseActions.updateFile({ file: null, imageURL: EMPTY_STRING }));
   };
 
   const onChange = (section, type, value) => {
@@ -100,19 +115,19 @@ const AddNewCourse = () => {
 
   const Section = () => (
     <>
-      <Typography variant="body1">Section {sections.length + 1}</Typography>
+      <Typography variant={BODY1}>Section {sections.length + 1}</Typography>
       <TextField
         fullWidth
         title="Section Title"
         placeholder="Section Title"
         onChange={(e) =>
-          onChange(`section` + (sections.length + 1), "TF", e.target.value)
+          onChange(SECTION + (sections.length + 1), "TF", e.target.value)
         }
       />
       <FormControl fullWidth sx={{ my: "10px" }}>
         <TextareaAutosize
           onChange={(e) =>
-            onChange(`section` + (sections.length + 1), "TA", e.target.value)
+            onChange(SECTION + (sections.length + 1), "TA", e.target.value)
           }
           placeholder="Section Description"
           minRows={3}
@@ -125,21 +140,21 @@ const AddNewCourse = () => {
   const DeskTopViewFileUplod = () => (
     <Box
       sx={{
-        margin: "auto",
+        margin: AUTO,
         marginTop: "100px",
         paddingY: "8%",
         width: "40%",
-        height: "10vh",
-        background: "var(--gray)",
+        height: VH10,
+        background: GRAY,
         border: "1px dashed var(--black)",
       }}
     >
       <Box
         sx={{
-          margin: "auto",
+          margin: AUTO,
           marginTop: "30px",
           width: "15%",
-          color: "var(--white-gray)",
+          color: WHITE_GRAY,
         }}
       >
         <AddCircleOutlineOutlinedIcon />
@@ -148,21 +163,21 @@ const AddNewCourse = () => {
   );
 
   const FabButton = ({ title, onClickFn }) => (
-    <Stack direction="row" spacing={4}>
-      <Typography component="span" sx={{ lineHeight: "2.5em" }}>
+    <Stack direction={ROW} spacing={4}>
+      <Typography component={SPAN} sx={{ lineHeight: "2.5em" }}>
         {title}
       </Typography>
       <Fab
         onClick={onClickFn}
-        size="small"
+        size={SMALL}
         aria-label="add"
         sx={{
           marginLeft: "15px",
-          background: "var(--orange)",
-          color: "var(--white)",
+          background: ORANGE,
+          color: WHITE,
           "&:hover": {
-            background: "var(--orange)",
-            color: "var(--white)",
+            background: ORANGE,
+            color: WHITE,
           },
         }}
       >
@@ -214,13 +229,13 @@ const AddNewCourse = () => {
             onClick={() => onClickOnChip(item, index)}
             sx={{
               marginRight: "2%",
-              background: inputField.category === item && "var(--orange)",
-              color: inputField.category === item && "var(--white)",
+              background: inputField.category === item && ORANGE,
+              color: inputField.category === item && WHITE,
             }}
           />
         ))}
       </Grid>
-      <FileUpload display={["block", "block", "none"]} />
+      <FileUpload display={MOBILE_RESPONSIVE} />
       <FormControl fullWidth sx={{ my: "10px" }}>
         <LocalizationProvider dateAdapter={DateAdapter}>
           <MobileDatePicker
@@ -242,7 +257,7 @@ const AddNewCourse = () => {
           onClickFn={() => setSections([...sections, Section()])}
         />
       </Box>
-      <Stack direction="row" spacing={4}>
+      <Stack direction={ROW} spacing={4}>
         <PrimaryButton onClick={onSave}>Save</PrimaryButton>
         <PrimaryButton onClick={resetForm}>Reset</PrimaryButton>
       </Stack>

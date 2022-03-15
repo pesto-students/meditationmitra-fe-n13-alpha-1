@@ -1,5 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { useState } from "react";
 import DeskView from "../components/DeskView";
 import MobileView from "../components/MobileView";
 import CourseList from "../components/CourseList";
@@ -12,16 +15,22 @@ import Stack from "../components/Stack";
 import { ProceedToPay } from "../api/services/paymentService";
 import { courseActions } from "../api/reducers/courseReducer";
 import CheckoutForm from "./CheckoutForm";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import { useState } from "react";
 import { PaymentPopup } from "../components/Popup";
+import {
+  COLUMN,
+  EMPTY_CART_IMG,
+  EMPTY_STRING,
+  STRIPE,
+  _100_PERC,
+} from "../utils/Constants";
 
 const stripePromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
 
+const StyleMarginBottom = { marginBottom: "50px" };
+
 const Cart = () => {
   const dispatch = useDispatch();
-  const [clientSecret, setClientSecret] = useState("");
+  const [clientSecret, setClientSecret] = useState(EMPTY_STRING);
   const [open, setOpen] = useState(false);
   const { cart } = useSelector((state) => state.courseReducer);
   const onCheckout = () => {
@@ -52,12 +61,12 @@ const Cart = () => {
       <Container>
         <Box sx={{ marginTop: "45px" }}>
           {mobile ? (
-            <img src="/images/empty-cart.png" style={{ width: "100%" }} />
+            <img src={EMPTY_CART_IMG} style={{ width: _100_PERC }} />
           ) : (
             <Grid container spacing={2}>
               <Grid item xs={3}></Grid>
               <Grid item xs={4}>
-                <img src="/images/empty-cart.png" />
+                <img src={EMPTY_CART_IMG} />
               </Grid>
             </Grid>
           )}
@@ -71,7 +80,7 @@ const Cart = () => {
   };
 
   const appearance = {
-    theme: "stripe",
+    theme: STRIPE,
   };
   const options = {
     clientSecret,
@@ -88,8 +97,8 @@ const Cart = () => {
               <Grid container spacing={2}>
                 <Grid item xs={8}></Grid>
                 <Grid item xs={4}>
-                  <Stack direction="column">
-                    <Typography sx={{ marginBottom: "50px" }}>
+                  <Stack direction={COLUMN}>
+                    <Typography sx={StyleMarginBottom}>
                       Total Amount : {calcTotalAmount()}
                     </Typography>
                     <SuccessButton fullWidth onClick={onCheckout}>
@@ -110,8 +119,8 @@ const Cart = () => {
             <>
               <CourseList mobile cart remove={removeItem} courses={cart} />
               <Box mt={5}>
-                <Stack direction="column">
-                  <Typography sx={{ marginBottom: "50px" }}>
+                <Stack direction={COLUMN}>
+                  <Typography sx={StyleMarginBottom}>
                     Total Amount : {calcTotalAmount()}
                   </Typography>
                   <SuccessButton fullWidth onClick={onCheckout}>

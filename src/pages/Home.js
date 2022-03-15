@@ -7,6 +7,29 @@ import { Typography } from "../components/Typography";
 import { PrimaryTransparentButton } from "../components/Buttons";
 import { Section } from "../components/Section";
 import DeskView from "../components/DeskView";
+import {
+  ABSOLUTE,
+  COURSES_PATH,
+  RELATIVE,
+  LG,
+  NONE,
+  H6,
+  BODY2,
+  ZERO,
+  OUTLINED,
+  LARGE,
+  HOME_PAGE_IMG1,
+  HOME_PAGE_IMG2,
+  CENTER,
+  CENTER_RIGHT,
+  COVER,
+  _100_PERC,
+  ORANGE,
+  WHITE,
+  VH10,
+} from "../utils/Constants";
+
+const StyleNoPadding = { padding: ZERO };
 
 const Home = function () {
   const navigate = useNavigate();
@@ -14,24 +37,24 @@ const Home = function () {
     <>
       <DeskView noContainer>
         <Box>
-          <Section bgColor="var(--orange)" position="relative">
-            <Container maxWidth="lg">
+          <Section bgColor={ORANGE} position={RELATIVE}>
+            <Container maxWidth={LG}>
               <Grid container spacing={2}>
-                <Grid item xs={7} md={6} lg={6} style={{ padding: "0" }}>
+                <Grid item xs={7} md={6} lg={6} style={StyleNoPadding}>
                   <Card
                     sx={{
-                      padding: "10vh 0",
-                      background: "none",
-                      boxShadow: "none",
-                      color: "var(--white)",
+                      paddingY: VH10,
+                      background: NONE,
+                      boxShadow: NONE,
+                      color: WHITE,
                     }}
                   >
-                    <CardContent sx={{ padding: "0" }}>
-                      <Typography variant="h6" mb={10}>
+                    <CardContent sx={StyleNoPadding}>
+                      <Typography variant={H6} mb={10}>
                         One to One Sessions with World Renown Coaches
                       </Typography>
 
-                      <Typography variant="body2">Easy as 1-2-3.</Typography>
+                      <Typography variant={BODY2}>Easy as 1-2-3.</Typography>
                       <ol>
                         <li>Enroll Course</li>
                         <li>Book Convinient slot</li>
@@ -42,9 +65,9 @@ const Home = function () {
                     </CardContent>
                     <CardActions>
                       <PrimaryTransparentButton
-                        variant="outlined"
-                        size="large"
-                        onClick={() => navigate("/courses")}
+                        variant={OUTLINED}
+                        size={LARGE}
+                        onClick={() => navigate(COURSES_PATH)}
                       >
                         Learn More
                       </PrimaryTransparentButton>
@@ -55,10 +78,10 @@ const Home = function () {
                   <Box
                     sx={{
                       width: "50%",
-                      height: "100%",
-                      background: "url(../images/img1.jpeg) no-repeat",
-                      backgroundPosition: "center right",
-                      position: "absolute",
+                      height: _100_PERC,
+                      background: `url(${HOME_PAGE_IMG1}) no-repeat`,
+                      backgroundPosition: CENTER_RIGHT,
+                      position: ABSOLUTE,
                       top: 0,
                       right: 0,
                     }}
@@ -67,24 +90,24 @@ const Home = function () {
               </Grid>
             </Container>
           </Section>
-          <Container maxWidth="lg" sx={{ padding: "10vh 0" }}>
-            <Grid container spacing={2} alignItems="center">
+          <Container maxWidth={LG} sx={{ paddingY: VH10 }}>
+            <Grid container spacing={2} alignItems={CENTER}>
               <Grid item xs={6}>
                 <Box
                   sx={{
-                    width: "100%",
-                    padding: "30% 0",
-                    background: "url(../images/img2.jpeg) no-repeat",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
+                    width: _100_PERC,
+                    paddingY: "30%",
+                    background: `url(${HOME_PAGE_IMG2}) no-repeat`,
+                    backgroundSize: COVER,
+                    backgroundPosition: CENTER,
                   }}
                 ></Box>
               </Grid>
               <Grid item xs={6}>
                 <Box>
-                  <Grid container justifyContent="center">
+                  <Grid container justifyContent={CENTER}>
                     <Grid item md={6}>
-                      <Typography variant="h6" mb={5}>
+                      <Typography variant={H6} mb={5}>
                         One hour with a Master today is equal to Thousands
                         Tommorrow
                       </Typography>
